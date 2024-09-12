@@ -8,11 +8,9 @@ import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
-import javax.annotation.Resource;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -22,35 +20,72 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import osuapi.endpoints.EndpointManager;
+import osuapi.framework.driver.GlobalVariables;
+import osuapi.framework.exception.OsuApiException;
+import osuapi.framework.injection.OsuApiInject;
 import osuapi.models.AccessTokenResponse;
-import osuapi.models.custom.OsuApiException;
-import osuapi.models.custom.SingletonAccessToken;
 import osuapi.svc.OsuApiService;
 
-public class OsuApiClient {
+public final class OsuApiClient {
 	private static final Logger LOG = LoggerFactory.getLogger(OsuApiClient.class);
-	private static final Map<String, String> authorizationBody = new HashMap<>();
+	private static final Map<String, String> authorizationBody = ApiAuth.authorizationBody;
+	public static final EndpointManager ENDPOINTS = EndpointManager.getInstance();
+	private static boolean status = false;
+	
+	private static OsuApiClient instance;
 	
 	@Autowired
 	private OsuApiService svc;
 	
-	@Resource(name = "accessToken")
-	private SingletonAccessToken accessToken;
+	@OsuApiInject
+	private ApiAuth auth;
 	
-	public OsuApiClient(int clientId, String clientSecret) {
+	protected OsuApiClient(int clientId, String clientSecret) {
 		this(Integer.toString(clientId), clientSecret);
 	}
 	
-	public OsuApiClient(String clientId, String clientSecret) {
-		authorizationBody.put("client_id", clientId);
-		authorizationBody.put("client_secret", clientSecret);
-		authorizationBody.put("grant_type", "client_credentials");
-		authorizationBody.put("scope", "public");
+	private OsuApiClient(String clientId, String clientSecret) {
+		ApiAuth.update(clientId, clientSecret);
+	}
+	
+	private OsuApiClient() {}
+
+	public static synchronized boolean create(int clientId, String clientSecret) {
+		if (instance==null) {
+			instance = new OsuApiClient(clientId, clientSecret);
+			status = true;
+			GlobalVariables.init(false);
+			return true;
+		}
+		return false;
+	}
+	
+	public static synchronized boolean create() {
+		if (instance==null) {
+			instance = new OsuApiClient();
+			status = true;
+			LOG.warn("Authorization for {} has not been set", OsuApiClient.class);
+			GlobalVariables.init(false);
+			return true;
+		}
+		return false;
+	}
+	
+	public static OsuApiClient get() {
+		if (instance==null) {
+			throw new NullPointerException();
+		}
+		return instance;
+	}
+	
+	public static boolean getStatus() {
+		return status;
 	}
 	
 	public synchronized void ensureAccessToken() throws OsuApiException {
 		LOG.info("Ensuring Valid Access Token");
-		if (accessToken.getExpirationDate().isAfter(OffsetDateTime.now())) {
+		if (auth.getExpirationDate().isAfter(OffsetDateTime.now())) {
 			return;
 		}
 		try {
@@ -76,10 +111,10 @@ public class OsuApiClient {
 		        		+ " (" + apResponse.getErrorCode() + ").");
 			}
 			// Updates the expiration date.
-			accessToken.setAccessToken(apResponse.getAccessToken());
-			accessToken.setExpirationDate(OffsetDateTime.now(ZoneId.systemDefault())
+			auth.setAccessToken(apResponse.getAccessToken());
+			auth.setExpirationDate(OffsetDateTime.now(ZoneId.systemDefault())
 				.plusSeconds(apResponse.getExpiresIn() - 30L /** Leniency */));
-			LOG.info(accessToken.getAccessToken());
+			LOG.info(auth.getAccessToken());
 			//This is not needed for now LOG.info(accessToken.getExpirationDate().toString()); Sonar Escaper
 		} catch (Exception e) {
 			throw new OsuApiException("An error occured while requesting a new access token.", e);

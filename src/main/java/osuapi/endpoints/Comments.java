@@ -9,16 +9,19 @@ import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import osuapi.client.OsuApiClient;
-import osuapi.enums.CommentSortType;
-import osuapi.enums.CommentableType;
+import osuapi.framework.exception.OsuApiException;
+import osuapi.framework.iterator.AsyncLazyEnumerator;
+import osuapi.framework.iterator.ExitToken;
 import osuapi.models.comments.CommentBundle;
 import osuapi.models.comments.CommentBundle.Cursor;
-import osuapi.models.custom.AsyncLazyEnumerator;
-import osuapi.models.custom.ExitToken;
-import osuapi.models.custom.OsuApiException;
+import osuapi.models.enums.CommentSortType;
+import osuapi.models.enums.CommentableType;
 
-public class Comments {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public final class Comments {
 	
 	@Autowired
 	private OsuApiClient client;

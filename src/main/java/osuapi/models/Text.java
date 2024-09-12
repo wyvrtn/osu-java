@@ -12,13 +12,13 @@ import lombok.Setter;
 public class Text {
 	
 	@JsonProperty("html")
-	private String Html = null;
+	private String html;
 	
 	@JsonProperty("bbcode")
-	private String BBCode;
+	private String bbcode;
 	
 	@JsonProperty("raw")
-	private String Raw;
+	private String raw;
 	
-	private String Markup = BBCode!=null? BBCode : Raw;
+	private String Markup = bbcode!=null? bbcode : raw;
 }

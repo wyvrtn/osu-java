@@ -4,12 +4,15 @@ import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import osuapi.client.OsuApiClient;
+import osuapi.framework.exception.OsuApiException;
 import osuapi.models.beatmaps.BeatmapSetExtended;
-import osuapi.models.custom.OsuApiException;
 
 //API docs: https://osu.ppy.sh/docs/index.html#beatmapsets
-public class BeatmapSets {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public final class BeatmapSets {
 	
 	@Autowired
 	private OsuApiClient client;

@@ -7,9 +7,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import osuapi.enums.DiscussionType;
 import osuapi.models.beatmaps.Beatmap;
 import osuapi.models.beatmaps.BeatmapSet;
+import osuapi.models.enums.DiscussionType;
 
 @Getter
 @Setter

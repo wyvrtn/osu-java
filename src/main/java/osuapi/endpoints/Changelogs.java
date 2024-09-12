@@ -7,12 +7,15 @@ import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import osuapi.client.OsuApiClient;
+import osuapi.framework.exception.OsuApiException;
 import osuapi.models.changelogs.Build;
 import osuapi.models.changelogs.ChangelogListing;
-import osuapi.models.custom.OsuApiException;
 
-public class Changelogs {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public final class Changelogs {
 	
 	@Autowired
 	private OsuApiClient client;

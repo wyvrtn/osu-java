@@ -6,8 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import osuapi.enums.RankedStatus;
-import osuapi.enums.Ruleset;
+import osuapi.models.enums.RankedStatus;
+import osuapi.models.enums.Ruleset;
 import osuapi.models.users.User;
 
 @Getter
@@ -41,7 +41,7 @@ public class Beatmap {
 	private int userId;
 	
 	@JsonProperty("version")
-	private String version = null;
+	private String version;
 	
 	/**
 	 * Optional Attributes

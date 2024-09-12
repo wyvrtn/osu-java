@@ -15,8 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import osuapi.client.ApiAuth;
 import osuapi.models.AccessTokenResponse;
-import osuapi.models.custom.SingletonAccessToken;
 
 @Service
 public class OsuApiServiceImpl implements OsuApiService {
@@ -28,7 +28,7 @@ public class OsuApiServiceImpl implements OsuApiService {
 	
 	@Autowired
 	@Qualifier("accessToken")
-	private SingletonAccessToken accessToken;
+	private ApiAuth accessToken;
 	
 	@Value("${api.root}")
 	private String root;
@@ -42,7 +42,7 @@ public class OsuApiServiceImpl implements OsuApiService {
 		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 		HttpEntity<String> requestEntity = new HttpEntity<>(authBody, headers);
-		LOG.debug("Request Entity: {}", headers.toString());
+		LOG.debug("Request Entity: {}", headers);
 		ResponseEntity<AccessTokenResponse> response = restTemplate.exchange(
 				auth, HttpMethod.POST, requestEntity, AccessTokenResponse.class);
 		return response.getBody();
@@ -56,9 +56,9 @@ public class OsuApiServiceImpl implements OsuApiService {
 		headers.add("Authorization", "Bearer " + accessToken.getAccessToken());
 		HttpEntity<String> requestEntity = new HttpEntity<>(headers);
 		LOG.debug("osu-api side request url: {}", url);
-		LOG.debug("Http request method: {}", method.toString());
-		LOG.debug("Request Entity: {}", headers.toString());
-		LOG.debug("Response Class: {}" , target.toString());
+		LOG.debug("Http request method: {}", method);
+		LOG.debug("Request Entity: {}", headers);
+		LOG.debug("Response Class: {}" , target.getSimpleName());
 		return restTemplate.exchange(root + url, method, requestEntity, target);
 	}
 }

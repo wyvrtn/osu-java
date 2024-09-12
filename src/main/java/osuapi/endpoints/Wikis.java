@@ -4,11 +4,14 @@ import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import osuapi.client.OsuApiClient;
-import osuapi.models.custom.OsuApiException;
+import osuapi.framework.exception.OsuApiException;
 import osuapi.models.wikis.WikiPage;
 
-public class Wikis {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public final class Wikis {
 	
 	@Autowired
 	private OsuApiClient client;

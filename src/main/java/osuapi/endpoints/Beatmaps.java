@@ -11,19 +11,20 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
-import org.springframework.stereotype.Component;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import osuapi.client.OsuApiClient;
-import osuapi.enums.Ruleset;
+import osuapi.framework.exception.OsuApiException;
 import osuapi.models.beatmaps.Beatmap;
 import osuapi.models.beatmaps.BeatmapExtended;
 import osuapi.models.beatmaps.DifficultyAttributes;
-import osuapi.models.custom.OsuApiException;
+import osuapi.models.enums.Ruleset;
 import osuapi.models.scores.Score;
 import osuapi.models.scores.UserBeatmapScore;
 
-@Component
-public class Beatmaps {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public final class Beatmaps {
 	
 	@Autowired
 	private OsuApiClient client;

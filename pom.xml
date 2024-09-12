@@ -81,7 +81,12 @@
 		    <version>4.0</version>
 		</dependency>
 		
-		
+		<!-- Yaml Dependency -->
+		<dependency>
+			<groupId>org.yaml</groupId>
+			<artifactId>snakeyaml</artifactId>
+		</dependency>
+				
 		<!-- Lombok -->
 		<dependency>
       		<groupId>org.projectlombok</groupId>
