@@ -27,8 +27,7 @@ public final class GlobalVariables {
 	
 	private static ApiAuth apiAuthentication;
 	
-	@Setter
-	private static RestTemplate apiRestTemplate;
+	private static RequestBundle bundle;
 	
 	@Setter
 	private static RequestProperties properties;

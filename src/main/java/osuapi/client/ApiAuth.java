@@ -17,9 +17,8 @@ import osuapi.framework.driver.GlobalVariables;
 @Setter(AccessLevel.PROTECTED)
 public final class ApiAuth {
 	private static final Logger LOG = LoggerFactory.getLogger(ApiAuth.class);
-	protected static final Map<String, String> authorizationBody = new HashMap<>();
-	private static ApiAuth instance;
-	
+
+	private final Map<String, String> authorizationBody = new HashMap<>();
 	private String accessToken = "";
 	private OffsetDateTime expirationDate = OffsetDateTime.MIN;
 	
@@ -31,15 +30,11 @@ public final class ApiAuth {
 		LOG.info("Authentication initialized by: {}", Thread.currentThread().getName());
 	}
 	
-	public static synchronized ApiAuth getInstance(GlobalVariables.AccessGrant grant) {
-		Objects.nonNull(grant);
-		if (instance==null) {
-			instance = new ApiAuth();
-		}
-		return instance;
+	public static ApiAuth createInstance() {
+		return new ApiAuth();
 	}
 	
-	protected static void update(String clientId, String clientSecret) {
+	protected void update(String clientId, String clientSecret) {
 		authorizationBody.clear();
 		authorizationBody.put("client_id", clientId);
 		authorizationBody.put("client_secret", clientSecret);

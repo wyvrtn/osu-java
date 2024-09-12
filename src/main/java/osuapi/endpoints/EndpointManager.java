@@ -3,7 +3,8 @@ package osuapi.endpoints;
 import lombok.experimental.Delegate;
 
 public final class EndpointManager {
-	private static EndpointManager manager;
+
+	private OsuApiClient client;
 	
 	@Delegate
 	private BeatmapPacks beatmapPacksDelegate = new BeatmapPacks();
@@ -25,11 +26,8 @@ public final class EndpointManager {
 	
 	private EndpointManager() {}
 	
-	public static synchronized EndpointManager getInstance() {
-		if (manager==null) {
-			manager = new EndpointManager();
-		}
-		return manager;
+	public static EndpointManager createInstance() {
+		return new EndpointManager();
 	}
 	
 }

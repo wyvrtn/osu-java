@@ -29,76 +29,34 @@ import osuapi.svc.OsuApiService;
 
 public final class OsuApiClient {
 	private static final Logger LOG = LoggerFactory.getLogger(OsuApiClient.class);
-	private static final Map<String, String> authorizationBody = ApiAuth.authorizationBody;
-	public static final EndpointManager ENDPOINTS = EndpointManager.getInstance();
-	private static boolean status = false;
+	public EndpointManager endpoints;
+	private ApiAuth authorization;
+	private OsuApiClientInternal svc;
 	
-	private static OsuApiClient instance;
-	
-	@Autowired
-	private OsuApiService svc;
-	
-	@OsuApiInject
-	private ApiAuth auth;
-	
-	protected OsuApiClient(int clientId, String clientSecret) {
+	public OsuApiClient(int clientId, String clientSecret) {
 		this(Integer.toString(clientId), clientSecret);
 	}
 	
 	private OsuApiClient(String clientId, String clientSecret) {
-		ApiAuth.update(clientId, clientSecret);
+		ednpoints = EndpointManager.createInstance();
+		authorization = ApiAuth.createInstance();
+		authorization.update(clientId, clientSecret);
 	}
-	
-	private OsuApiClient() {}
 
-	public static synchronized boolean create(int clientId, String clientSecret) {
-		if (instance==null) {
-			instance = new OsuApiClient(clientId, clientSecret);
-			status = true;
-			GlobalVariables.init(false);
-			return true;
-		}
-		return false;
-	}
-	
-	public static synchronized boolean create() {
-		if (instance==null) {
-			instance = new OsuApiClient();
-			status = true;
-			LOG.warn("Authorization for {} has not been set", OsuApiClient.class);
-			GlobalVariables.init(false);
-			return true;
-		}
-		return false;
-	}
-	
-	public static OsuApiClient get() {
-		if (instance==null) {
-			throw new NullPointerException();
-		}
-		return instance;
-	}
-	
-	public static boolean getStatus() {
-		return status;
-	}
-	
 	public synchronized void ensureAccessToken() throws OsuApiException {
 		LOG.info("Ensuring Valid Access Token");
-		if (auth.getExpirationDate().isAfter(OffsetDateTime.now())) {
+		if (authorization.getExpirationDate().isAfter(OffsetDateTime.now())) {
 			return;
 		}
 		try {
 			 // Request a new access token and parses the JSON in the response into a response object.
 			String authBody = "";
-			for (Entry<String, String> entry : authorizationBody.entrySet()) {
+			for (Entry<String, String> entry : authorization.getAuthorizationBody().entrySet()) {
 				authBody = buildString(authBody, entry.getKey(), "=", entry.getValue(), "&");
 			}
 			StringUtils.chop(authBody);
 			LOG.info("Authorization Query String: {}", authBody);
-			AccessTokenResponse apResponse = 
-					svc.requestNewToken(authBody);
-			
+			AccessTokenResponse apResponse = svc.requestNewToken(authBody);
 			// Validate the parsed JSON object.
 			if (apResponse==null) {
 				throw new OsuApiException("An error occured while requesting"
@@ -111,10 +69,10 @@ public final class OsuApiClient {
 		        		+ " (" + apResponse.getErrorCode() + ").");
 			}
 			// Updates the expiration date.
-			auth.setAccessToken(apResponse.getAccessToken());
-			auth.setExpirationDate(OffsetDateTime.now(ZoneId.systemDefault())
+			authorization.setAccessToken(apResponse.getAccessToken());
+			authorization.setExpirationDate(OffsetDateTime.now(ZoneId.systemDefault())
 				.plusSeconds(apResponse.getExpiresIn() - 30L /** Leniency */));
-			LOG.info(auth.getAccessToken());
+			LOG.info(authorization.getAccessToken());
 			//This is not needed for now LOG.info(accessToken.getExpirationDate().toString()); Sonar Escaper
 		} catch (Exception e) {
 			throw new OsuApiException("An error occured while requesting a new access token.", e);

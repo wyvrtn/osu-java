@@ -15,9 +15,14 @@ public class RequestProperties {
 	private int readTimeout;
 	private int connectTimeout;
 	
-	private RequestProperties() {}
-	
-	public static RequestProperties createInstance() {
-		return new RequestProperties();
+
+	private RequestProperties(String gateway, int readTimeout, int connectTimeout) {
+		this.gateway = gateway;
+		this.readTimeout = readTimeout;
+		this.connectTimeout = connectTimeout;
+	}
+
+	public static RequestProperties createInstance(String gateway, int readTimeout, int connectTimeout) {
+		return new RequestProperties(gateway, readTimeout, connectTimeout);
 	}
 }
