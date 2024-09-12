@@ -20,11 +20,13 @@ import osuapi.models.beatmaps.BeatmapPackExtended;
 import osuapi.models.enums.BeatmapPackType;
 
 // API docs: https://osu.ppy.sh/docs/index.html#beatmap-packs
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public final class BeatmapPacks {
 	
-	@Autowired
 	private OsuApiClient client;
+
+	protected BeatmapPacks(OsuApiClient client) {
+		this.client = client;
+	}
 	
 	public AsyncLazyEnumerator<String, BeatmapPack[]> getBeatmapPacks(final BeatmapPackType type) {
 		String url = "/beatmaps/packs";

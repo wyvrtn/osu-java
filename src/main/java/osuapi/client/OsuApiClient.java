@@ -73,7 +73,6 @@ public final class OsuApiClient {
 			authorization.setExpirationDate(OffsetDateTime.now(ZoneId.systemDefault())
 				.plusSeconds(apResponse.getExpiresIn() - 30L /** Leniency */));
 			LOG.info(authorization.getAccessToken());
-			//This is not needed for now LOG.info(accessToken.getExpirationDate().toString()); Sonar Escaper
 		} catch (Exception e) {
 			throw new OsuApiException("An error occured while requesting a new access token.", e);
 		}

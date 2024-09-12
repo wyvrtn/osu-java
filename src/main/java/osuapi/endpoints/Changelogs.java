@@ -14,11 +14,13 @@ import osuapi.framework.exception.OsuApiException;
 import osuapi.models.changelogs.Build;
 import osuapi.models.changelogs.ChangelogListing;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public final class Changelogs {
 	
-	@Autowired
 	private OsuApiClient client;
+
+	protected Changelogs(OsuApiClient client) {
+		this.client = client;
+	}
 	
 	public CompletableFuture<Build> getBuild(String stream, String build) {
 		return CompletableFuture.supplyAsync(() -> {

@@ -20,11 +20,13 @@ import osuapi.models.comments.CommentBundle.Cursor;
 import osuapi.models.enums.CommentSortType;
 import osuapi.models.enums.CommentableType;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public final class Comments {
 	
-	@Autowired
 	private OsuApiClient client;
+
+	protected Comments(OsuApiClient client) {
+		this.client = client;
+	}
 	
 	public CompletableFuture<CommentBundle> getComment(int commentId) {
 		return CompletableFuture.supplyAsync(() -> {

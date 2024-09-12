@@ -10,11 +10,13 @@ import osuapi.client.OsuApiClient;
 import osuapi.framework.exception.OsuApiException;
 import osuapi.models.users.User;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public final class Rankings {
 	
-	@Autowired
 	private OsuApiClient client;
+
+	protected Rankings(OsuApiClient client) {
+		this.client = client;
+	}
 	
 	public CompletableFuture<User[]> getKudosuRanking(int page) {
 		return CompletableFuture.supplyAsync(() -> {

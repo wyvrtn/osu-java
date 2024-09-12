@@ -11,11 +11,13 @@ import osuapi.framework.exception.OsuApiException;
 import osuapi.models.beatmaps.BeatmapSetExtended;
 
 //API docs: https://osu.ppy.sh/docs/index.html#beatmapsets
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public final class BeatmapSets {
 	
-	@Autowired
 	private OsuApiClient client;
+
+	protected BeatmapSets(OsuApiClient client) {
+		this.client = client;
+	}
 	
 	/// <summary>
 	/// Looks up the beatmapset that contains the beatmap with the specified ID. If the beatmapset was not found, null is returned.

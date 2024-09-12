@@ -7,22 +7,22 @@ public final class EndpointManager {
 	private OsuApiClient client;
 	
 	@Delegate
-	private BeatmapPacks beatmapPacksDelegate = new BeatmapPacks();
+	private BeatmapPacks beatmapPacksDelegate = new BeatmapPacks(client);
 	
 	@Delegate
-	private Beatmaps beatmapsDelegate = new Beatmaps();
+	private Beatmaps beatmapsDelegate = new Beatmaps(client);
 	
 	@Delegate
-	private BeatmapSets beatmapSetsDelegate = new BeatmapSets();
+	private BeatmapSets beatmapSetsDelegate = new BeatmapSets(client);
 	
 	@Delegate
-	private Changelogs changelogsDelegate = new Changelogs();
+	private Changelogs changelogsDelegate = new Changelogs(client);
 	
 	@Delegate
-	private Rankings rankingsDelegate = new Rankings();
+	private Rankings rankingsDelegate = new Rankings(client);
 	
 	@Delegate
-	private Wikis wikisDelegate = new Wikis();
+	private Wikis wikisDelegate = new Wikis(client);
 	
 	private EndpointManager() {}
 	

@@ -10,11 +10,13 @@ import osuapi.client.OsuApiClient;
 import osuapi.framework.exception.OsuApiException;
 import osuapi.models.wikis.WikiPage;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public final class Wikis {
 	
-	@Autowired
 	private OsuApiClient client;
+
+	protected Wikis(OsuApiClient client) {
+		this.client = client;
+	}
 	
 	public CompletableFuture<WikiPage> getWikiPage(String locale, String path) {
 		return CompletableFuture.supplyAsync(() -> {

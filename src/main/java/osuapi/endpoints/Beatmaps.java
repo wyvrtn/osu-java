@@ -23,11 +23,13 @@ import osuapi.models.enums.Ruleset;
 import osuapi.models.scores.Score;
 import osuapi.models.scores.UserBeatmapScore;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public final class Beatmaps {
-	
-	@Autowired
-	private OsuApiClient client;
+
+	private OsuApiClient client; 
+
+	protected Beatmaps(OsuApiClient client) {
+		this.client = client;
+	}
 	
 	public CompletableFuture<Beatmap> lookupBeatmapChecksum(String checksum) {
 		try {
