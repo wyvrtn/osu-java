@@ -1,4 +1,4 @@
-package osuapi.models.enums;
+package osuapi.enums;
 
 public interface DescriptionEnum<T> {
 	public String getDescription();

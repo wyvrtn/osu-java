@@ -1,4 +1,4 @@
-package osuapi.models.enums;
+package osuapi.enums;
 
 import org.apache.commons.lang3.StringUtils;
 
