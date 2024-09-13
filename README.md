@@ -16,6 +16,7 @@ This wrapper <ins>currently only supports client credential authorization</ins>.
 
 <b>Inspired by [minisbett's](https://github.com/minisbett) [osu-sharp](https://github.com/minisbett/osu-sharp), and most code was copied from there
 </b>
+(Mini pls forgive me for stealing README, I don't know how to write markdown files)
 </div>
 
 # Getting Started
