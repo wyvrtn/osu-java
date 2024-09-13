@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import osuapi.enums.WikiPageLayoutType;
+import osuapi.enums.WikiPageLayout;
 
 @Getter
 @Setter
@@ -16,7 +16,7 @@ public class WikiPage {
 	private String[] availableLocales;
 	
 	@JsonProperty("layout")
-	private WikiPageLayoutType layout;
+	private WikiPageLayout layout;
 	
 	@JsonProperty("locale")
 	private String locale;

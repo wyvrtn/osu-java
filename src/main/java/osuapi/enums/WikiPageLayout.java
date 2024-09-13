@@ -4,13 +4,13 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum WikiPageLayoutType implements DescriptionEnum<WikiPageLayoutType> {
+public enum WikiPageLayout implements DescriptionEnum<WikiPageLayout> {
 	MARKDOWN("markdown_page"),
 	MAIN("main_page");
 	
 	private String description;
 	
-	private WikiPageLayoutType(String description) {
+	private WikiPageLayout(String description) {
 		this.description = description;
 	}
 	
@@ -19,9 +19,9 @@ public enum WikiPageLayoutType implements DescriptionEnum<WikiPageLayoutType> {
 		return this.description;
 	}
 	
-	public WikiPageLayoutType getEnum(String input) {
-		WikiPageLayoutType result = null;
-		for (WikiPageLayoutType WikiPageLayoutType : values()) {
+	public WikiPageLayout getEnum(String input) {
+		WikiPageLayout result = null;
+		for (WikiPageLayout WikiPageLayoutType : values()) {
 			if (StringUtils.equalsIgnoreCase(WikiPageLayoutType.name(), input) ||
 					StringUtils.equalsIgnoreCase(WikiPageLayoutType.getDescription(), input)) {
 				result = WikiPageLayoutType;
