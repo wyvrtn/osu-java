@@ -25,10 +25,12 @@ public final class EndpointManager {
 	@Delegate
 	private Wikis wikisDelegate = new Wikis(client);
 	
-	private EndpointManager() {}
+	private EndpointManager(OsuApiClient client) {
+		this.client = client;
+	}
 	
-	public static EndpointManager createInstance() {
-		return new EndpointManager();
+	public static EndpointManager createInstance(OsuApiClient client) {
+		return new EndpointManager(client);
 	}
 	
 }

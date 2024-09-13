@@ -34,7 +34,7 @@ public final class OsuApiClient {
 	}
 	
 	private OsuApiClient(String clientId, String clientSecret) {
-		ednpoints = EndpointManager.createInstance();
+		endpoints = EndpointManager.createInstance(this);
 		authorization = ApiAuth.createInstance();
 		authorization.update(clientId, clientSecret);
 	}
