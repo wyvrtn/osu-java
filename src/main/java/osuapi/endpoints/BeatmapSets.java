@@ -2,10 +2,6 @@ package osuapi.endpoints;
 
 import java.util.concurrent.CompletableFuture;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import osuapi.client.OsuApiClient;
 import osuapi.framework.exception.OsuApiException;
 import osuapi.models.beatmaps.BeatmapSetExtended;
