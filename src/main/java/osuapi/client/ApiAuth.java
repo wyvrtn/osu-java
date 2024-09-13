@@ -14,7 +14,7 @@ import lombok.Setter;
 import osuapi.framework.driver.GlobalVariables;
 
 @Getter
-@Setter(AccessLevel.PROTECTED)
+@Setter
 public final class ApiAuth {
 	private static final Logger LOG = LoggerFactory.getLogger(ApiAuth.class);
 
@@ -34,7 +34,7 @@ public final class ApiAuth {
 		return new ApiAuth();
 	}
 	
-	protected void update(String clientId, String clientSecret) {
+	public void update(String clientId, String clientSecret) {
 		authorizationBody.clear();
 		authorizationBody.put("client_id", clientId);
 		authorizationBody.put("client_secret", clientSecret);

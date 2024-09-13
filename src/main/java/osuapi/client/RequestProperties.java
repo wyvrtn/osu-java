@@ -1,28 +1,30 @@
 package osuapi.client;
 
+import java.util.logging.Logger;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import lombok.Data;
+import lombok.Getter;
 import osuapi.framework.injection.YamlProperties;
 
-@Component
-@YamlProperties(prefix = "api",name = "properties", using = RequestProperties.class)
-@ConfigurationProperties(prefix = "api")
 @Data
 public class RequestProperties {
-	private String gateway;
+	private static final Logger LOG = LoggerFactory.getLogger(RequestProperties.class);
+	@Getter
+	private static final String gateway = "https://osu.ppy.sh";
 	private int readTimeout;
 	private int connectTimeout;
 	
 
-	private RequestProperties(String gateway, int readTimeout, int connectTimeout) {
-		this.gateway = gateway;
+	private RequestProperties(int readTimeout, int connectTimeout) {
 		this.readTimeout = readTimeout;
 		this.connectTimeout = connectTimeout;
 	}
 
-	public static RequestProperties createInstance(String gateway, int readTimeout, int connectTimeout) {
-		return new RequestProperties(gateway, readTimeout, connectTimeout);
+	public static RequestProperties createInstance(int readTimeout, int connectTimeout) {
+		LOG.info("New instance of RequestProperties has been created by: {}", Thread.currentThread().getName());
+		return new RequestProperties(readTimeout, connectTimeout);
 	}
 }

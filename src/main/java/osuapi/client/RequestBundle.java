@@ -4,20 +4,20 @@ import lombok.Getter;
 
 @Getter
 public final class RequestBundle {
-    private RequestProperties properties = RequestProperties.createInstance("https://osu.ppy.sh", 1000, 1000);
+    private RequestProperties properties = RequestProperties.createInstance(1000, 1000);
     private RestTemplate apiRestTemplate;
 
-    public RequestBundle(String gateway, int readTimeout, int connectTimeout) {
-        properties = RequestProperties(gateway, readTimeout, connectTimeout);
-        apiRestTemplate = (new RestTemplateBuilder()).uriTemplateHandler(new DefaultUriBuilderFactory(properties.getGateway()))
+    public RequestBundle(int readTimeout, int connectTimeout) {
+        properties = RequestProperties.createInstance(readTimeout, connectTimeout);
+        apiRestTemplate = (new RestTemplateBuilder()).uriTemplateHandler(new DefaultUriBuilderFactory(RequestProperties.getGateway()))
                 .setReadTimeout(Duration.ofMillis(properties.getReadTimeout()))
                 .setConnectTimeout(Duration.ofMillis(properties.getConnectTimeout()))
                 .build();
     }
 
-    public void setBundle(String gateway, int readTimeout, int connectTimeout) {
-        properties = RequestProperties(gateway, readTimeout, connectTimeout);
-        apiRestTemplate = (new RestTemplateBuilder()).uriTemplateHandler(new DefaultUriBuilderFactory(properties.getGateway()))
+    public void setBundle(int readTimeout, int connectTimeout) {
+        properties = RequestProperties(readTimeout, connectTimeout);
+        apiRestTemplate = (new RestTemplateBuilder()).uriTemplateHandler(new DefaultUriBuilderFactory(RequestProperties.getGateway()))
                 .setReadTimeout(Duration.ofMillis(properties.getReadTimeout()))
                 .setConnectTimeout(Duration.ofMillis(properties.getConnectTimeout()))
                 .build();
