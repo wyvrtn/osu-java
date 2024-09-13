@@ -7,10 +7,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import osuapi.enums.Grade;
+import osuapi.enums.Ruleset;
 import osuapi.models.beatmaps.BeatmapExtended;
 import osuapi.models.beatmaps.BeatmapSet;
-import osuapi.models.enums.Grade;
-import osuapi.models.enums.Ruleset;
 import osuapi.models.users.User;
 
 @Getter
