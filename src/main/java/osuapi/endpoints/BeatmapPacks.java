@@ -7,17 +7,13 @@ import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import osuapi.client.OsuApiClient;
+import osuapi.enums.BeatmapPackType;
 import osuapi.framework.exception.OsuApiException;
 import osuapi.framework.iterator.AsyncLazyEnumerator;
 import osuapi.framework.iterator.ExitToken;
 import osuapi.models.beatmaps.BeatmapPack;
 import osuapi.models.beatmaps.BeatmapPackExtended;
-import osuapi.models.enums.BeatmapPackType;
 
 // API docs: https://osu.ppy.sh/docs/index.html#beatmap-packs
 public final class BeatmapPacks {
@@ -33,7 +29,7 @@ public final class BeatmapPacks {
 		ExitToken<String> token = new ExitToken<>("", Objects::nonNull);
 		Function<ExitToken<String>, CompletableFuture<BeatmapPack[]>> func = t -> 
 			CompletableFuture.supplyAsync(() -> {
-				BeatmapPackExtended packs = null;
+				BeatmapPackExtended packs = new BeatmapPackExtended();
 				Map<String, Object> params = new HashMap<>();
 				params.put("type", type==null? "Standard" : type.toString());
 				params.put("cursor_string", token.getToken());
