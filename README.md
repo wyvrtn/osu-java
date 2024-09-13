@@ -5,7 +5,7 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Latest Release](https://img.shields.io/github/v/release/minisbett/osu-sharp?color=ff87c6)](https://github.com/Wyvrtn/osu-java/releases)
 
-A in dev, not documented API wrapper for the public scope of the osu! API v2.<br/>
+An indev, not documented API wrapper for the public scope of the osu! API v2.<br/>
 This wrapper <ins>currently only supports client credential authorization</ins>.<br/>
 
 [Getting Started](#getting-started) • [Endpoints](#features)<br/>
