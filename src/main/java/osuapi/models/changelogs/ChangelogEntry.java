@@ -7,9 +7,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import osuapi.enums.ChangelogEntryCategory;
+import osuapi.enums.ChangelogEntryType;
 import osuapi.models.comments.GitHubUser;
-import osuapi.models.enums.ChangelogEntryCategory;
-import osuapi.models.enums.ChangelogEntryType;
 
 @Getter
 @Setter
