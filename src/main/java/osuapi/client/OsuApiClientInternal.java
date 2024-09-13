@@ -11,11 +11,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import osuapi.client.ApiAuth;
-import osuapi.client.RequestBundle;
+import osuapi.models.AccessTokenResponse;
 
 public final class OsuApiClientInternal {
-    private static final Logger LOG = LoggerFactory.getLogger(OsuApiServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OsuApiClientInternal.class);
 	private static final String root = "/api/v2";
 	private static final String auth = "/oauth/token";
 
@@ -42,7 +41,7 @@ public final class OsuApiClientInternal {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 		headers.setContentType(MediaType.APPLICATION_JSON);
-		headers.add("Authorization", "Bearer " + token.getAccessToken());
+		headers.add("Authorization", "Bearer " + token);
 		HttpEntity<String> requestEntity = new HttpEntity<>(headers);
 		LOG.debug("osu-api side request url: {}", url);
 		LOG.debug("Http request method: {}", method);
