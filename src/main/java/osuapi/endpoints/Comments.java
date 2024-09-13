@@ -7,18 +7,14 @@ import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import osuapi.client.OsuApiClient;
+import osuapi.enums.CommentSortType;
+import osuapi.enums.CommentableType;
 import osuapi.framework.exception.OsuApiException;
 import osuapi.framework.iterator.AsyncLazyEnumerator;
 import osuapi.framework.iterator.ExitToken;
 import osuapi.models.comments.CommentBundle;
 import osuapi.models.comments.CommentBundle.Cursor;
-import osuapi.models.enums.CommentSortType;
-import osuapi.models.enums.CommentableType;
 
 public final class Comments {
 	
@@ -52,7 +48,7 @@ public final class Comments {
 				params.put("commentable_id", commentableId);
 				params.put("parent_id", parentId);
 				params.put("sort", sort);
-				CommentBundle bundle = null;
+				CommentBundle bundle = new CommentBundle();
 				try {
 					bundle = client.getJson("/comments"
 							+client.buildQueryString(params), new CommentBundle());
@@ -66,7 +62,7 @@ public final class Comments {
 						e.printStackTrace();
 					}
 				}
-				token.setNext(bundle.getCursor());
+				token.setNext(bundle==null? null : bundle.getCursor());
 				return bundle;
 			});
 			return new AsyncLazyEnumerator<>(func, token);
