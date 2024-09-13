@@ -9,17 +9,14 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import osuapi.client.OsuApiClient;
+import osuapi.enums.Ruleset;
 import osuapi.framework.exception.OsuApiException;
 import osuapi.models.beatmaps.Beatmap;
 import osuapi.models.beatmaps.BeatmapExtended;
 import osuapi.models.beatmaps.DifficultyAttributes;
-import osuapi.models.enums.Ruleset;
 import osuapi.models.scores.Score;
 import osuapi.models.scores.UserBeatmapScore;
 
