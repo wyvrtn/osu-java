@@ -15,17 +15,13 @@ import java.util.Map.Entry;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import osuapi.endpoints.EndpointManager;
-import osuapi.framework.driver.GlobalVariables;
 import osuapi.framework.exception.OsuApiException;
-import osuapi.framework.injection.OsuApiInject;
 import osuapi.models.AccessTokenResponse;
-import osuapi.svc.OsuApiService;
 
 public final class OsuApiClient {
 	private static final Logger LOG = LoggerFactory.getLogger(OsuApiClient.class);

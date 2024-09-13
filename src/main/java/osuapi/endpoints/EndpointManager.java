@@ -1,6 +1,7 @@
 package osuapi.endpoints;
 
 import lombok.experimental.Delegate;
+import osuapi.client.OsuApiClient;
 
 public final class EndpointManager {
 
