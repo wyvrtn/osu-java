@@ -1,4 +1,4 @@
-package osuapi.framework.exception;
+package osuapi.client.resources;
 
 public class OsuApiException extends Exception {
 	private static final long serialVersionUID = 8596965465781109261L;

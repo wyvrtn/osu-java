@@ -1,4 +1,4 @@
-package osuapi.framework.iterator;
+package osuapi.iterator;
 
 public enum ExitType {
     WHILE(0),

@@ -1,4 +1,4 @@
-package osuapi.framework.iterator;
+package osuapi.iterator;
 
 import java.util.ArrayList;
 import java.util.List;

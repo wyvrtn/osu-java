@@ -1,4 +1,4 @@
-package osuapi.client;
+package osuapi.client.resources;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -8,10 +8,10 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
 import osuapi.client.OsuApiClient;
+import osuapi.client.resources.OsuApiException;
 import osuapi.enums.BeatmapPackType;
-import osuapi.framework.exception.OsuApiException;
-import osuapi.framework.iterator.AsyncLazyEnumerator;
-import osuapi.framework.iterator.ExitToken;
+import osuapi.iterator.AsyncLazyEnumerator;
+import osuapi.iterator.ExitToken;
 import osuapi.models.beatmaps.BeatmapPack;
 import osuapi.models.beatmaps.BeatmapPackExtended;
 

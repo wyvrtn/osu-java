@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 import org.springframework.http.HttpMethod;
 
 import osuapi.client.OsuApiClient;
+import osuapi.client.resources.OsuApiException;
 import osuapi.enums.Ruleset;
-import osuapi.framework.exception.OsuApiException;
 import osuapi.models.beatmaps.Beatmap;
 import osuapi.models.beatmaps.BeatmapExtended;
 import osuapi.models.beatmaps.DifficultyAttributes;

@@ -3,7 +3,7 @@ package osuapi.endpoints;
 import java.util.concurrent.CompletableFuture;
 
 import osuapi.client.OsuApiClient;
-import osuapi.framework.exception.OsuApiException;
+import osuapi.client.resources.OsuApiException;
 import osuapi.models.wikis.WikiPage;
 
 public final class Wikis {

@@ -11,6 +11,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import osuapi.client.resources.ApiAuth;
+import osuapi.client.resources.RequestBundle;
 import osuapi.models.AccessTokenResponse;
 
 public final class OsuApiClientInternal {
