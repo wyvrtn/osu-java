@@ -36,7 +36,7 @@ public final class BeatmapPacks {
 				try {
 					packs = client.getJson(url 
 							+ client.buildQueryString(params), new BeatmapPackExtended());
-				} catch (UnsupportedEncodingException | OsuApiException e) {
+				} catch (UnsupportedEncodingException e) {
 					e.printStackTrace();
 				}
 				token.setNext(packs.getCursorString());
