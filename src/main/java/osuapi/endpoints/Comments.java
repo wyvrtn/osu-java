@@ -1,6 +1,5 @@
 package osuapi.endpoints;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -25,14 +24,9 @@ public final class Comments {
 	}
 	
 	public CompletableFuture<CommentBundle> getComment(int commentId) {
-		return CompletableFuture.supplyAsync(() -> {
-			try {
-				return client.getJson("/comments/"+commentId, new CommentBundle());
-			} catch (OsuApiException e) {
-				e.printStackTrace();
-			}
-			return null;
-		});
+		return CompletableFuture.supplyAsync(() -> 
+			client.getJson("/comments/"+commentId, new CommentBundle())
+		);
 	}
 	
 	public AsyncLazyEnumerator<Cursor, CommentBundle> getComments(int after, CommentableType type,
@@ -49,12 +43,8 @@ public final class Comments {
 				params.put("parent_id", parentId);
 				params.put("sort", sort);
 				CommentBundle bundle = new CommentBundle();
-				try {
-					bundle = client.getJson("/comments"
+				bundle = client.getJson("/comments"
 							+client.buildQueryString(params), new CommentBundle());
-				} catch (UnsupportedEncodingException | OsuApiException e) {
-					e.printStackTrace();
-				}
 				if (bundle==null) {
 			        try {
 						throw new OsuApiException("An error occured while requesting the comment bundle. (bundle is null)");

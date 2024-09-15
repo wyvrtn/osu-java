@@ -17,8 +17,8 @@ import osuapi.models.AccessTokenResponse;
 
 public final class OsuApiClientInternal {
     private static final Logger LOG = LoggerFactory.getLogger(OsuApiClientInternal.class);
-	private static final String root = "/api/v2";
-	private static final String auth = "/oauth/token";
+	private static final String ROOT = "/api/v2";
+	private static final String AUTH = "/oauth/token";
 
 	private RestTemplate restTemplate;
 	private String token;
@@ -35,7 +35,7 @@ public final class OsuApiClientInternal {
 		HttpEntity<String> requestEntity = new HttpEntity<>(authBody, headers);
 		LOG.debug("Request Entity: {}", headers);
 		ResponseEntity<AccessTokenResponse> response = restTemplate.exchange(
-				auth, HttpMethod.POST, requestEntity, AccessTokenResponse.class);
+				AUTH, HttpMethod.POST, requestEntity, AccessTokenResponse.class);
 		return response.getBody();
 	}
 
@@ -49,6 +49,6 @@ public final class OsuApiClientInternal {
 		LOG.debug("Http request method: {}", method);
 		LOG.debug("Request Entity: {}", headers);
 		LOG.debug("Response Class: {}" , target.getSimpleName());
-		return restTemplate.exchange(root + url, method, requestEntity, target);
+		return restTemplate.exchange(ROOT + url, method, requestEntity, target);
 	}
 }

@@ -1,12 +1,10 @@
 package osuapi.endpoints;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import osuapi.client.OsuApiClient;
-import osuapi.client.resources.OsuApiException;
 import osuapi.models.changelogs.Build;
 import osuapi.models.changelogs.ChangelogListing;
 
@@ -19,14 +17,9 @@ public final class Changelogs {
 	}
 	
 	public CompletableFuture<Build> getBuild(String stream, String build) {
-		return CompletableFuture.supplyAsync(() -> {
-			try {
-				return client.getJson("/changelog/"+stream+"/"+build, new Build());
-			} catch (OsuApiException e) {
-				e.printStackTrace();
-			}
-			return null;
-		});
+		return CompletableFuture.supplyAsync(() -> 
+			client.getJson("/changelog/"+stream+"/"+build, new Build())
+		);
 	}
 	
 	public CompletableFuture<ChangelogListing> getChangelogListing(String stream, String fromBuild, String toBuild, int maxBuildId) {
@@ -35,35 +28,20 @@ public final class Changelogs {
 		params.put("from", fromBuild);
 		params.put("to", toBuild);
 		params.put("max_id", maxBuildId);
-		return CompletableFuture.supplyAsync(() -> {
-			try {
-				return client.getJson("/changelog"+client.buildQueryString(params), new ChangelogListing());
-			} catch (OsuApiException | UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
-			return null;
-		});
+		return CompletableFuture.supplyAsync(() -> 
+			client.getJson("/changelog"+client.buildQueryString(params), new ChangelogListing())
+		);
 	}
 	
 	public CompletableFuture<Build> lookupBuildId(int buildId) {
-		return CompletableFuture.supplyAsync(() -> {
-			try {
-				return client.getJson("/changelog/"+buildId+"?key=id", new Build());
-			} catch (OsuApiException e) {
-				e.printStackTrace();
-			}
-			return null;
-		});
+		return CompletableFuture.supplyAsync(() -> 
+			client.getJson("/changelog/"+buildId+"?key=id", new Build())
+		);
 	}
 	
 	public CompletableFuture<Build> lookupLatestBuild(String stream) {
-		return CompletableFuture.supplyAsync(() -> {
-			try {
-				return client.getJson("/changelog/"+stream, new Build());
-			} catch (OsuApiException e) {
-				e.printStackTrace();
-			}
-			return null;
-		});
+		return CompletableFuture.supplyAsync(() -> 
+				client.getJson("/changelog/"+stream, new Build())
+		);
 	}
 }

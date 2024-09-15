@@ -1,6 +1,5 @@
 package osuapi.endpoints;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -8,7 +7,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
 import osuapi.client.OsuApiClient;
-import osuapi.client.resources.OsuApiException;
 import osuapi.enums.BeatmapPackType;
 import osuapi.iterator.AsyncLazyEnumerator;
 import osuapi.iterator.ExitToken;
@@ -33,12 +31,8 @@ public final class BeatmapPacks {
 				Map<String, Object> params = new HashMap<>();
 				params.put("type", type==null? "Standard" : type.toString());
 				params.put("cursor_string", token.getToken());
-				try {
-					packs = client.getJson(url 
-							+ client.buildQueryString(params), new BeatmapPackExtended());
-				} catch (UnsupportedEncodingException e) {
-					e.printStackTrace();
-				}
+				packs = client.getJson(url 
+						+ client.buildQueryString(params), new BeatmapPackExtended());
 				token.setNext(packs.getCursorString());
 				return packs.getBeatmapPacks();
 			});
@@ -46,13 +40,8 @@ public final class BeatmapPacks {
 	}
 	
 	public CompletableFuture<BeatmapPack> getBeatmapPack(String tag) {
-		return CompletableFuture.supplyAsync(() -> {
-			try {
-				return client.getJson("/beatmaps/packs/"+tag, new BeatmapPack());
-			} catch (OsuApiException e) {
-				e.printStackTrace();
-			}
-			return null;
-		});
+		return CompletableFuture.supplyAsync(() -> 
+			client.getJson("/beatmaps/packs/"+tag, new BeatmapPack())
+		);
 	}
 }

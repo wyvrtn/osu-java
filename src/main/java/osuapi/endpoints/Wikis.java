@@ -3,7 +3,6 @@ package osuapi.endpoints;
 import java.util.concurrent.CompletableFuture;
 
 import osuapi.client.OsuApiClient;
-import osuapi.client.resources.OsuApiException;
 import osuapi.models.wikis.WikiPage;
 
 public final class Wikis {
@@ -15,13 +14,8 @@ public final class Wikis {
 	}
 	
 	public CompletableFuture<WikiPage> getWikiPage(String locale, String path) {
-		return CompletableFuture.supplyAsync(() -> {
-			try {
-				return client.getJson("/wiki/"+locale+"/"+path, new WikiPage());
-			} catch (OsuApiException e) {
-				e.printStackTrace();
-			}
-			return null;
-		});
+		return CompletableFuture.supplyAsync(() -> 
+			client.getJson("/wiki/"+locale+"/"+path, new WikiPage())
+		);
 	}
 }
