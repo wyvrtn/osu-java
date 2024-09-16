@@ -1,12 +1,13 @@
 package osuapi.iterator;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Function;
 
-public class AsyncLazyEnumerator<T, TResult> {
+public class AsyncLazyEnumerator<T, TResult> implements Iterator<TResult> {
     private Function<ExitToken<T>, CompletableFuture<TResult>> iterator;
     private ExitToken<T> token;
     private ExitType type = ExitType.WHILE;
@@ -78,6 +79,18 @@ public class AsyncLazyEnumerator<T, TResult> {
     	} else {
     		return CompletableFuture.completedFuture(Boolean.FALSE);
     	}
+    }
+
+    @Override
+    public boolean hasNext() {
+        
+        throw new UnsupportedOperationException("Unimplemented method 'hasNext'");
+    }
+
+    @Override
+    public TResult next() {
+        
+        throw new UnsupportedOperationException("Unimplemented method 'next'");
     }
 }
 
