@@ -6,10 +6,7 @@ import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.Map;
-
-import java.util.Map.Entry;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +23,7 @@ import osuapi.models.AccessTokenResponse;
 public final class OsuApiClient {
 	private static final Logger LOG = LoggerFactory.getLogger(OsuApiClient.class);
 	public final EndpointManager endpoints;
-	private ApiAuth authorization;
+	private ApiAuth authorization; 
 	private OsuApiClientInternal svc;
 	
 	public OsuApiClient(int clientId, String clientSecret) {
@@ -40,6 +37,41 @@ public final class OsuApiClient {
 	}
 
 	public synchronized void ensureAccessToken() {
+		CompletableFuture.runAsync(() -> {
+			LOG.info("Ensuring Valid Access Token");
+			if (authorization.getExpirationDate().isAfter(OffsetDateTime.now())) {
+				return;
+			}
+			CompletableFuture<String> authBody = encodeFormUrl(authorization.getAuthorizationBody());
+			CompletableFuture.runAsync(()-> {
+				try {
+					// Request a new access token and parses the JSON in the response into a response object.
+					AccessTokenResponse apResponse = ClientUtil.exceptCoalesce(
+							svc.requestNewToken(authBody.get()),
+							new OsuApiException("An error occured while requesting a new access token. (response is null)"));
+					// Validate the parsed JSON object.
+					if (apResponse.getAccessToken()==null || apResponse.getExpiresIn()==0) {
+						// Error fields are most likely specified
+			        	throw new OsuApiException("An error occured while requesting a "
+			        		+ "new access token: " + apResponse.getErrorDescription() 
+			        		+ " (" + apResponse.getErrorCode() + ").");
+					}
+					// Updates the expiration date.
+					authorization.setAccessToken(apResponse.getAccessToken());
+					authorization.setExpirationDate(OffsetDateTime.now(ZoneId.systemDefault())
+						.plusSeconds(apResponse.getExpiresIn() - 30L /** Leniency */));
+					LOG.info(authorization.getAccessToken());
+				} catch (InterruptedException interrupt) {
+					Thread.currentThread().interrupt();
+				} catch (Exception e) {
+					try {
+						throw new OsuApiException("An error occured while requesting a new access token.", e);
+					} catch (OsuApiException oae) {
+						oae.printStackTrace();
+					}
+				}
+			});
+		});
 		LOG.info("Ensuring Valid Access Token");
 		if (authorization.getExpirationDate().isAfter(OffsetDateTime.now())) {
 			return;
@@ -113,10 +145,9 @@ public final class OsuApiClient {
 	
 	public String buildQueryString(Map<String, Object> params) {
 		StringBuilder out = new StringBuilder("");
-		Object value;
-		for (Entry<String, Object> entry : params.entrySet().stream().filter(entry -> entry.getValue()!=null).collect(Collectors.toList())) {
+		params.entrySet().stream().filter(entry -> entry.getValue()!=null).forEach(entry -> {
 			out.append(String.format("&%s=", encode(entry.getKey())));
-			value = entry.getValue();
+			final Object value = entry.getValue();
 			if (value instanceof Enum) {
 				out.append(ClientUtil.getDescription((Enum<?>) value));
 			} else if (value instanceof LocalDateTime) {
@@ -124,7 +155,7 @@ public final class OsuApiClient {
 			} else {
 				out.append(encode(value.toString()));
 			}
-		}
+		});
 		out.deleteCharAt(0);
 		return new String(out);
 	}
