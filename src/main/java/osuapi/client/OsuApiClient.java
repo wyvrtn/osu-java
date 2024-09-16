@@ -72,6 +72,7 @@ public final class OsuApiClient {
 				}
 			});
 		});
+		
 	}
 	
 	public <T> CompletableFuture<T> getJsonAsync(String url, T target, HttpMethod... methods) {
