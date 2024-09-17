@@ -10,7 +10,7 @@ import osuapi.client.OsuApiClient;
 import osuapi.client.resources.OsuApiException;
 import osuapi.enums.CommentSortType;
 import osuapi.enums.CommentableType;
-import osuapi.iterator.AsyncLazyEnumerator;
+import osuapi.iterator.AsyncLazyEnumerable;
 import osuapi.iterator.ExitToken;
 import osuapi.models.comments.CommentBundle;
 import osuapi.models.comments.CommentBundle.Cursor;
@@ -29,7 +29,7 @@ public final class Comments {
 		);
 	}
 	
-	public AsyncLazyEnumerator<Cursor, CommentBundle> getComments(int after, CommentableType type,
+	public AsyncLazyEnumerable<Cursor, CommentBundle> getComments(int after, CommentableType type,
 			int commentableId, int parentId, CommentSortType sort) {
 		ExitToken<Cursor> token = new ExitToken<>((new CommentBundle()).new Cursor(), Objects::nonNull);
 		Function<ExitToken<Cursor>, CompletableFuture<CommentBundle>> func = t ->
@@ -55,6 +55,6 @@ public final class Comments {
 				token.setNext(bundle==null? null : bundle.getCursor());
 				return bundle;
 			});
-			return new AsyncLazyEnumerator<>(func, token);
+			return new AsyncLazyEnumerable<>(func, token);
 	}
 } 

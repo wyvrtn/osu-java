@@ -8,7 +8,7 @@ import java.util.function.Function;
 
 import osuapi.client.OsuApiClient;
 import osuapi.enums.BeatmapPackType;
-import osuapi.iterator.AsyncLazyEnumerator;
+import osuapi.iterator.AsyncLazyEnumerable;
 import osuapi.iterator.ExitToken;
 import osuapi.models.beatmaps.BeatmapPack;
 import osuapi.models.beatmaps.BeatmapPackExtended;
@@ -22,7 +22,7 @@ public final class BeatmapPacks {
 		this.client = client;
 	}
 	
-	public AsyncLazyEnumerator<String, BeatmapPack[]> getBeatmapPacks(final BeatmapPackType type) {
+	public AsyncLazyEnumerable<String, BeatmapPack[]> getBeatmapPacks(final BeatmapPackType type) {
 		String url = "/beatmaps/packs";
 		ExitToken<String> token = new ExitToken<>("", Objects::nonNull);
 		Function<ExitToken<String>, CompletableFuture<BeatmapPack[]>> func = t -> 
@@ -36,7 +36,7 @@ public final class BeatmapPacks {
 				token.setNext(packs.getCursorString());
 				return packs.getBeatmapPacks();
 			});
-		return new AsyncLazyEnumerator<>(func, token);
+		return new AsyncLazyEnumerable<>(func, token);
 	}
 	
 	public CompletableFuture<BeatmapPack> getBeatmapPack(String tag) {

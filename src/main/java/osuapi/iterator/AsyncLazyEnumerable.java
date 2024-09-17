@@ -2,23 +2,24 @@ package osuapi.iterator;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.lang.Iterable;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Function;
 
-public class AsyncLazyEnumerator<T, TResult> implements Iterator<TResult> {
+public class AsyncLazyEnumerable<T, TResult> implements Iterable<CompletableFuture<TResult>> {
     private Function<ExitToken<T>, CompletableFuture<TResult>> iterator;
     private ExitToken<T> token;
     private ExitType type = ExitType.WHILE;
     private List<CompletableFuture<TResult>> cache;
     
-    public AsyncLazyEnumerator(Function<ExitToken<T>, CompletableFuture<TResult>> func, ExitToken<T> token) {
+    public AsyncLazyEnumerable(Function<ExitToken<T>, CompletableFuture<TResult>> func, ExitToken<T> token) {
         this.iterator = func;
         this.token = token;
     }
     
-    public AsyncLazyEnumerator(Function<ExitToken<T>, CompletableFuture<TResult>> func, ExitToken<T> token, ExitType type) {
+    public AsyncLazyEnumerable(Function<ExitToken<T>, CompletableFuture<TResult>> func, ExitToken<T> token, ExitType type) {
         this.iterator = func;
         this.token = token;
         this.type = type;
@@ -82,15 +83,26 @@ public class AsyncLazyEnumerator<T, TResult> implements Iterator<TResult> {
     }
 
     @Override
-    public boolean hasNext() {
-        
-        throw new UnsupportedOperationException("Unimplemented method 'hasNext'");
+    public Iterator<CompletableFuture<TResult>> iterator() {
+        return new AsyncLazyEnumerator();
     }
 
-    @Override
-    public TResult next() {
-        
-        throw new UnsupportedOperationException("Unimplemented method 'next'");
+    public class AsyncLazyEnumerator implements Iterator<CompletableFuture<TResult>> {
+
+        public AsyncLazyEnumerator() {}
+
+        @Override
+        public boolean hasNext() {
+            return token.getNext()!=null;
+        }
+
+        @Override
+        public CompletableFuture<TResult> next() {
+            moveNextAsync();
+
+            return current();
+        }
+
     }
 }
 
