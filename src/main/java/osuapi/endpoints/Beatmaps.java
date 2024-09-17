@@ -23,7 +23,7 @@ public final class Beatmaps {
 
 	private OsuApiClient client; 
 
-	protected Beatmaps(OsuApiClient client) {
+	public Beatmaps(OsuApiClient client) {
 		this.client = client;
 	}
 	

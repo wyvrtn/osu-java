@@ -4,6 +4,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 import osuapi.enums.DescriptionEnum;
 
@@ -41,5 +43,28 @@ public final class ClientUtil {
 			return ((DescriptionEnum<?>) descriptableEnum).getDescription();
 		}
 		return descriptableEnum.toString();
+	}
+	
+	public static void await(CompletableFuture<Void> runnable) {
+		try {
+			runnable.get();
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static <T> T awaitTask(CompletableFuture<T> task) {
+		try {
+			return task.get();
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

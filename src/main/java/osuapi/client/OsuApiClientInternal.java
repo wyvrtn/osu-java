@@ -21,11 +21,11 @@ public final class OsuApiClientInternal {
 	private static final String AUTH = "/oauth/token";
 
 	private RestTemplate restTemplate;
-	private String token;
+	private ApiAuth apiAuthorization;
 
 	protected OsuApiClientInternal(RequestBundle bundle, ApiAuth apiAuth) {
 		this.restTemplate = bundle.getApiRestTemplate();
-		this.token = apiAuth.getAccessToken();
+		this.apiAuthorization = apiAuth;
 	}
 
 	protected AccessTokenResponse requestNewToken(String authBody) {
@@ -43,7 +43,7 @@ public final class OsuApiClientInternal {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 		headers.setContentType(MediaType.APPLICATION_JSON);
-		headers.add("Authorization", "Bearer " + token);
+		headers.add("Authorization", "Bearer " + apiAuthorization.getAccessToken());
 		HttpEntity<String> requestEntity = new HttpEntity<>(headers);
 		LOG.debug("osu-api side request url: {}", url);
 		LOG.debug("Http request method: {}", method);

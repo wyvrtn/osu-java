@@ -10,7 +10,7 @@ import lombok.Getter;
 public class RequestProperties {
 	private static final Logger LOG = LoggerFactory.getLogger(RequestProperties.class);
 	@Getter
-	private static final String gateway = "https://osu.ppy.sh";
+	private static final String GATEWAY = "https://osu.ppy.sh";
 	private int readTimeout;
 	private int connectTimeout;
 	

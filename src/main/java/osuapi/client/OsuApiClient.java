@@ -17,62 +17,62 @@ import org.springframework.http.ResponseEntity;
 import osuapi.client.resources.ApiAuth;
 import osuapi.client.resources.ClientUtil;
 import osuapi.client.resources.OsuApiException;
+import osuapi.client.resources.RequestBundle;
 import osuapi.endpoints.EndpointManager;
 import osuapi.models.AccessTokenResponse;
 
 public final class OsuApiClient {
 	private static final Logger LOG = LoggerFactory.getLogger(OsuApiClient.class);
 	public final EndpointManager endpoints;
-	private ApiAuth authorization; 
+	private final ApiAuth authorization; 
 	private OsuApiClientInternal svc;
 	
 	public OsuApiClient(int clientId, String clientSecret) {
 		this(Integer.toString(clientId), clientSecret);
 	}
 	
-	private OsuApiClient(String clientId, String clientSecret) {
+	public OsuApiClient(int clientId, String clientSecret, RequestBundle bundle) {
+		this(Integer.toString(clientId), clientSecret, bundle);
+	}
+	
+	private OsuApiClient(String clientId, String clientSecret, RequestBundle... bundle) {
 		endpoints = EndpointManager.createInstance(this);
-		authorization = ApiAuth.createInstance();
-		authorization.update(clientId, clientSecret);
+		authorization = ApiAuth.createInstance(clientId, clientSecret);
+		svc = new OsuApiClientInternal(bundle.length==0? new RequestBundle() : bundle[0], authorization);
 	}
 
 	public synchronized void ensureAccessToken() {
-		CompletableFuture.runAsync(() -> {
-			LOG.info("Ensuring Valid Access Token");
-			if (authorization.getExpirationDate().isAfter(OffsetDateTime.now())) {
-				return;
+		LOG.info("Ensuring Valid Access Token");
+		if (authorization.getExpirationDate().isAfter(OffsetDateTime.now())) {
+			return;
+		}
+		CompletableFuture<String> authBody = encodeFormUrl(authorization.getAuthorizationBody());
+		try {
+			// Request a new access token and parses the JSON in the response into a response object.
+			AccessTokenResponse apResponse = ClientUtil.exceptCoalesce(
+					svc.requestNewToken(authBody.get()),
+					new OsuApiException("An error occured while requesting a new access token. (response is null)"));
+			// Validate the parsed JSON object.
+			if (apResponse.getAccessToken()==null || apResponse.getExpiresIn()==0) {
+				// Error fields are most likely specified
+	        	throw new OsuApiException("An error occured while requesting a "
+	        		+ "new access token: " + apResponse.getErrorDescription() 
+	        		+ " (" + apResponse.getErrorCode() + ").");
 			}
-			CompletableFuture<String> authBody = encodeFormUrl(authorization.getAuthorizationBody());
-			CompletableFuture.runAsync(()-> {
-				try {
-					// Request a new access token and parses the JSON in the response into a response object.
-					AccessTokenResponse apResponse = ClientUtil.exceptCoalesce(
-							svc.requestNewToken(authBody.get()),
-							new OsuApiException("An error occured while requesting a new access token. (response is null)"));
-					// Validate the parsed JSON object.
-					if (apResponse.getAccessToken()==null || apResponse.getExpiresIn()==0) {
-						// Error fields are most likely specified
-			        	throw new OsuApiException("An error occured while requesting a "
-			        		+ "new access token: " + apResponse.getErrorDescription() 
-			        		+ " (" + apResponse.getErrorCode() + ").");
-					}
-					// Updates the expiration date.
-					authorization.setAccessToken(apResponse.getAccessToken());
-					authorization.setExpirationDate(OffsetDateTime.now(ZoneId.systemDefault())
-						.plusSeconds(apResponse.getExpiresIn() - 30L /** Leniency */));
-					LOG.info(authorization.getAccessToken());
-				} catch (InterruptedException interrupt) {
-					Thread.currentThread().interrupt();
-				} catch (Exception e) {
-					try {
-						throw new OsuApiException("An error occured while requesting a new access token.", e);
-					} catch (OsuApiException oae) {
-						oae.printStackTrace();
-					}
-				}
-			});
-		});
-		
+			// Updates the expiration date.
+			authorization.setAccessToken(apResponse.getAccessToken());
+			authorization.setExpirationDate(OffsetDateTime.now(ZoneId.systemDefault())
+				.plusSeconds(apResponse.getExpiresIn() - 30L /** Leniency */));
+			LOG.info(authorization.getAccessToken());
+		} catch (InterruptedException interrupt) {
+			Thread.currentThread().interrupt();
+		} catch (Exception e) {
+			try {
+				throw new OsuApiException("An error occured while requesting a new access token.", e);
+			} catch (OsuApiException oae) {
+				oae.printStackTrace();
+			}
+		}
 	}
 	
 	public <T> CompletableFuture<T> getJsonAsync(String url, T target, HttpMethod... methods) {
