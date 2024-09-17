@@ -13,21 +13,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import osuapi.endpoints.Beatmaps;
+import osuapi.client.OsuApiClient;
 import osuapi.models.beatmaps.Beatmap;
 
 @RestController
 @RequestMapping("/v2")
-public class OsuApiController {
+public class TestController {
 	private static final Logger LOG = LoggerFactory.getLogger(TestController.class);
 	
 	@Autowired
-	private Beatmaps beatmapsEndpoint;
+	private OsuApiClient client;
 	
 	@GetMapping("/beatmaps/{id}")
 	public ResponseEntity<Beatmap> findBeatmapById(@PathVariable("id") int id) {
 		LOG.debug("Find beatmap by id {}", id);
-		Future<Beatmap> future = beatmapsEndpoint.lookupBeatmapId(Integer.toString(id));
+		Future<Beatmap> future = client.endpoints.lookupBeatmapId(Integer.toString(id));
 		Beatmap out = new Beatmap();
 		try {
 			out = future.get();

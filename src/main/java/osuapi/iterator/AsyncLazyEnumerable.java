@@ -2,8 +2,8 @@ package osuapi.iterator;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.lang.Iterable;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Function;
@@ -89,9 +89,9 @@ public class AsyncLazyEnumerable<T, TResult> implements Iterable<CompletableFutu
 
     public class AsyncLazyEnumerator implements Iterator<CompletableFuture<TResult>> {
 
-        private final AsyncLazyEnumerable instance;
+        private final AsyncLazyEnumerable<T, TResult> instance;
 
-        public AsyncLazyEnumerator(AsyncLazyEnumerable instance) {
+        public AsyncLazyEnumerator(AsyncLazyEnumerable<T, TResult> instance) {
             this.instance = instance;
         }
 
@@ -102,6 +102,9 @@ public class AsyncLazyEnumerable<T, TResult> implements Iterable<CompletableFutu
 
         @Override
         public CompletableFuture<TResult> next() {
+        	if (!hasNext()) {
+        		throw new NoSuchElementException();
+        	}
             instance.moveNextAsync();
             return instance.current();
         }
