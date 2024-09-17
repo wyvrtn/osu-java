@@ -84,23 +84,26 @@ public class AsyncLazyEnumerable<T, TResult> implements Iterable<CompletableFutu
 
     @Override
     public Iterator<CompletableFuture<TResult>> iterator() {
-        return new AsyncLazyEnumerator();
+        return new AsyncLazyEnumerator(this);
     }
 
     public class AsyncLazyEnumerator implements Iterator<CompletableFuture<TResult>> {
 
-        public AsyncLazyEnumerator() {}
+        private final AsyncLazyEnumerable instance;
+
+        public AsyncLazyEnumerator(AsyncLazyEnumerable instance) {
+            this.instance = instance;
+        }
 
         @Override
         public boolean hasNext() {
-            return token.getNext()!=null;
+            return instance.token.getNext()!=null;
         }
 
         @Override
         public CompletableFuture<TResult> next() {
-            moveNextAsync();
-
-            return current();
+            instance.moveNextAsync();
+            return instance.current();
         }
 
     }
