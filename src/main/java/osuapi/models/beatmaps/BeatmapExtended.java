@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class BeatmapExtended {
+public class BeatmapExtended extends Beatmap {
 	
 	@JsonProperty("accuracy")
 	private float overallDifficulty;
@@ -63,5 +63,5 @@ public class BeatmapExtended {
 	/**
 	 * Optional
 	 */
-	private BeatmapSetExtended set;
+	private BeatmapSetExtended setExtended;
 }

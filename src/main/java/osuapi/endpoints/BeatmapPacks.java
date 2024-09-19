@@ -7,6 +7,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
 import osuapi.client.OsuApiClient;
+import osuapi.client.resources.ClientUtil;
 import osuapi.enums.BeatmapPackType;
 import osuapi.iterator.AsyncLazyEnumerable;
 import osuapi.iterator.ExitToken;
@@ -21,6 +22,10 @@ public final class BeatmapPacks {
 	protected BeatmapPacks(OsuApiClient client) {
 		this.client = client;
 	}
+
+	public AsyncLazyEnumerable<String, BeatmapPack[]> getBeatmapPacks() {
+		return getBeatmapPacks(null);
+	}
 	
 	public AsyncLazyEnumerable<String, BeatmapPack[]> getBeatmapPacks(final BeatmapPackType type) {
 		String url = "/beatmaps/packs";
@@ -29,7 +34,7 @@ public final class BeatmapPacks {
 			CompletableFuture.supplyAsync(() -> {
 				BeatmapPackExtended packs = new BeatmapPackExtended();
 				Map<String, Object> params = new HashMap<>();
-				params.put("type", type==null? "Standard" : type.toString());
+				params.put("type", ClientUtil.nullishCoalesce(type, BeatmapPackType.STANDARD).toString());
 				params.put("cursor_string", token.getToken());
 				packs = client.getJson(url 
 						+ client.buildQueryString(params), new BeatmapPackExtended());
@@ -40,8 +45,12 @@ public final class BeatmapPacks {
 	}
 	
 	public CompletableFuture<BeatmapPack> getBeatmapPack(String tag) {
+		return getBeatmapPack(tag, false);
+	}
+
+	public CompletableFuture<BeatmapPack> getBeatmapPack(String tag, boolean legacyOnly) {
 		return CompletableFuture.supplyAsync(() -> 
-			client.getJson("/beatmaps/packs/"+tag, new BeatmapPack())
+			client.getJson("/beatmaps/packs/"+ tag + "?" + (legacyOnly? 1:0), new BeatmapPack())
 		);
 	}
 }

@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class BeatmapSetExtended {
+public class BeatmapSetExtended extends BeatmapSet {
 	
 	@JsonProperty("bpm")
 	private float bpm;

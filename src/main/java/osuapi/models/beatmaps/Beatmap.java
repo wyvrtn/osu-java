@@ -51,10 +51,10 @@ public class Beatmap {
 	private BeatmapSet set;
 	
 	@JsonProperty("checksum")
-	private String checkSum;
+	private String checksum;
 	
 	@JsonProperty("failtimes")
-	private Failtimes failTimes;
+	private Failtimes failtimes;
 	
 	@JsonProperty("max_combo")
 	private int maxCombo;

@@ -24,6 +24,9 @@ public class BeatmapPack {
 	
 	@JsonProperty("no_diff_reduction")
 	private boolean noDifficultyReduction;
+
+	@JsonProperty("ruleset_id")
+	private int rulesetId;
 	
 	@JsonProperty("tag")
 	private String tag;

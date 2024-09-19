@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class BeatmapPackExtended {
+public class BeatmapPackExtended extends BeatmapPack {
 	
 	@JsonProperty("beatmap_packs")
 	private BeatmapPack[] beatmapPacks;
