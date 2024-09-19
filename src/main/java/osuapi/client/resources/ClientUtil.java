@@ -3,13 +3,12 @@ package osuapi.client.resources;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import osuapi.enums.DescriptionEnum;
-
-import java.util.Map.Entry;
 
 public final class ClientUtil {
 	private ClientUtil() {
@@ -37,6 +36,14 @@ public final class ClientUtil {
 	public static <L, R> Object nullishCoalesce(L leftArg, R rightArg) {
 		return leftArg==null? rightArg : leftArg;
 	}
+
+	public static <T> T optDefault(T[] givenArgs, T defaultArg) {
+		if (givenArgs==null || givenArgs.length>1) {
+			throw new IllegalArgumentException("Optional Default Argument Must be Non-Null and Singular");
+		} else if (givenArgs.length==0) {
+			return defaultArg;
+		} else return givenArgs[0];
+	} 
 	
 	public static String getDescription(Enum<?> descriptableEnum) {
 		if (descriptableEnum instanceof DescriptionEnum) {
@@ -45,7 +52,7 @@ public final class ClientUtil {
 		return descriptableEnum.toString();
 	}
 	
-	public static void await(CompletableFuture<Void> runnable) {
+	public static void awaitRunnable(CompletableFuture<Void> runnable) {
 		try {
 			runnable.get();
 		} catch (InterruptedException e) {

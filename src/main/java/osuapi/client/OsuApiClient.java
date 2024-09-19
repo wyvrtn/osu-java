@@ -83,7 +83,7 @@ public final class OsuApiClient {
 	public <T> T getJson(String url, T target, HttpMethod... methods) {
 		ensureAccessToken();
 		T response = null;
-		HttpMethod method = methods.length==0? HttpMethod.GET : methods[0];
+		HttpMethod method = ClientUtil.optDefault(methods, HttpMethod.GET);
 		ResponseEntity<T> entity = (ResponseEntity<T>) svc.genericGetJson(url, target.getClass(), method);
 		if (entity.getStatusCode()!=HttpStatus.OK) {
 			try {
