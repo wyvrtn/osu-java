@@ -38,5 +38,9 @@ public final class EndpointManager {
 	public static EndpointManager createInstance(OsuApiClient client) {
 		return new EndpointManager(client);
 	}
-	
+
+	@Override
+	public String toString() {
+		return "EndpointManager [client=" + client + "]";
+	}
 }

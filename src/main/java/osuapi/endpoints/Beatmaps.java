@@ -16,10 +16,12 @@ import osuapi.enums.Ruleset;
 import osuapi.models.beatmaps.Beatmap;
 import osuapi.models.beatmaps.BeatmapExtended;
 import osuapi.models.beatmaps.DifficultyAttributes;
+import osuapi.models.scores.BeatmapScores;
 import osuapi.models.scores.Score;
 import osuapi.models.scores.UserBeatmapScore;
 
 public final class Beatmaps {
+	private static final String BEATMAPS_BASE = "/beatmaps/";
 
 	private OsuApiClient client; 
 
@@ -46,7 +48,7 @@ public final class Beatmaps {
 	
 	private CompletableFuture<Beatmap> lookupBeatmapInternal(String query) {
 		return CompletableFuture.supplyAsync(() -> 
-			client.getJson("/beatmaps/lookup?" + query, new Beatmap())
+			client.getJson(BEATMAPS_BASE+"lookup?" + query, new Beatmap())
 		);
 	}
 	
@@ -55,33 +57,46 @@ public final class Beatmaps {
 		params.put("mode", ruleset);
 		params.put("mods", mods);
 		return CompletableFuture.supplyAsync(() -> 
-			client.getJson("/beatmaps/"+beatmapId+"/scores/users/"
-				+userId+client.buildQueryString(params), new UserBeatmapScore())
+			client.getJson(BEATMAPS_BASE+beatmapId+"/scores/users/"
+				+userId, params, new UserBeatmapScore())
 		);
 	}
 	
 	public CompletableFuture<Score[]> getUserBeatmapScores(int beatmapId, int userId, Ruleset ruleset) {
 		Map<String, Object> params = new HashMap<>();
-		params.put("mode", ruleset);
+		params.put("ruleset", ruleset);
 		return CompletableFuture.supplyAsync(() -> 
-			 client.getJson("/beatmaps/"+beatmapId+"/scores/users/"
-				+userId+"/all"+client.buildQueryString(params), new Score[Integer.MAX_VALUE])
+			 client.getJson(BEATMAPS_BASE+beatmapId+"/scores/users/"
+				+userId+"/all", params, new Score[Integer.MAX_VALUE])
 		);
 	}
 	
-	public List<CompletableFuture<BeatmapExtended>> getBeatmaps(int[] ids) {
-		return Arrays.stream(ids.length>50? Arrays.copyOf(ids, 50) : ids).boxed().map(this::getBeatmap).collect(Collectors.toList());
+	public CompletableFuture<BeatmapScores> getBeatmapScores(int beatmapId, Ruleset ruleset, String mods) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("mode", ruleset);
+		params.put("mods", mods);
+		return CompletableFuture.supplyAsync(() -> 
+			client.getJson(BEATMAPS_BASE+beatmapId+"/scores", params, new BeatmapScores())
+		);
+	}
+	
+	public CompletableFuture<BeatmapExtended[]> getBeatmaps(int[] ids) {
+		Map<String, Object> params = new HashMap<>();
+		for (int id : ids) params.put("ids[]", id);
+		return CompletableFuture.supplyAsync(() -> 
+		client.getJson("/beatmaps", params, new BeatmapExtended[50])
+				);
 	}
 	
 	public CompletableFuture<BeatmapExtended> getBeatmap(int id) {
 		return CompletableFuture.supplyAsync(() -> 
-			client.getJson("/beatmaps/"+id, new BeatmapExtended())
+			client.getJson(BEATMAPS_BASE+id, new BeatmapExtended())
 		);
 	}
 	
 	public CompletableFuture<DifficultyAttributes> getDifficultyAttributes(int id) {
 		return CompletableFuture.supplyAsync(() -> 
-			client.getJson("/beatmaps/"+id+"/attributes", new DifficultyAttributes(), HttpMethod.POST)
+			client.getJson(BEATMAPS_BASE+id+"/attributes", new DifficultyAttributes(), HttpMethod.POST)
 		);
 	}
 }

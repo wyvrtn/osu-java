@@ -79,6 +79,14 @@ public final class OsuApiClient {
 		return CompletableFuture.supplyAsync(() -> getJson(url, target, methods));
 	}
 	
+	public <T> CompletableFuture<T> getJsonAsync(String url, Map<String, Object> queryParams, T target, HttpMethod... methods) {
+		return CompletableFuture.supplyAsync(() -> getJson(url, queryParams, target, methods));
+	}
+	
+	public <T> T getJson(String url, Map<String, Object> queryParams, T target, HttpMethod... methods) {
+		return getJson(url+buildQueryString(queryParams), target, methods);
+	}
+	
 	@SuppressWarnings("unchecked")
 	public <T> T getJson(String url, T target, HttpMethod... methods) {
 		ensureAccessToken();

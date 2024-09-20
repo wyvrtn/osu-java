@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import osuapi.client.OsuApiClient;
-import osuapi.endpoints.Beatmaps;
 import osuapi.models.beatmaps.Beatmap;
 
 @RestController
@@ -28,8 +27,7 @@ public class TestController {
 	@GetMapping("/beatmaps/{id}")
 	public ResponseEntity<Beatmap> findBeatmapById(@PathVariable("id") int id) {
 		LOG.debug("Find beatmap by id {}", id);
-		Beatmaps beatmapsEndpoint = new Beatmaps(client);
-		Future<Beatmap> future = beatmapsEndpoint.lookupBeatmapId(Integer.toString(id));
+		Future<Beatmap> future = client.endpoints.lookupBeatmapId(Integer.toString(id));
 		Beatmap out = new Beatmap();
 		try {
 			out = future.get();
