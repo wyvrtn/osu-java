@@ -7,6 +7,7 @@ import osuapi.models.beatmaps.BeatmapSetExtended;
 
 //API docs: https://osu.ppy.sh/docs/index.html#beatmapsets
 public final class BeatmapSets {
+	private static final String BASE = "/beatmapsets/";
 	
 	private OsuApiClient client;
 
@@ -24,15 +25,13 @@ public final class BeatmapSets {
 	/// <returns>The beatmapset or null, if the beatmapset was not found.</returns>
 	public CompletableFuture<BeatmapSetExtended> lookupBeatmapSet(int beatmapId) {
 		return CompletableFuture.supplyAsync(() -> 
-			client.getJson("/beatmapsets/lookup?beatmap_id="+beatmapId,
-				new BeatmapSetExtended())
+			client.getJson(BASE+"lookup?beatmap_id="+beatmapId, new BeatmapSetExtended())
 		);
 	}
 	
 	public CompletableFuture<BeatmapSetExtended> getBeatmapSet(int beatmapSetId) {
 		return CompletableFuture.supplyAsync(() -> 
-			client.getJson("/beatmapsets/"+beatmapSetId,
-				new BeatmapSetExtended())
+			client.getJson(BASE+beatmapSetId, new BeatmapSetExtended())
 		);
 	}
 }

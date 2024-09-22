@@ -2,12 +2,9 @@ package osuapi.endpoints;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
 
 import org.springframework.http.HttpMethod;
 
@@ -21,7 +18,7 @@ import osuapi.models.scores.Score;
 import osuapi.models.scores.UserBeatmapScore;
 
 public final class Beatmaps {
-	private static final String BEATMAPS_BASE = "/beatmaps/";
+	private static final String BASE = "/beatmaps/";
 
 	private OsuApiClient client; 
 
@@ -48,7 +45,7 @@ public final class Beatmaps {
 	
 	private CompletableFuture<Beatmap> lookupBeatmapInternal(String query) {
 		return CompletableFuture.supplyAsync(() -> 
-			client.getJson(BEATMAPS_BASE+"lookup?" + query, new Beatmap())
+			client.getJson(BASE+"lookup?" + query, new Beatmap())
 		);
 	}
 	
@@ -57,7 +54,7 @@ public final class Beatmaps {
 		params.put("mode", ruleset);
 		params.put("mods", mods);
 		return CompletableFuture.supplyAsync(() -> 
-			client.getJson(BEATMAPS_BASE+beatmapId+"/scores/users/"
+			client.getJson(BASE+beatmapId+"/scores/users/"
 				+userId, params, new UserBeatmapScore())
 		);
 	}
@@ -66,7 +63,7 @@ public final class Beatmaps {
 		Map<String, Object> params = new HashMap<>();
 		params.put("ruleset", ruleset);
 		return CompletableFuture.supplyAsync(() -> 
-			 client.getJson(BEATMAPS_BASE+beatmapId+"/scores/users/"
+			 client.getJson(BASE+beatmapId+"/scores/users/"
 				+userId+"/all", params, new Score[Integer.MAX_VALUE])
 		);
 	}
@@ -76,7 +73,7 @@ public final class Beatmaps {
 		params.put("mode", ruleset);
 		params.put("mods", mods);
 		return CompletableFuture.supplyAsync(() -> 
-			client.getJson(BEATMAPS_BASE+beatmapId+"/scores", params, new BeatmapScores())
+			client.getJson(BASE+beatmapId+"/scores", params, new BeatmapScores())
 		);
 	}
 	
@@ -84,19 +81,19 @@ public final class Beatmaps {
 		Map<String, Object> params = new HashMap<>();
 		for (int id : ids) params.put("ids[]", id);
 		return CompletableFuture.supplyAsync(() -> 
-		client.getJson("/beatmaps", params, new BeatmapExtended[50])
-				);
+			client.getJson("/beatmaps", params, new BeatmapExtended[50])
+		);
 	}
 	
 	public CompletableFuture<BeatmapExtended> getBeatmap(int id) {
 		return CompletableFuture.supplyAsync(() -> 
-			client.getJson(BEATMAPS_BASE+id, new BeatmapExtended())
+			client.getJson(BASE+id, new BeatmapExtended())
 		);
 	}
 	
 	public CompletableFuture<DifficultyAttributes> getDifficultyAttributes(int id) {
 		return CompletableFuture.supplyAsync(() -> 
-			client.getJson(BEATMAPS_BASE+id+"/attributes", new DifficultyAttributes(), HttpMethod.POST)
+			client.getJson(BASE+id+"/attributes", new DifficultyAttributes(), HttpMethod.POST)
 		);
 	}
 }

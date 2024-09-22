@@ -16,6 +16,7 @@ import osuapi.models.beatmaps.BeatmapPackExtended;
 
 // API docs: https://osu.ppy.sh/docs/index.html#beatmap-packs
 public final class BeatmapPacks {
+	private static final String BASE = "/beatmaps/";
 	
 	private OsuApiClient client;
 
@@ -28,7 +29,6 @@ public final class BeatmapPacks {
 	}
 	
 	public AsyncLazyEnumerable<String, BeatmapPack[]> getBeatmapPacks(final BeatmapPackType type) {
-		String url = "/beatmaps/packs";
 		ExitToken<String> token = new ExitToken<>("", Objects::nonNull);
 		Function<ExitToken<String>, CompletableFuture<BeatmapPack[]>> func = t -> 
 			CompletableFuture.supplyAsync(() -> {
@@ -36,8 +36,7 @@ public final class BeatmapPacks {
 				Map<String, Object> params = new HashMap<>();
 				params.put("type", ClientUtil.nullishCoalesce(type, BeatmapPackType.STANDARD).toString());
 				params.put("cursor_string", token.getToken());
-				packs = client.getJson(url 
-						+ client.buildQueryString(params), new BeatmapPackExtended());
+				packs = client.getJson(BASE + "packs", params, new BeatmapPackExtended());
 				token.setNext(packs.getCursorString());
 				return packs.getBeatmapPacks();
 			});
@@ -50,7 +49,7 @@ public final class BeatmapPacks {
 
 	public CompletableFuture<BeatmapPack> getBeatmapPack(String tag, boolean legacyOnly) {
 		return CompletableFuture.supplyAsync(() -> 
-			client.getJson("/beatmaps/packs/"+ tag + "?" + (legacyOnly? 1:0), new BeatmapPack())
+			client.getJson(BASE + "packs/"+ tag + "?" + (legacyOnly? 1:0), new BeatmapPack())
 		);
 	}
 }

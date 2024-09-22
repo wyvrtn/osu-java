@@ -9,6 +9,7 @@ import osuapi.models.changelogs.Build;
 import osuapi.models.changelogs.ChangelogListing;
 
 public final class Changelogs {
+	private static final String BASE = "/changelog/";
 	
 	private OsuApiClient client;
 
@@ -18,7 +19,7 @@ public final class Changelogs {
 	
 	public CompletableFuture<Build> getBuild(String stream, String build) {
 		return CompletableFuture.supplyAsync(() -> 
-			client.getJson("/changelog/"+stream+"/"+build, new Build())
+			client.getJson(BASE+stream+"/"+build, new Build())
 		);
 	}
 	
@@ -29,19 +30,19 @@ public final class Changelogs {
 		params.put("to", toBuild);
 		params.put("max_id", maxBuildId);
 		return CompletableFuture.supplyAsync(() -> 
-			client.getJson("/changelog"+client.buildQueryString(params), new ChangelogListing())
+			client.getJson("/changelog", params, new ChangelogListing())
 		);
 	}
 	
 	public CompletableFuture<Build> lookupBuildId(int buildId) {
 		return CompletableFuture.supplyAsync(() -> 
-			client.getJson("/changelog/"+buildId+"?key=id", new Build())
+			client.getJson(BASE+buildId+"?key=id", new Build())
 		);
 	}
 	
 	public CompletableFuture<Build> lookupLatestBuild(String stream) {
 		return CompletableFuture.supplyAsync(() -> 
-				client.getJson("/changelog/"+stream, new Build())
+				client.getJson(BASE+stream, new Build())
 		);
 	}
 }
