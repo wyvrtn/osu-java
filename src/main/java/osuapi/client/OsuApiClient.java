@@ -4,7 +4,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
-import java.time.ZoneId;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
@@ -14,64 +13,34 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import osuapi.client.resources.ApiAuth;
 import osuapi.client.resources.ClientUtil;
 import osuapi.client.resources.OsuApiException;
 import osuapi.client.resources.RequestBundle;
 import osuapi.endpoints.EndpointManager;
-import osuapi.models.AccessTokenResponse;
 
 public final class OsuApiClient {
 	private static final Logger LOG = LoggerFactory.getLogger(OsuApiClient.class);
 	public final EndpointManager endpoints;
-	private final ApiAuth authorization; 
-	private OsuApiClientInternal svc;
+	private final ApiAuthorizationInternal authorization; 
+	protected final OsuApiClientInternal svc;
 	
-	public OsuApiClient(int clientId, String clientSecret) {
-		this(Integer.toString(clientId), clientSecret);
+	public OsuApiClient(ClientCredentialsGrant grant) {
+		this(grant, new RequestBundle());
+		
 	}
 	
-	public OsuApiClient(int clientId, String clientSecret, RequestBundle bundle) {
-		this(Integer.toString(clientId), clientSecret, bundle);
-	}
-	
-	private OsuApiClient(String clientId, String clientSecret, RequestBundle... bundle) {
+	public OsuApiClient(ClientCredentialsGrant grant, RequestBundle bundle) {
 		endpoints = EndpointManager.createInstance(this);
-		authorization = ApiAuth.createInstance(clientId, clientSecret);
-		svc = new OsuApiClientInternal(bundle.length==0? new RequestBundle() : bundle[0], authorization);
+		authorization = grant;
+		svc = new OsuApiClientInternal(bundle, authorization);
 	}
-
+	
 	public synchronized void ensureAccessToken() {
-		LOG.info("Ensuring Valid Access Token");
 		if (authorization.getExpirationDate().isAfter(OffsetDateTime.now())) {
 			return;
 		}
-		CompletableFuture<String> authBody = encodeFormUrl(authorization.getAuthorizationBody());
-		try {
-			// Request a new access token and parses the JSON in the response into a response object.
-			AccessTokenResponse apResponse = ClientUtil.exceptCoalesce(
-					svc.requestNewToken(authBody.get()),
-					new OsuApiException("An error occured while requesting a new access token. (response is null)"));
-			// Validate the parsed JSON object.
-			if (apResponse.getAccessToken()==null || apResponse.getExpiresIn()==0) {
-				// Error fields are most likely specified
-	        	throw new OsuApiException("An error occured while requesting a "
-	        		+ "new access token: " + apResponse.getErrorDescription() 
-	        		+ " (" + apResponse.getErrorCode() + ").");
-			}
-			// Updates the expiration date.
-			authorization.setAccessToken(apResponse.getAccessToken());
-			authorization.setExpirationDate(OffsetDateTime.now(ZoneId.systemDefault())
-				.plusSeconds(apResponse.getExpiresIn() - 30L /** Leniency */));
-			LOG.info(authorization.getAccessToken());
-		} catch (InterruptedException interrupt) {
-			Thread.currentThread().interrupt();
-		} catch (Exception e) {
-			try {
-				throw new OsuApiException("An error occured while requesting a new access token.", e);
-			} catch (OsuApiException oae) {
-				oae.printStackTrace();
-			}
+		if (authorization instanceof ClientCredentialsGrant) {
+			((ClientCredentialsGrant) authorization).authorizationFlow(svc);
 		}
 	}
 	
@@ -105,7 +74,7 @@ public final class OsuApiClient {
 		return response;
 	}
 	
-	private CompletableFuture<String> encodeFormUrl(Map<String, String> params) {
+	protected CompletableFuture<String> encodeFormUrl(Map<String, String> params) {
 		return CompletableFuture.supplyAsync(() -> {
 				String result = "";
 				try {

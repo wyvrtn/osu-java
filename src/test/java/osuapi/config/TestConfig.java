@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import osuapi.client.ClientCredentialsGrant;
 import osuapi.client.OsuApiClient;
 
 @Configuration
@@ -11,6 +12,7 @@ import osuapi.client.OsuApiClient;
 public class TestConfig {
 	@Bean
 	public OsuApiClient osuApiClient() {
-		return new OsuApiClient(1, "secret");
+		ClientCredentialsGrant grant = new ClientCredentialsGrant(1, "secret");
+		return new OsuApiClient(grant);
 	}
 }

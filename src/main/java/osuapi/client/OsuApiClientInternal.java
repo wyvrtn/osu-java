@@ -11,9 +11,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import osuapi.client.resources.ApiAuth;
 import osuapi.client.resources.RequestBundle;
-import osuapi.models.AccessTokenResponse;
+import osuapi.models.authentication.ClientCredentialsResponse;
 
 public final class OsuApiClientInternal {
     private static final Logger LOG = LoggerFactory.getLogger(OsuApiClientInternal.class);
@@ -21,21 +20,21 @@ public final class OsuApiClientInternal {
 	private static final String AUTH = "/oauth/token";
 
 	private RestTemplate restTemplate;
-	private ApiAuth apiAuthorization;
+	private ApiAuthorizationInternal authorization;
 
-	protected OsuApiClientInternal(RequestBundle bundle, ApiAuth apiAuth) {
+	protected OsuApiClientInternal(RequestBundle bundle, ApiAuthorizationInternal auth) {
 		this.restTemplate = bundle.getApiRestTemplate();
-		this.apiAuthorization = apiAuth;
+		this.authorization = auth;
 	}
 
-	protected AccessTokenResponse requestNewToken(String authBody) {
+	protected ClientCredentialsResponse requestNewToken(String authBody) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 		HttpEntity<String> requestEntity = new HttpEntity<>(authBody, headers);
 		LOG.debug("Request Entity: {}", headers);
-		ResponseEntity<AccessTokenResponse> response = restTemplate.exchange(
-				AUTH, HttpMethod.POST, requestEntity, AccessTokenResponse.class);
+		ResponseEntity<ClientCredentialsResponse> response = restTemplate.exchange(
+				AUTH, HttpMethod.POST, requestEntity, ClientCredentialsResponse.class);
 		return response.getBody();
 	}
 
@@ -43,7 +42,7 @@ public final class OsuApiClientInternal {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 		headers.setContentType(MediaType.APPLICATION_JSON);
-		headers.add("Authorization", "Bearer " + apiAuthorization.getAccessToken());
+		headers.add("Authorization", "Bearer " + authorization.getAccessToken());
 		HttpEntity<String> requestEntity = new HttpEntity<>(headers);
 		LOG.debug("osu-api side request url: {}", url);
 		LOG.debug("Http request method: {}", method);

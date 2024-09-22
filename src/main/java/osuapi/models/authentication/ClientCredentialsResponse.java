@@ -1,4 +1,4 @@
-package osuapi.models;
+package osuapi.models.authentication;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class AccessTokenResponse {
+public class ClientCredentialsResponse {
 	
 	@JsonProperty("access_token")
 	private String accessToken;
