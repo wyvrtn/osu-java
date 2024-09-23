@@ -15,6 +15,7 @@ public class AuthorizationCodeGrant extends ApiAuthorizationInternal {
     private String clientId;
     private String clientSecret;
     private String redirectUri;
+	private String queuedKey;
 
     protected AuthorizationCodeGrant(String clientId, String clientSecret, String redirectUri, String state, String... scopes) {
         super(AuthorizationCodeGrant.class);
