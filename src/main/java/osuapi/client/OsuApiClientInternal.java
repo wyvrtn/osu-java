@@ -12,12 +12,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import osuapi.client.resources.RequestBundle;
+import osuapi.models.authentication.AuthorizationCodeResponse;
 import osuapi.models.authentication.ClientCredentialsResponse;
 
 public final class OsuApiClientInternal {
     private static final Logger LOG = LoggerFactory.getLogger(OsuApiClientInternal.class);
 	private static final String ROOT = "/api/v2";
-	private static final String AUTH = "/oauth/token";
+	private static final String REQTOKEN = "/oauth/token";
+	private static final String AUTH = "/oauth/authorize";
 
 	private RestTemplate restTemplate;
 	private ApiAuthorizationInternal authorization;
@@ -27,6 +29,14 @@ public final class OsuApiClientInternal {
 		this.authorization = auth;
 	}
 
+	protected void requestAuthorization(String authBody, String redirectUri) {
+		restTemplate.exchange(AUTH + authBody, HttpMethod.GET, null, Void.class);
+	}
+
+	protected AuthorizationCodeResponse exchangeCode(String authBody) {
+		return null;
+	}
+
 	protected ClientCredentialsResponse requestNewToken(String authBody) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
@@ -34,7 +44,7 @@ public final class OsuApiClientInternal {
 		HttpEntity<String> requestEntity = new HttpEntity<>(authBody, headers);
 		LOG.debug("Request Entity: {}", headers);
 		ResponseEntity<ClientCredentialsResponse> response = restTemplate.exchange(
-				AUTH, HttpMethod.POST, requestEntity, ClientCredentialsResponse.class);
+				REQTOKEN, HttpMethod.POST, requestEntity, ClientCredentialsResponse.class);
 		return response.getBody();
 	}
 

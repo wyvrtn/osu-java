@@ -25,7 +25,7 @@ public final class ClientCredentialsGrant extends ApiAuthorizationInternal {
 	}
 	
 	protected synchronized void authorizationFlow(OsuApiClientInternal svc) {
-		CompletableFuture<String> authBody = encodeFormUrl(authorizationBody);
+		CompletableFuture<String> authBody = super.encodeFormUrl(authorizationBody);
 		try {
 			// Request a new access token and parses the JSON in the response into a response object.
 			ClientCredentialsResponse apResponse = ClientUtil.exceptCoalesce(
@@ -57,5 +57,9 @@ public final class ClientCredentialsGrant extends ApiAuthorizationInternal {
 		authorizationBody.put("client_secret", args[1]);
 		authorizationBody.put("grant_type", "client_credentials");
 		authorizationBody.put("scope", "public");
+	}
+
+	public void update(int clientId, String clientSecret) {
+		this.update(Integer.toString(clientId), clientSecret);
 	}
 }
