@@ -15,13 +15,14 @@ public class AuthorizationCodeGrant extends ApiAuthorizationInternal {
     private String clientId;
     private String clientSecret;
     private String redirectUri;
-	private String queuedKey;
+	private AuthorizationCodeKey queuedKey;
 
     protected AuthorizationCodeGrant(String clientId, String clientSecret, String redirectUri, String state, String... scopes) {
         super(AuthorizationCodeGrant.class);
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.redirectUri = redirectUri;
+		this.queuedKey = new AuthorizationCodeKey(this);
         authorizationBody.put("client_id", this.clientId);
 		authorizationBody.put("redirect_uri", this.redirectUri);
 		authorizationBody.put("response_type", "code");
@@ -34,7 +35,7 @@ public class AuthorizationCodeGrant extends ApiAuthorizationInternal {
     @Override
     protected void authorizationFlow(OsuApiClientInternal svc) {
         CompletableFuture<String> authBody = super.encodeFormUrl(authorizationBody);
-        		try {
+        try {
 			// Request a new access token and parses the JSON in the response into a response object.
 			ClientCredentialsResponse apResponse = ClientUtil.exceptCoalesce(
 				svc.requestNewToken(authBody.get()),
@@ -58,18 +59,4 @@ public class AuthorizationCodeGrant extends ApiAuthorizationInternal {
 		}
     }
 
-    @Override
-    protected synchronized void update(String... args) {
-        if (args.length!=3 || args.length!=4) return;
-        authorizationBody.clear();
-        authorizationBody.put("client_id", args[0]);
-		authorizationBody.put("redirect_uri", args[1]);
-		authorizationBody.put("response_type", "code");
-		authorizationBody.put("scope", args.length==4? args[3] : "");
-        authorizationBody.put("state", args[2]);
-    }
-
-    public void update(int clientId, String redirectUri, String state, String... scopes) {
-        this.update(Integer.toString(clientId), redirectUri, state, String.join(" ", scopes));
-    }
 }

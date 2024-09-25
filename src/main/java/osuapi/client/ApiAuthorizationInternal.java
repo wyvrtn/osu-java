@@ -44,8 +44,6 @@ abstract class ApiAuthorizationInternal {
 	
 	protected abstract void authorizationFlow(OsuApiClientInternal svc);
 	
-	protected abstract void update(String... args);
-	
 	@Override
 	public String toString() {
 		return "ApiAuthorization [accessToken=" + accessToken + ", expirationDate=" + expirationDate + "]";

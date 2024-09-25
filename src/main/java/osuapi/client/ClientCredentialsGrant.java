@@ -49,17 +49,4 @@ public final class ClientCredentialsGrant extends ApiAuthorizationInternal {
 			e.printStackTrace();
 		}
 	}
-
-	@Override
-	protected synchronized void update(String... args) {
-		authorizationBody.clear();
-		authorizationBody.put("client_id", args[0]);
-		authorizationBody.put("client_secret", args[1]);
-		authorizationBody.put("grant_type", "client_credentials");
-		authorizationBody.put("scope", "public");
-	}
-
-	public void update(int clientId, String clientSecret) {
-		this.update(Integer.toString(clientId), clientSecret);
-	}
 }

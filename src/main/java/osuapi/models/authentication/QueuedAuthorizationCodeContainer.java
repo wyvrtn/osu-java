@@ -4,14 +4,16 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 
+import osuapi.client.AuthorizationCodeKey;;
+
 @NoArgsConstructor
 public class QueuedAuthorizationCodeContainer {
-    private @Getter String key;
+    private @Getter AuthorizationCodeKey key;
 
     private @Getter @Setter String code;
     private @Getter @Setter String state = "";
 
-    public QueuedAuthorizationCodeContainer(String key) {
+    public QueuedAuthorizationCodeContainer(AuthorizationCodeKey key) {
         this.key = key;
     }
 
