@@ -42,6 +42,9 @@ public final class OsuApiClient {
 		if (authorization instanceof ClientCredentialsGrant) {
 			((ClientCredentialsGrant) authorization).authorizationFlow(svc);
 		}
+		if (authorization instanceof AuthorizationCodeGrant) {
+			((AuthorizationCodeGrant) authorization).authorizationFlow(svc);
+		}
 	}
 	
 	public <T> CompletableFuture<T> getJsonAsync(String url, T target, HttpMethod... methods) {
@@ -59,33 +62,13 @@ public final class OsuApiClient {
 	@SuppressWarnings("unchecked")
 	public <T> T getJson(String url, T target, HttpMethod... methods) {
 		ensureAccessToken();
-		T response = null;
 		HttpMethod method = ClientUtil.optDefault(methods, HttpMethod.GET);
 		ResponseEntity<T> entity = (ResponseEntity<T>) svc.genericGetJson(url, target.getClass(), method);
 		if (entity.getStatusCode()!=HttpStatus.OK) {
-			try {
-				throw new OsuApiException("Request Did Not Receive HTTP Status Code 200");
-			} catch (OsuApiException e) {
-				e.printStackTrace();
-			}
-		} else {
-			response = entity.getBody();
+			throw new OsuApiException("Request Did Not Receive HTTP Status Code 200");
 		}
-		return response;
-	}
-	
-	protected CompletableFuture<String> encodeFormUrl(Map<String, String> params) {
-		return CompletableFuture.supplyAsync(() -> {
-				String result = "";
-				try {
-					result = ClientUtil.toFormUrl(params);
-				} catch (UnsupportedEncodingException e) {
-					LOG.error("Thread: {}, Authorization Body in {} is invalid",
-							Thread.currentThread().getName(), this);
-					e.printStackTrace();
-				}
-				return result;
-		});
+		LOG.info("Request Successful");
+		return entity.getBody();
 	}
 	
 	public String buildQueryString(Map<String, Object> params) {
