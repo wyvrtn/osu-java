@@ -1,14 +1,14 @@
 package osuapi.models.authentication;
 
 import lombok.Getter;
-import lombok.Setter;
 import lombok.NoArgsConstructor;
-
+import lombok.Setter;
 import osuapi.client.AuthorizationCodeKey;;
 
 @NoArgsConstructor
 public class QueuedAuthorizationCodeContainer {
     private @Getter AuthorizationCodeKey key;
+    private @Getter ContainerStatus status;
 
     private @Getter @Setter String code;
     private @Getter @Setter String state = "";
@@ -27,7 +27,8 @@ public class QueuedAuthorizationCodeContainer {
         long timer = 0L;
         while (timer<timeout) {
             if (code!=null) {
-                return ContainerStatus.SUCCESS;
+                status = ContainerStatus.SUCCESS;
+                return status;
             }
             try {
                 Thread.sleep(interval);
@@ -37,11 +38,12 @@ public class QueuedAuthorizationCodeContainer {
             }
             timer++;
         }
-        return ContainerStatus.FAILED;
+        status = ContainerStatus.FAILED;
+        return status;
     }
 
     public enum ContainerStatus {
         SUCCESS,
-        FAILED
+        FAILED;
     }
 }

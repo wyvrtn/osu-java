@@ -34,7 +34,14 @@ public final class OsuApiClientInternal {
 	}
 
 	protected AuthorizationCodeResponse exchangeCode(String authBody) {
-		return null;
+		HttpHeaders headers = new HttpHeaders();
+		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+		HttpEntity<String> requestEntity = new HttpEntity<>(authBody, headers);
+		LOG.debug("Request Entity: {}", headers);
+		ResponseEntity<AuthorizationCodeResponse> response = restTemplate.exchange(
+				REQTOKEN, HttpMethod.POST, requestEntity, AuthorizationCodeResponse.class);
+		return response.getBody();
 	}
 
 	protected ClientCredentialsResponse requestNewToken(String authBody) {

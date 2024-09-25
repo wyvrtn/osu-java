@@ -43,6 +43,8 @@ abstract class ApiAuthorizationInternal {
 	}
 	
 	protected abstract void authorizationFlow(OsuApiClientInternal svc);
+
+	protected abstract void refreshAccessToken(OsuApiClientInternal svc);
 	
 	@Override
 	public String toString() {

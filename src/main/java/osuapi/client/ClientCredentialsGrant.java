@@ -49,4 +49,8 @@ public final class ClientCredentialsGrant extends ApiAuthorizationInternal {
 			e.printStackTrace();
 		}
 	}
+
+	protected void refreshAccessToken(OsuApiClientInternal svc) {
+		authorizationFlow(svc);
+	}
 }
