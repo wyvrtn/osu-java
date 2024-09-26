@@ -2,48 +2,42 @@ package osuapi.client;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import lombok.Getter;
 import osuapi.client.resources.ClientUtil;
 import osuapi.client.resources.OsuApiException;
+import osuapi.models.authentication.AuthorizationCodeFields;
 import osuapi.models.authentication.AuthorizationCodeResponse;
+import osuapi.models.authentication.AuthorizationCodeStage;
 import osuapi.models.authentication.QueuedAuthorizationCodeContainer;
 import osuapi.models.authentication.QueuedAuthorizationCodeContainer.ContainerStatus;;
 
 @Getter
 public class AuthorizationCodeGrant extends ApiAuthorizationInternal {
 
-    private String clientId;
-    private String clientSecret;
-    private String redirectUri;
+	private AuthorizationCodeFields fields;
 	private AuthorizationCodeKey queuedKey;
-
-	private String refreshToken;
-
-	private Map<String, String> tokenBody = new HashMap<>();
+	private AuthorizationCodeStage stage = AuthorizationCodeStage.REQUEST_AUTHORIZATION;
 
 	public AuthorizationCodeGrant(int clientId, String clientSecret, String redirectUri) {
 		this(clientId, clientSecret, redirectUri, "");
 	}
 
 	public AuthorizationCodeGrant(int clientId, String clientSecret, String redirectUri, String state) {
-		this (clientId, clientSecret, redirectUri, state, new String[1]);
+		this(clientId, clientSecret, redirectUri, state, new String[1]);
 	}
 
     public AuthorizationCodeGrant(int clientId, String clientSecret, String redirectUri, String state, String[] scopes) {
         super(AuthorizationCodeGrant.class);
-        this.clientId = Integer.toString(clientId);
-        this.clientSecret = clientSecret;
-        this.redirectUri = redirectUri;
+		this.fields = new AuthorizationCodeFields();
+        this.fields.setClientId(Integer.toString(clientId));
+        this.fields.setClientSecret(clientSecret);
+        this.fields.setRedirectUri(redirectUri);
+		this.fields.setState(state);
+		this.fields.setScopes(scopes);
 		this.queuedKey = new AuthorizationCodeKey(this);
-        authorizationBody.put("client_id", this.clientId);
-		authorizationBody.put("redirect_uri", this.redirectUri);
-		authorizationBody.put("response_type", "code");
-		authorizationBody.put("scope", String.join(" ", scopes));
-        authorizationBody.put("state", state);
+        this.authorizationStageOne();
 		LOG.info("New Instance of {} created in Thread {}", 
 				this.getClass().getName(), Thread.currentThread().getName());
     }
@@ -54,12 +48,13 @@ public class AuthorizationCodeGrant extends ApiAuthorizationInternal {
 		AuthorizationCodeQueue.queueContainer(queuedKey);
 		QueuedAuthorizationCodeContainer queuedContainer = AuthorizationCodeQueue.lookupQueuedContainer(queuedKey);
         try {
-			svc.requestAuthorization(authBody.get(), this.redirectUri);
+			svc.requestAuthorization(authBody.get(), fields.getRedirectUri());
 			CompletableFuture<ContainerStatus> status = CompletableFuture.supplyAsync(() ->
 				queuedContainer.awaitResponse(1000, 30)
 			);
 			if (status.get().equals(ContainerStatus.SUCCESS)) {
-				setExchangeCodeBody(queuedContainer.getCode());
+				stage = AuthorizationCodeStage.EXCHANGE_CODE;
+				authorizationStageTwo();
 				retrieveToken(svc);
 			} else return;
 		} catch (InterruptedException e) {
@@ -71,7 +66,7 @@ public class AuthorizationCodeGrant extends ApiAuthorizationInternal {
     }
 
 	private void retrieveToken(OsuApiClientInternal svc) {
-		CompletableFuture<String> authBody = super.encodeFormUrl(tokenBody);
+		CompletableFuture<String> authBody = super.encodeFormUrl(authorizationBody);
 		try {
 			AuthorizationCodeResponse acResponse = ClientUtil.exceptCoalesce(
 				svc.exchangeCode(authBody.get()),
@@ -85,7 +80,7 @@ public class AuthorizationCodeGrant extends ApiAuthorizationInternal {
 			setAccessToken(acResponse.getAccessToken());
 			setExpirationDate(OffsetDateTime.now(ZoneId.systemDefault())
 				.plusSeconds(acResponse.getExpiresIn() - 30L /** Leniency */));
-			this.refreshToken = acResponse.getRefreshToken();
+			fields.setRefreshToken(acResponse.getRefreshToken());
 			LOG.info(getAccessToken());
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
@@ -96,22 +91,34 @@ public class AuthorizationCodeGrant extends ApiAuthorizationInternal {
 	}
 
 	protected void refreshAccessToken(OsuApiClientInternal svc) {
-		setRefreshTokenBody();
+		stage = AuthorizationCodeStage.REFRESH_TOKEN;
+		authorizationStageThree();
 		retrieveToken(svc);
 	}
 
-	private void setExchangeCodeBody(String code) {
-		tokenBody.put("client_id", this.clientId);
-		tokenBody.put("client_secret", this.clientSecret);
-		tokenBody.put("code", code);
-		tokenBody.put("grant_type", "authorization_code");
-        tokenBody.put("redirect_uri", this.redirectUri);
+	private void authorizationStageOne() {
+		authorizationBody.clear();
+		authorizationBody.put("client_id", this.fields.getClientId());
+		authorizationBody.put("redirect_uri", this.fields.getRedirectUri());
+		authorizationBody.put("response_type", "code");
+		authorizationBody.put("scope", String.join(" ", this.fields.getScopes()));
+        authorizationBody.put("state", this.fields.getState());
 	}
 
-	private void setRefreshTokenBody() {
-		tokenBody.put("client_id", this.clientId);
-		tokenBody.put("client_secret", this.clientSecret);
-		tokenBody.put("grant_type", "refresh_token");
-		tokenBody.put("refresh_token", this.refreshToken);
+	private void authorizationStageTwo() {
+		authorizationBody.clear();
+		authorizationBody.put("client_id", fields.getClientId());
+		authorizationBody.put("client_secret", fields.getClientSecret());
+		authorizationBody.put("code", fields.getCode());
+		authorizationBody.put("grant_type", "authorization_code");
+        authorizationBody.put("redirect_uri", fields.getRedirectUri());
+	}
+
+	private void authorizationStageThree() {
+		authorizationBody.clear();
+		authorizationBody.put("client_id", fields.getClientId());
+		authorizationBody.put("client_secret", fields.getClientSecret());
+		authorizationBody.put("grant_type", "refresh_token");
+		authorizationBody.put("refresh_token", fields.getRefreshToken());
 	}
 }
