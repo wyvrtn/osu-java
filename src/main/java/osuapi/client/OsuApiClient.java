@@ -21,12 +21,12 @@ public final class OsuApiClient {
 	private final ApiAuthorizationInternal authorization; 
 	protected final OsuApiClientInternal svc;
 	
-	public OsuApiClient(ClientCredentialsGrant grant) {
+	public OsuApiClient(ApiAuthorizationInternal grant) {
 		this(grant, new RequestBundle());
 		
 	}
 	
-	public OsuApiClient(ClientCredentialsGrant grant, RequestBundle bundle) {
+	public OsuApiClient(ApiAuthorizationInternal grant, RequestBundle bundle) {
 		endpoints = EndpointManager.createInstance(this);
 		authorization = grant;
 		svc = new OsuApiClientInternal(bundle, authorization);
@@ -36,12 +36,7 @@ public final class OsuApiClient {
 		if (authorization.getExpirationDate().isAfter(OffsetDateTime.now())) {
 			return;
 		}
-		if (authorization instanceof ClientCredentialsGrant) {
-			((ClientCredentialsGrant) authorization).authorizationFlow(svc);
-		}
-		if (authorization instanceof AuthorizationCodeGrant) {
-			((AuthorizationCodeGrant) authorization).authorizationFlow(svc);
-		}
+		authorization.authorizationFlow(svc);
 	}
 	
 	public <T> CompletableFuture<T> getJsonAsync(String url, T target, HttpMethod... methods) {
