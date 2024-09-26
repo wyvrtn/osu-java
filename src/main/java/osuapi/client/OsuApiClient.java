@@ -1,8 +1,5 @@
 package osuapi.client;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -56,7 +53,7 @@ public final class OsuApiClient {
 	}
 	
 	public <T> T getJson(String url, Map<String, Object> queryParams, T target, HttpMethod... methods) {
-		return getJson(url+buildQueryString(queryParams), target, methods);
+		return getJson(url + ClientUtil.buildQueryString(queryParams), target, methods);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -69,31 +66,5 @@ public final class OsuApiClient {
 		}
 		LOG.info("Request Successful");
 		return entity.getBody();
-	}
-	
-	public String buildQueryString(Map<String, Object> params) {
-		StringBuilder out = new StringBuilder("");
-		params.entrySet().stream().filter(entry -> entry.getValue()!=null).forEach(entry -> {
-			out.append(String.format("&%s=", encode(entry.getKey())));
-			final Object value = entry.getValue();
-			if (value instanceof Enum) {
-				out.append(ClientUtil.getDescription((Enum<?>) value));
-			} else if (value instanceof LocalDateTime) {
-				out.append(((LocalDateTime) value).toString());
-			} else {
-				out.append(encode(value.toString()));
-			}
-		});
-		out.deleteCharAt(0);
-		return new String(out);
-	}
-	
-	private static String encode(String str) {
-		try {
-			return URLEncoder.encode(str, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		return " ";
 	}
 }

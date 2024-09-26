@@ -43,8 +43,7 @@ public final class Comments {
 				params.put("parent_id", parentId);
 				params.put("sort", sort);
 				CommentBundle bundle = new CommentBundle();
-				bundle = client.getJson("/comments"
-							+client.buildQueryString(params), new CommentBundle());
+				bundle = client.getJson("/comments", params, new CommentBundle());
 				if (bundle==null) {
 			        try {
 						throw new OsuApiException("An error occured while requesting the comment bundle. (bundle is null)");

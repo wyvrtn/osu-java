@@ -2,6 +2,7 @@ package osuapi.client.resources;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
@@ -27,6 +28,23 @@ public final class ClientUtil {
 	        result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
 	    }    
 	    return result.toString();
+	}
+
+	public static String buildQueryString(Map<String, Object> params) {
+		StringBuilder out = new StringBuilder("");
+		params.entrySet().stream().filter(entry -> entry.getValue()!=null).forEach(entry -> {
+			out.append(String.format("&%s=", encode(entry.getKey())));
+			final Object value = entry.getValue();
+			if (value instanceof Enum) {
+				out.append(ClientUtil.getDescription((Enum<?>) value));
+			} else if (value instanceof LocalDateTime) {
+				out.append(((LocalDateTime) value).toString());
+			} else {
+				out.append(encode(value.toString()));
+			}
+		});
+		out.deleteCharAt(0);
+		return new String(out);
 	}
 	
 	public static <I, X extends Throwable> I exceptCoalesce(I input, X except) throws X {
@@ -73,5 +91,14 @@ public final class ClientUtil {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	private static String encode(String str) {
+		try {
+			return URLEncoder.encode(str, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return " ";
 	}
 }
