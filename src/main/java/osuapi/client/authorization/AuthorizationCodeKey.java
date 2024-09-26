@@ -1,6 +1,7 @@
-package osuapi.client;
+package osuapi.client.authorization;
 
 import lombok.Getter;
+import osuapi.client.AuthorizationCodeGrant;
 
 public class AuthorizationCodeKey {
     private @Getter String queueKey;

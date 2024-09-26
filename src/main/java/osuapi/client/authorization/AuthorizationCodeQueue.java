@@ -1,4 +1,4 @@
-package osuapi.client;
+package osuapi.client.authorization;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -5,6 +5,8 @@ import java.time.ZoneId;
 import java.util.concurrent.CompletableFuture;
 
 import lombok.Getter;
+import osuapi.client.authorization.AuthorizationCodeKey;
+import osuapi.client.authorization.AuthorizationCodeQueue;
 import osuapi.client.resources.ClientUtil;
 import osuapi.client.resources.OsuApiException;
 import osuapi.models.authentication.AuthorizationCodeFields;

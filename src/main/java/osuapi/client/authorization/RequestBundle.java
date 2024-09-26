@@ -1,4 +1,4 @@
-package osuapi.client.resources;
+package osuapi.client.authorization;
 
 import java.time.Duration;
 

@@ -3,7 +3,7 @@ package osuapi.models.authentication;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import osuapi.client.AuthorizationCodeKey;;
+import osuapi.client.authorization.AuthorizationCodeKey;;
 
 @NoArgsConstructor
 public class QueuedAuthorizationCodeContainer {
