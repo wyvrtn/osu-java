@@ -22,9 +22,9 @@ public final class OsuApiClientInternal {
 	private static final String AUTH = "/oauth/authorize";
 
 	private RestTemplate restTemplate;
-	private ApiAuthorizationInternal authorization;
+	private AbstractApiAuthorization authorization;
 
-	protected OsuApiClientInternal(RequestBundle bundle, ApiAuthorizationInternal auth) {
+	protected OsuApiClientInternal(RequestBundle bundle, AbstractApiAuthorization auth) {
 		this.restTemplate = bundle.getApiRestTemplate();
 		this.authorization = auth;
 	}

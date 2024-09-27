@@ -16,7 +16,7 @@ import osuapi.client.resources.ClientUtil;
 
 @Getter
 @Setter(AccessLevel.PROTECTED)
-abstract class ApiAuthorizationInternal {
+public abstract class AbstractApiAuthorization {
 	protected final Logger LOG;
 	
 	protected final Map<String, String> authorizationBody = new HashMap<>();
@@ -24,7 +24,7 @@ abstract class ApiAuthorizationInternal {
 	private String accessToken = "";
 	private OffsetDateTime expirationDate = OffsetDateTime.MIN;
 	
-	protected ApiAuthorizationInternal(Class<? extends ApiAuthorizationInternal> inheritingClass) {
+	protected AbstractApiAuthorization(Class<? extends AbstractApiAuthorization> inheritingClass) {
 		LOG = LoggerFactory.getLogger(inheritingClass);
 	}
 	

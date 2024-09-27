@@ -16,7 +16,7 @@ import osuapi.models.authentication.QueuedAuthorizationCodeContainer;
 import osuapi.models.authentication.QueuedAuthorizationCodeContainer.ContainerStatus;;
 
 @Getter
-public class AuthorizationCodeGrant extends ApiAuthorizationInternal {
+public class AuthorizationCodeGrant extends AbstractApiAuthorization {
 
 	private AuthorizationCodeFields fields;
 	private AuthorizationCodeKey queuedKey;

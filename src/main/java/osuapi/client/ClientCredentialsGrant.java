@@ -8,7 +8,7 @@ import osuapi.client.resources.ClientUtil;
 import osuapi.client.resources.OsuApiException;
 import osuapi.models.authentication.ClientCredentialsResponse;
 
-public final class ClientCredentialsGrant extends ApiAuthorizationInternal {
+public final class ClientCredentialsGrant extends AbstractApiAuthorization {
 	
 	public ClientCredentialsGrant(int clientId, String clientSecret) {
 		this(Integer.toString(clientId), clientSecret);
