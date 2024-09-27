@@ -19,7 +19,7 @@ public final class Changelogs {
 	
 	public CompletableFuture<Build> getBuild(String stream, String build) {
 		return CompletableFuture.supplyAsync(() -> 
-			client.getJson(BASE+stream+"/"+build, new Build())
+			client.getJson(BASE+stream+"/"+build)
 		);
 	}
 	
@@ -30,19 +30,19 @@ public final class Changelogs {
 		params.put("to", toBuild);
 		params.put("max_id", maxBuildId);
 		return CompletableFuture.supplyAsync(() -> 
-			client.getJson("/changelog", params, new ChangelogListing())
+			client.getJson("/changelog", params)
 		);
 	}
 	
 	public CompletableFuture<Build> lookupBuildId(int buildId) {
 		return CompletableFuture.supplyAsync(() -> 
-			client.getJson(BASE+buildId+"?key=id", new Build())
+			client.getJson(BASE+buildId+"?key=id")
 		);
 	}
 	
 	public CompletableFuture<Build> lookupLatestBuild(String stream) {
 		return CompletableFuture.supplyAsync(() -> 
-				client.getJson(BASE+stream, new Build())
+				client.getJson(BASE+stream)
 		);
 	}
 }

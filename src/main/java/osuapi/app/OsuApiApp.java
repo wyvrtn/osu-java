@@ -9,5 +9,4 @@ public class OsuApiApp {
 		OsuApiClient client = new OsuApiClient(grant);
 		System.out.println(client);
 	}
-	
 }

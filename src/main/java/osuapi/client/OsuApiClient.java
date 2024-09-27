@@ -36,26 +36,30 @@ public final class OsuApiClient {
 		if (authorization.getExpirationDate().isAfter(OffsetDateTime.now())) {
 			return;
 		}
-		authorization.authorizationFlow(svc);
+		if (!authorization.isStatus()) {
+			authorization.authorizationFlow(svc);
+		} else {
+			authorization.refreshAccessToken(svc);
+		}
 	}
 	
-	public <T> CompletableFuture<T> getJsonAsync(String url, T target, HttpMethod... methods) {
-		return CompletableFuture.supplyAsync(() -> getJson(url, target, methods));
+	public <T> CompletableFuture<T> getJsonAsync(String url, HttpMethod... methods) {
+		return CompletableFuture.supplyAsync(() -> getJson(url, methods));
 	}
 	
-	public <T> CompletableFuture<T> getJsonAsync(String url, Map<String, Object> queryParams, T target, HttpMethod... methods) {
-		return CompletableFuture.supplyAsync(() -> getJson(url, queryParams, target, methods));
+	public <T> CompletableFuture<T> getJsonAsync(String url, Map<String, Object> queryParams, HttpMethod... methods) {
+		return CompletableFuture.supplyAsync(() -> getJson(url, queryParams, methods));
 	}
 	
-	public <T> T getJson(String url, Map<String, Object> queryParams, T target, HttpMethod... methods) {
-		return getJson(url + ClientUtil.buildQueryString(queryParams), target, methods);
+	public <T> T getJson(String url, Map<String, Object> queryParams, HttpMethod... methods) {
+		return getJson(url + ClientUtil.buildQueryString(queryParams), methods);
 	}
 	
 	@SuppressWarnings("unchecked")
-	public <T> T getJson(String url, T target, HttpMethod... methods) {
+	public <T> T getJson(String url, HttpMethod... methods) {
 		ensureAccessToken();
 		HttpMethod method = ClientUtil.optDefault(methods, HttpMethod.GET);
-		ResponseEntity<T> entity = (ResponseEntity<T>) svc.genericGetJson(url, target.getClass(), method);
+		ResponseEntity<T> entity = (ResponseEntity<T>) svc.genericGetJson(url, method);
 		if (entity.getStatusCode()!=HttpStatus.OK) {
 			throw new OsuApiException("Request Did Not Receive HTTP Status Code 200");
 		}
