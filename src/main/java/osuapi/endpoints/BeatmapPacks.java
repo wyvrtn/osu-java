@@ -36,7 +36,7 @@ public final class BeatmapPacks {
 				Map<String, Object> params = new HashMap<>();
 				params.put("type", ClientUtil.nullishCoalesce(type, BeatmapPackType.STANDARD).toString());
 				params.put("cursor_string", token.getToken());
-				packs = client.getJson(BASE + "packs", params, new BeatmapPackExtended());
+				packs = client.getJson(BASE + "packs", params);
 				token.setNext(packs.getCursorString());
 				return packs.getBeatmapPacks();
 			});
@@ -49,7 +49,7 @@ public final class BeatmapPacks {
 
 	public CompletableFuture<BeatmapPack> getBeatmapPack(String tag, boolean legacyOnly) {
 		return CompletableFuture.supplyAsync(() -> 
-			client.getJson(BASE + "packs/"+ tag + "?" + (legacyOnly? 1:0), new BeatmapPack())
+			client.getJson(BASE + "packs/"+ tag + "?" + (legacyOnly? 1:0))
 		);
 	}
 }

@@ -25,7 +25,7 @@ public final class Comments {
 	
 	public CompletableFuture<CommentBundle> getComment(int commentId) {
 		return CompletableFuture.supplyAsync(() -> 
-			client.getJson("/comments/"+commentId, new CommentBundle())
+			client.getJson("/comments/"+commentId)
 		);
 	}
 	
@@ -43,7 +43,7 @@ public final class Comments {
 				params.put("parent_id", parentId);
 				params.put("sort", sort);
 				CommentBundle bundle = new CommentBundle();
-				bundle = client.getJson("/comments", params, new CommentBundle());
+				bundle = client.getJson("/comments", params);
 				if (bundle==null) {
 			        try {
 						throw new OsuApiException("An error occured while requesting the comment bundle. (bundle is null)");

@@ -36,6 +36,7 @@ public class AuthorizationCodeGrant extends AbstractApiAuthorization {
 			.plusSeconds(acResponse.getExpiresIn() - 30L /** Leniency */));
 		refreshToken = acResponse.getRefreshToken();
 		LOG.info(getAccessToken());
+		setStatus(true);
     }
 
 	protected void refreshAccessToken(OsuApiClientInternal svc) {

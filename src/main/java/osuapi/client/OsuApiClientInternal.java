@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -45,18 +46,18 @@ public final class OsuApiClientInternal {
 		return Objects.requireNonNull(response.getBody(), "An error occured while exchanging code for an access token. (response is null)");
 	}
 
-	protected ApiAuthorizationResponse requestNewToken(String authBody) {
+	protected <T extends ApiAuthorizationResponse> T requestNewToken(String authBody) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 		HttpEntity<String> requestEntity = new HttpEntity<>(authBody, headers);
 		LOG.debug("Request Entity: {}", headers);
-		ResponseEntity<ApiAuthorizationResponse> response = restTemplate.exchange(
-				REQTOKEN, HttpMethod.POST, requestEntity, ApiAuthorizationResponse.class);
+		ResponseEntity<T> response = restTemplate.exchange(
+				REQTOKEN, HttpMethod.POST, requestEntity, new ParameterizedTypeReference<T>(){});
 		return Objects.requireNonNull(response.getBody(), "An error occured while requesting a new access token. (response is null)");
 	}
 
-	protected <T> ResponseEntity<? extends Object> genericGetJson(String url, Class<T> target, HttpMethod method) {
+	protected <T> ResponseEntity<T> genericGetJson(String url, HttpMethod method) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 		headers.setContentType(MediaType.APPLICATION_JSON);
@@ -65,7 +66,6 @@ public final class OsuApiClientInternal {
 		LOG.debug("osu-api side request url: {}", url);
 		LOG.debug("Http request method: {}", method);
 		LOG.debug("Request Entity: {}", headers);
-		LOG.debug("Response Class: {}" , target.getSimpleName());
-		return restTemplate.exchange(ROOT + url, method, requestEntity, target);
+		return restTemplate.exchange(ROOT + url, method, requestEntity, new ParameterizedTypeReference<T>(){});
 	}
 }

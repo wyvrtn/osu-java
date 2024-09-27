@@ -22,6 +22,7 @@ public abstract class AbstractApiAuthorization {
 	
 	private String accessToken = "";
 	private OffsetDateTime expirationDate = OffsetDateTime.MIN;
+	private boolean status = false;
 	
 	protected AbstractApiAuthorization(Class<? extends AbstractApiAuthorization> inheritingClass) {
 		LOG = LoggerFactory.getLogger(inheritingClass);

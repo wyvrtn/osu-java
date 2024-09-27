@@ -65,7 +65,7 @@ public final class ClientUtil {
 	
 	public static boolean anyNull(Object... args) {
 		for (Object obj : args) if (obj==null) return false;
-		return false;
+		return true;
 	}
 	
 	public static String getDescription(Enum<?> descriptableEnum) {

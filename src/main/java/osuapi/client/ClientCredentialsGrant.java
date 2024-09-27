@@ -17,6 +17,7 @@ public final class ClientCredentialsGrant extends AbstractApiAuthorization {
 		authorizationBody.put("client_secret", clientSecret);
 		authorizationBody.put("grant_type", "client_credentials");
 		authorizationBody.put("scope", "public");
+		setStatus(true);
 		LOG.info("New Instance of {} created in Thread {}", 
 				this.getClass().getName(), Thread.currentThread().getName());
 	}

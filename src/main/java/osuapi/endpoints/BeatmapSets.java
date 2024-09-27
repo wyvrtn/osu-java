@@ -25,13 +25,13 @@ public final class BeatmapSets {
 	/// <returns>The beatmapset or null, if the beatmapset was not found.</returns>
 	public CompletableFuture<BeatmapSetExtended> lookupBeatmapSet(int beatmapId) {
 		return CompletableFuture.supplyAsync(() -> 
-			client.getJson(BASE+"lookup?beatmap_id="+beatmapId, new BeatmapSetExtended())
+			client.getJson(BASE+"lookup?beatmap_id="+beatmapId)
 		);
 	}
 	
 	public CompletableFuture<BeatmapSetExtended> getBeatmapSet(int beatmapSetId) {
 		return CompletableFuture.supplyAsync(() -> 
-			client.getJson(BASE+beatmapSetId, new BeatmapSetExtended())
+			client.getJson(BASE+beatmapSetId)
 		);
 	}
 }

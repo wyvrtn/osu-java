@@ -15,7 +15,7 @@ public final class Rankings {
 	
 	public CompletableFuture<User[]> getKudosuRanking(int page) {
 		return CompletableFuture.supplyAsync(() -> 
-			client.getJson("/rankings/kudosu?page"+page, new User[50])
+			client.getJson("/rankings/kudosu?page"+page)
 		);
 	}
 }
