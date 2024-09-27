@@ -1,6 +1,7 @@
 package osuapi.client;
 
 import java.util.Collections;
+import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,8 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import osuapi.client.authorization.RequestBundle;
-import osuapi.models.authentication.AuthorizationCodeResponse;
-import osuapi.models.authentication.ClientCredentialsResponse;
+import osuapi.models.authorization.ApiAuthorizationResponse;
+import osuapi.models.authorization.AuthorizationCodeResponse;
 
 public final class OsuApiClientInternal {
     private static final Logger LOG = LoggerFactory.getLogger(OsuApiClientInternal.class);
@@ -29,7 +30,7 @@ public final class OsuApiClientInternal {
 		this.authorization = auth;
 	}
 
-	protected void requestAuthorization(String authBody, String redirectUri) {
+	protected void requestAuthorization(String authBody) {
 		restTemplate.exchange(AUTH + authBody, HttpMethod.GET, null, Void.class);
 	}
 
@@ -41,18 +42,18 @@ public final class OsuApiClientInternal {
 		LOG.debug("Request Entity: {}", headers);
 		ResponseEntity<AuthorizationCodeResponse> response = restTemplate.exchange(
 				REQTOKEN, HttpMethod.POST, requestEntity, AuthorizationCodeResponse.class);
-		return response.getBody();
+		return Objects.requireNonNull(response.getBody(), "An error occured while exchanging code for an access token. (response is null)");
 	}
 
-	protected ClientCredentialsResponse requestNewToken(String authBody) {
+	protected ApiAuthorizationResponse requestNewToken(String authBody) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 		HttpEntity<String> requestEntity = new HttpEntity<>(authBody, headers);
 		LOG.debug("Request Entity: {}", headers);
-		ResponseEntity<ClientCredentialsResponse> response = restTemplate.exchange(
-				REQTOKEN, HttpMethod.POST, requestEntity, ClientCredentialsResponse.class);
-		return response.getBody();
+		ResponseEntity<ApiAuthorizationResponse> response = restTemplate.exchange(
+				REQTOKEN, HttpMethod.POST, requestEntity, ApiAuthorizationResponse.class);
+		return Objects.requireNonNull(response.getBody(), "An error occured while requesting a new access token. (response is null)");
 	}
 
 	protected <T> ResponseEntity<? extends Object> genericGetJson(String url, Class<T> target, HttpMethod method) {

@@ -4,7 +4,6 @@ import java.io.UnsupportedEncodingException;
 import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,18 +27,16 @@ public abstract class AbstractApiAuthorization {
 		LOG = LoggerFactory.getLogger(inheritingClass);
 	}
 	
-	protected CompletableFuture<String> encodeFormUrl(Map<String, String> params) {
-		return CompletableFuture.supplyAsync(() -> {
-				String result = "";
-				try {
-					result = ClientUtil.toFormUrl(params);
-				} catch (UnsupportedEncodingException e) {
-					LOG.error("Thread: {}, Authorization Body in {} is invalid",
-							Thread.currentThread().getName(), this);
-					e.printStackTrace();
-				}
-				return result;
-		});
+	protected String encodeFormUrl(Map<String, String> params) {
+		String result = "";
+		try {
+			result = ClientUtil.toFormUrl(params);
+		} catch (UnsupportedEncodingException e) {
+			LOG.error("Thread: {}, Authorization Body in {} is invalid",
+					Thread.currentThread().getName(), this);
+			e.printStackTrace();
+		}
+		return result;
 	}
 	
 	protected abstract void authorizationFlow(OsuApiClientInternal svc);

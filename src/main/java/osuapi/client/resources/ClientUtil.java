@@ -61,7 +61,12 @@ public final class ClientUtil {
 		} else if (givenArgs.length==0) {
 			return defaultArg;
 		} else return givenArgs[0];
-	} 
+	}
+	
+	public static boolean anyNull(Object... args) {
+		for (Object obj : args) if (obj==null) return false;
+		return false;
+	}
 	
 	public static String getDescription(Enum<?> descriptableEnum) {
 		if (descriptableEnum instanceof DescriptionEnum) {
