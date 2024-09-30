@@ -21,6 +21,9 @@ public final class EndpointManager {
 	
 	@Delegate
 	private Rankings rankingsDelegate;
+
+	@Delegate
+	private Users usersDelegate;
 	
 	@Delegate
 	private Wikis wikisDelegate;
@@ -32,6 +35,7 @@ public final class EndpointManager {
 		beatmapSetsDelegate = new BeatmapSets(this.client);
 		changelogsDelegate = new Changelogs(this.client);
 		rankingsDelegate = new Rankings(this.client);
+		usersDelegate = new Users(this.client);
 		wikisDelegate = new Wikis(this.client);
 	}
 	
