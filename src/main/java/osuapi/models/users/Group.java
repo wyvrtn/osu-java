@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import osuapi.enums.Ruleset;
-import osuapi.models.Text;
 
 @Getter
 @Setter
@@ -17,7 +16,7 @@ public class Group {
 	private String colour;
 	
 	@JsonProperty("description")
-	private Text description;
+	private GroupDescription description;
 	
 	@JsonProperty("has_listing")
 	private boolean hasListing;

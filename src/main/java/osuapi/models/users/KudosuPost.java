@@ -9,14 +9,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Country {
-	
-	@JsonProperty("code")
-	private String code;
-	
-	@JsonProperty("display")
-	private int display;
-	
-	@JsonProperty("name")
-	private String name;
+public class KudosuPost {
+    
+    @JsonProperty("url")
+    private String url;
+
+    @JsonProperty("title")
+    private String title;
 }

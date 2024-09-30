@@ -1,6 +1,6 @@
 package osuapi.enums;
 
-public interface DescriptionEnum<T> {
+public interface DescriptionEnum<E extends Enum<E>> {
 	public String getDescription();
-	public T getEnum(String input);
+	public E getEnum(String input);
 }
