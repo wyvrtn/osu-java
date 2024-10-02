@@ -1,9 +1,10 @@
-package osuapi.client;
+package osuapi.client.authorization;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 
 import lombok.Getter;
+import osuapi.client.AbstractApiAuthorization;
 import osuapi.models.authorization.AuthorizationCodeResponse;
 
 @Getter
@@ -27,7 +28,7 @@ public class AuthorizationCodeGrant extends AbstractApiAuthorization {
     }
 
     @Override
-    protected void authorizationFlow(OsuApiClientInternal svc) {
+    protected void authorizationFlow(AbstractOsuApiClientInternal svc) {
     	String authBody = super.encodeFormUrl(authorizationBody);
 		AuthorizationCodeResponse acResponse = svc.exchangeCode(authBody);
 		acResponse.validation();
@@ -39,7 +40,7 @@ public class AuthorizationCodeGrant extends AbstractApiAuthorization {
 		setStatus(true);
     }
 
-	protected void refreshAccessToken(OsuApiClientInternal svc) {
+	protected void refreshAccessToken(AbstractOsuApiClientInternal svc) {
 		authorizationBody.clear();
 		authorizationBody.put("client_id", clientId);
 		authorizationBody.put("client_secret", clientSecret);

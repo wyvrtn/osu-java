@@ -36,4 +36,19 @@ public class BeatmapPack {
 	
 	@JsonProperty("beatmapsets")
 	private BeatmapSetExtended[] beatmapSets;
+
+	@JsonProperty("user_completion_data")
+	private UserCompletionData data;
+
+	@Getter
+	@Setter
+	@NoArgsConstructor
+	public static class UserCompletionData {
+
+		@JsonProperty("user_completion_data.beatmapset_ids")
+		private int[] beatmapSetIds;
+
+		@JsonProperty("user_completion_data.completed")
+		private boolean completeted;
+	}
 }
