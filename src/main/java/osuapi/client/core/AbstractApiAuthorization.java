@@ -1,4 +1,4 @@
-package osuapi.client;
+package osuapi.client.core;
 
 import java.io.UnsupportedEncodingException;
 import java.time.OffsetDateTime;

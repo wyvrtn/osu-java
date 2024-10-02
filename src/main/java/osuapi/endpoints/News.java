@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
-import osuapi.client.OsuApiClient;
+import osuapi.client.core.OsuApiClient;
 import osuapi.iterator.AsyncLazyEnumerable;
 import osuapi.iterator.ExitToken;
 import osuapi.models.news.NewsBundle;

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-import osuapi.client.OsuApiClient;
+import osuapi.client.core.OsuApiClient;
 import osuapi.client.resources.ClientUtil;
 import osuapi.enums.BeatmapType;
 import osuapi.enums.Ruleset;
@@ -83,7 +83,7 @@ public final class Users {
 
 	public CompletableFuture<User[]> getUsers(int[] ids, boolean includeVariantStatistics) {
 		if (ids.length>50) {
-			throw new IndexOutOfBoundsException(ids.length);
+			throw new IndexOutOfBoundsException("Parameter 'ids' can only have an array length of 50 or less");
 		}
 		Map<String, Object> params = new HashMap<>();
 		params.put("include_variant_statistics", includeVariantStatistics);

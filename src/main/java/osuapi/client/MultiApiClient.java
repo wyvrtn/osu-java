@@ -7,6 +7,8 @@ import java.util.List;
 import lombok.Getter;
 import lombok.experimental.Delegate;
 import osuapi.client.authorization.RequestBundle;
+import osuapi.client.core.AbstractApiAuthorization;
+import osuapi.client.core.OsuApiClient;
 import osuapi.endpoints.EndpointManager;
 
 public final class MultiApiClient {
@@ -28,7 +30,7 @@ public final class MultiApiClient {
         authorizationInstances = Collections.synchronizedList(new ArrayList<>());
     }
 
-    public synchronized void switchInstance(int key) {
+    public void switchInstance(int key) {
         client.updateAuthorization(authorizationInstances.get(key));
     }
 }

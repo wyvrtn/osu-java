@@ -1,7 +1,7 @@
 package osuapi.app;
 
-import osuapi.client.OsuApiClient;
 import osuapi.client.authorization.ClientCredentialsGrant;
+import osuapi.client.core.OsuApiClient;
 
 public class OsuApiApp {
 	public static void main(String[] args) {

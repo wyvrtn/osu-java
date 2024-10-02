@@ -3,7 +3,7 @@ package osuapi.endpoints;
 import java.util.Arrays;
 
 import lombok.experimental.Delegate;
-import osuapi.client.OsuApiClient;
+import osuapi.client.core.OsuApiClient;
 
 public final class EndpointManager {
 
