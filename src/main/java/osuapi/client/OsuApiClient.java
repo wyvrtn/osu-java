@@ -18,18 +18,23 @@ import osuapi.endpoints.EndpointManager;
 public final class OsuApiClient {
 	private static final Logger LOG = LoggerFactory.getLogger(OsuApiClient.class);
 	public final EndpointManager endpoints;
-	private final AbstractApiAuthorization authorization; 
+	private AbstractApiAuthorization authorization; 
 	protected final OsuApiClientInternal svc;
 	
-	public OsuApiClient(AbstractApiAuthorization grant) {
-		this(grant, new RequestBundle());
+	public OsuApiClient(AbstractApiAuthorization auth) {
+		this(auth, new RequestBundle());
 		
 	}
 	
-	public OsuApiClient(AbstractApiAuthorization grant, RequestBundle bundle) {
+	public OsuApiClient(AbstractApiAuthorization auth, RequestBundle bundle) {
 		endpoints = EndpointManager.createInstance(this);
-		authorization = grant;
+		authorization = auth;
 		svc = new OsuApiClientInternal(bundle, authorization);
+	}
+
+	public void updateAuthorization(AbstractApiAuthorization auth) {
+		this.authorization = auth;
+		ensureAccessToken();
 	}
 	
 	public synchronized void ensureAccessToken() {

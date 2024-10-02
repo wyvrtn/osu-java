@@ -12,27 +12,16 @@ import osuapi.models.beatmaps.BeatmapSet;
 @Setter
 @NoArgsConstructor
 public class BeatmapPlaycount {
-  /// <summary>
-  /// The ID of the beatmap.
-  /// </summary>
-  @JsonProperty("beatmap_id")
-  public int beatmapId;
 
-  /// <summary>
-  /// The beatmap object. This may be null if the beatmap has been deleted.
-  /// </summary>
-  @JsonProperty("beatmap")
-  public Beatmap beatmap;
+    @JsonProperty("beatmap_id")
+    private int beatmapId;
 
-  /// <summary>
-  /// The beatmap set containing the beatmap. This may be null if the beatmap has been deleted.
-  /// </summary>
-  @JsonProperty("beatmapset")
-  public BeatmapSet beatmapSet;
+    @JsonProperty("beatmap")
+    private Beatmap beatmap;
 
-  /// <summary>
-  /// The amount of times the user played the beatmap.
-  /// </summary>
-  @JsonProperty("count")
-  public int count;
+    @JsonProperty("beatmapset")
+    private BeatmapSet beatmapSet;
+
+    @JsonProperty("count")
+    private int count;
 }

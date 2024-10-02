@@ -1,8 +1,9 @@
-package osuapi.client;
+package osuapi.client.authorization;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 
+import osuapi.client.AbstractApiAuthorization;
 import osuapi.models.authorization.ClientCredentialsResponse;
 
 public final class ClientCredentialsGrant extends AbstractApiAuthorization {
@@ -22,7 +23,7 @@ public final class ClientCredentialsGrant extends AbstractApiAuthorization {
 				this.getClass().getName(), Thread.currentThread().getName());
 	}
 	
-	protected synchronized void authorizationFlow(OsuApiClientInternal svc) {
+	protected synchronized void authorizationFlow(AbstractOsuApiClientInternal svc) {
 		String authBody = super.encodeFormUrl(authorizationBody);
 		ClientCredentialsResponse apResponse = (ClientCredentialsResponse) svc.requestNewToken(authBody);
 		apResponse.validation();
@@ -32,7 +33,7 @@ public final class ClientCredentialsGrant extends AbstractApiAuthorization {
 		LOG.info(getAccessToken());
 	}
 
-	protected void refreshAccessToken(OsuApiClientInternal svc) {
+	protected void refreshAccessToken(AbstractOsuApiClientInternal svc) {
 		authorizationFlow(svc);
 	}
 }

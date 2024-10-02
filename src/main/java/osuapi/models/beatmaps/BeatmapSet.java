@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import osuapi.enums.RankedStatus;
-import osuapi.models.Text;
 import osuapi.models.discussions.Discussion;
 import osuapi.models.users.User;
 
@@ -21,6 +20,7 @@ public class BeatmapSet {
 	@JsonProperty("artist_unicode")
 	private String artistUnicode;
 	
+	@JsonProperty("covers")
 	private BeatmapSetCovers covers;
 	
 	@JsonProperty("creator")
@@ -87,7 +87,7 @@ public class BeatmapSet {
 	private Nomination[] nominations;
 	
 	@JsonProperty("description")
-	private Text description;
+	private BeatmapSetDescription description;
 	
 	@JsonProperty("discussions")
 	private Discussion[] discussions;
