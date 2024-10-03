@@ -4,7 +4,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import osuapi.client.AbstractApiAuthorization;
+import osuapi.client.core.AbstractApiAuthorization;
 import osuapi.models.authorization.ApiAuthorizationResponse;
 import osuapi.models.authorization.AuthorizationCodeResponse;
 

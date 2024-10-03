@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
-import osuapi.client.OsuApiClient;
+import osuapi.client.core.OsuApiClient;
 import osuapi.client.resources.OsuApiException;
 import osuapi.enums.CommentSortType;
 import osuapi.enums.CommentableType;

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-import osuapi.client.OsuApiClient;
+import osuapi.client.core.OsuApiClient;
 import osuapi.models.changelogs.Build;
 import osuapi.models.changelogs.ChangelogListing;
 

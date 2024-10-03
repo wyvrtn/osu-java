@@ -3,7 +3,7 @@ package osuapi.client.authorization;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 
-import osuapi.client.AbstractApiAuthorization;
+import osuapi.client.core.AbstractApiAuthorization;
 import osuapi.models.authorization.ClientCredentialsResponse;
 
 public final class ClientCredentialsGrant extends AbstractApiAuthorization {

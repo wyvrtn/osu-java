@@ -1,6 +1,6 @@
 package osuapi.endpoints;
 
-import osuapi.client.OsuApiClient;
+import osuapi.client.core.OsuApiClient;
 
 // API is a work-in-progress, wrapper will be implemented soon
 

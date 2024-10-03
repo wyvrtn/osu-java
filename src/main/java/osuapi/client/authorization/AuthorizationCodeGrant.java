@@ -4,7 +4,7 @@ import java.time.OffsetDateTime;
 import java.time.ZoneId;
 
 import lombok.Getter;
-import osuapi.client.AbstractApiAuthorization;
+import osuapi.client.core.AbstractApiAuthorization;
 import osuapi.models.authorization.AuthorizationCodeResponse;
 
 @Getter

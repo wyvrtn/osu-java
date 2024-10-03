@@ -2,7 +2,7 @@ package osuapi.endpoints;
 
 import java.util.concurrent.CompletableFuture;
 
-import osuapi.client.OsuApiClient;
+import osuapi.client.core.OsuApiClient;
 import osuapi.models.beatmaps.BeatmapSetExtended;
 
 //API docs: https://osu.ppy.sh/docs/index.html#beatmapsets

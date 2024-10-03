@@ -1,4 +1,4 @@
-package osuapi.client;
+package osuapi.client.core;
 
 import java.util.Collections;
 import java.util.Objects;
@@ -25,6 +25,10 @@ public final class OsuApiClientInternal extends AbstractOsuApiClientInternal {
 
 	protected OsuApiClientInternal(RequestBundle bundle, AbstractApiAuthorization auth) {
 		super(bundle, auth);
+	}
+	
+	protected void updateAuthorization(AbstractApiAuthorization newAuth) {
+		authorization = newAuth;
 	}
 
 	protected void requestAuthorization(String authBody) {

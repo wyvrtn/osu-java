@@ -1,4 +1,4 @@
-package osuapi.client;
+package osuapi.client.core;
 
 import java.time.OffsetDateTime;
 import java.util.Map;
@@ -32,8 +32,9 @@ public final class OsuApiClient {
 		svc = new OsuApiClientInternal(bundle, authorization);
 	}
 
-	public void updateAuthorization(AbstractApiAuthorization auth) {
-		this.authorization = auth;
+	public synchronized void updateAuthorization(AbstractApiAuthorization newAuth) {
+		this.authorization = newAuth;
+		svc.updateAuthorization(newAuth);
 		ensureAccessToken();
 	}
 	
