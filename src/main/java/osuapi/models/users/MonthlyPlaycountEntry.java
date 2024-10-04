@@ -1,6 +1,6 @@
 package osuapi.models.users;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,10 +12,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class MonthlyPlaycountEntry {
+
+	@JsonProperty("start_date")
+	private LocalDate startDate;
 	
 	@JsonProperty("count")
 	private int count;
-	
-	@JsonProperty("start_date")
-	private OffsetDateTime startDate;
 }

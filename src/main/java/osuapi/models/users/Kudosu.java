@@ -10,7 +10,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Kudosu {
-    
     @JsonProperty("available")
     public int available;
 

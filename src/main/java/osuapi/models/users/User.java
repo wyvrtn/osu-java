@@ -15,6 +15,9 @@ public class User {
 	
 	@JsonProperty("avatar_url")
 	private String avatarUrl;
+
+	@JsonProperty("country_code")
+	private String countryCode;
 	
 	@JsonProperty("default_group")
 	private String defaultGroup;
@@ -56,18 +59,18 @@ public class User {
 	@JsonProperty("account_history")
 	private AccountHistoryEntry accountHistory;
 	
-	@JsonProperty("active_tournament_banner")
-	private ProfileBanner activeBanner;
-	
 	@JsonProperty("active_tournament_banners")
-	private ProfileBanner banners;
+	private ProfileBanner[] banners;
 	
 	@JsonProperty("badges")
 	private Badge[] badges;
 	
 	@JsonProperty("beatmap_playcounts_count")
 	private int mostPlayedCount;
-	
+
+	//JsonProperty "blocks", type not found
+
+	//Seems to be unavailable in documentation
 	@JsonProperty("comments_count")
 	private int commentsCount;
 	
@@ -85,12 +88,14 @@ public class User {
 	
 	@JsonProperty("follower_count")
 	private int followerCount;
+
+	//JsonProperty "friends", type not found
 	
 	@JsonProperty("graveyard_beatmapset_count")
 	private int graveyardedBeatmapSetsCount;
 	
 	@JsonProperty("groups")
-	private Group[] groups;
+	private UserGroup[] groups;
 	
 	@JsonProperty("guest_beatmapset_count")
 	private int guestBeatmapSetsCount;
@@ -116,11 +121,15 @@ public class User {
 	@JsonProperty("is_nat")
 	private boolean isNAT;
 	
+	// Only boolean shown in documentation from "guest_beatmap_count" to "kudosu"
 	@JsonProperty("is_restricted")
 	private boolean isRestricted;
 	
 	@JsonProperty("is_silenced")
 	private boolean isSilenced;
+
+	@JsonProperty("kudosu")
+	private Kudosu kudosu;
 	
 	@JsonProperty("loved_beatmapset_count")
 	private int lovedBeatmapSetsCount;
@@ -166,6 +175,9 @@ public class User {
 	
 	@JsonProperty("scores_recent_count")
 	private int recentScoresCount;
+
+	@JsonProperty("session_verified")
+	private boolean isSessionVerified;
 	
 	@JsonProperty("statistics")
 	private UserStatistics statistics;

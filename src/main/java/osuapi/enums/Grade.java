@@ -1,6 +1,7 @@
 package osuapi.enums;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+import org.apache.commons.lang3.StringUtils;
+
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /** <summary>
@@ -9,21 +10,39 @@ import com.fasterxml.jackson.annotation.JsonValue;
 	Source: <a href="https://github.com/ppy/osu-web/blob/master/resources/js/interfaces/rank.ts"/>
 	</summary>
 */
-public enum Grade {
+public enum Grade implements DescriptionEnum<Grade> {
 	//Self-explanatory, with "H" denoting presence of hidden and/or flashlight
-	XH, SH, X, S, A, B, C, D;
-	
-	@JsonCreator
-	public static Grade fromString(String str) {
-		Grade out;
-		if ("SSH".equals(str)) out = XH;
-		else out = Grade.valueOf(str);
-		return out;
+	XH("ssh"),
+	SH("sh"),
+	X("ss"),
+	S("s"),
+	A("a"), 
+	B("b"),
+	C("c"),
+	D("d");
+
+	private String description;
+
+	private Grade(String description) {
+		this.description = description;
 	}
-	
-	@Override
+
 	@JsonValue
-	public String toString() {
-		return super.toString();
+	@Override
+	public String getDescription() {
+		return this.description;
+	}
+
+	@Override
+	public Grade getEnum(String input) {
+		Grade result = null;
+		for (Grade Grade : values()) {
+			if (StringUtils.equalsIgnoreCase(Grade.name(), input) ||
+					StringUtils.equalsIgnoreCase(Grade.getDescription(), input)) {
+				result = Grade;
+				break;
+			}
+		}
+		return result;
 	}
 }
