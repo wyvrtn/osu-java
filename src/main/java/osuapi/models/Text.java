@@ -20,5 +20,5 @@ public class Text {
 	@JsonProperty("raw")
 	private String raw;
 	
-	private String Markup = bbcode!=null? bbcode : raw;
+	private String markup = bbcode!=null? bbcode : raw;
 }
