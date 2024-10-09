@@ -1,4 +1,4 @@
-package osuapi.models;
+package osuapi.models.generic;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

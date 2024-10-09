@@ -1,4 +1,4 @@
-package osuapi.models;
+package osuapi.models.generic;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CursorResponse<T> {
 	private T[] data;
-	private String cursor;
+	private String cursorString;
 }
