@@ -10,6 +10,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import osuapi.client.authorization.ClientCredentialsGrant;
 import osuapi.client.authorization.RequestBundle;
 import osuapi.client.resources.ClientUtil;
 import osuapi.client.resources.OsuApiException;
@@ -36,6 +37,12 @@ public final class OsuApiClient {
 		this.authorization = newAuth;
 		svc.updateAuthorization(newAuth);
 		ensureAccessToken();
+	}
+
+	public void requiresUser() {
+		if (authorization instanceof ClientCredentialsGrant) {
+			throw new IllegalStateException("The method called must use Authorization Code Grant");
+		}
 	}
 	
 	public synchronized void ensureAccessToken() {
