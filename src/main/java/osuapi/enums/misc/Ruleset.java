@@ -1,8 +1,10 @@
-package osuapi.enums;
+package osuapi.enums.misc;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonValue;
+
+import osuapi.enums.DescriptionEnum;
 
 /** <summary>
  	An enum containing the existing, official rulesets.
@@ -12,7 +14,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 	</summary>
 */
 public enum Ruleset implements DescriptionEnum<Ruleset> {
-	
 	OSU("osu"),
 	TAIKO("taiko"),
 	CATCH("fruits"),

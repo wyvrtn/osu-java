@@ -1,8 +1,10 @@
-package osuapi.enums;
+package osuapi.enums.misc;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonValue;
+
+import osuapi.enums.DescriptionEnum;
 
 /** <summary>
 	An enum containing the grades a score can have. (XH, SH, X, S, A, B, C, D)
@@ -28,12 +30,10 @@ public enum Grade implements DescriptionEnum<Grade> {
 	}
 
 	@JsonValue
-	@Override
 	public String getDescription() {
 		return this.description;
 	}
 
-	@Override
 	public Grade getEnum(String input) {
 		Grade result = null;
 		for (Grade Grade : values()) {

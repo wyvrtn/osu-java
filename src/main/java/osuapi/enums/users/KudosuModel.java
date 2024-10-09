@@ -1,8 +1,10 @@
-package osuapi.enums;
+package osuapi.enums.users;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonValue;
+
+import osuapi.enums.DescriptionEnum;
 
 public enum KudosuModel implements DescriptionEnum<KudosuModel> {
 	FORUM_POST("forum_post"),

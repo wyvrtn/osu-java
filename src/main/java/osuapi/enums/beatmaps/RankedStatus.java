@@ -1,8 +1,10 @@
-package osuapi.enums;
+package osuapi.enums.beatmaps;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonValue;
+
+import osuapi.enums.DescriptionEnum;
 
 public enum RankedStatus implements DescriptionEnum<RankedStatus> {
 	GRAVEYARD(-2, "graveyard"),

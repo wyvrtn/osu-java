@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import osuapi.enums.RankedStatus;
+import osuapi.enums.beatmaps.RankedStatus;
 import osuapi.models.discussions.Discussion;
 import osuapi.models.users.User;
 

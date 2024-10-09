@@ -1,8 +1,10 @@
-package osuapi.enums;
+package osuapi.enums.wikis;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonValue;
+
+import osuapi.enums.DescriptionEnum;
 
 public enum WikiPageLayout implements DescriptionEnum<WikiPageLayout> {
 	MARKDOWN("markdown_page"),

@@ -1,14 +1,16 @@
-package osuapi.enums;
+package osuapi.enums.misc;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
+import osuapi.enums.DescriptionEnum;
+
 public enum PostSort implements DescriptionEnum<PostSort> {
 	IDASCENDING("IDAscending"),
 	IDDESCENDING("IDDescending");
 	
-private String description;
+	private String description;
 	
 	private PostSort(String description) {
 		this.description = description;

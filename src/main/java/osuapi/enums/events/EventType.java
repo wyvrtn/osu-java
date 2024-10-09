@@ -1,8 +1,10 @@
-package osuapi.enums;
+package osuapi.enums.events;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonValue;
+
+import osuapi.enums.DescriptionEnum;
 
 public enum EventType implements DescriptionEnum<EventType> {
 	ACHIEVEMENT("achievement"),

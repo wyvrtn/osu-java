@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import osuapi.enums.UserAccountHistoryEntryType;
+import osuapi.enums.users.UserAccountHistoryEntryType;
 
 // "UserAccountHistory" in documentation
 @Getter

@@ -1,8 +1,10 @@
-package osuapi.enums;
+package osuapi.enums.forums;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonValue;
+
+import osuapi.enums.DescriptionEnum;
 
 public enum ForumTopicType implements DescriptionEnum<ForumTopicType> {
 	NORMAL("normal"),
