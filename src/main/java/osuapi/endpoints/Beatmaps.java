@@ -9,7 +9,7 @@ import java.util.concurrent.CompletableFuture;
 import org.springframework.http.HttpMethod;
 
 import osuapi.client.core.OsuApiClient;
-import osuapi.enums.Ruleset;
+import osuapi.enums.misc.Ruleset;
 import osuapi.models.beatmaps.Beatmap;
 import osuapi.models.beatmaps.BeatmapExtended;
 import osuapi.models.beatmaps.DifficultyAttributes;

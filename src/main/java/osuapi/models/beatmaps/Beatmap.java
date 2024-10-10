@@ -6,8 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import osuapi.enums.RankedStatus;
-import osuapi.enums.Ruleset;
+import osuapi.enums.beatmaps.RankedStatus;
+import osuapi.enums.misc.Ruleset;
 import osuapi.models.users.User;
 
 @Getter

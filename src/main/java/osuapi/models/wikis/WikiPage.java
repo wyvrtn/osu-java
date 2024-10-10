@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import osuapi.enums.WikiPageLayout;
+import osuapi.enums.wikis.WikiPageLayout;
 
 @Getter
 @Setter

@@ -14,6 +14,7 @@ public class ProfileBanner {
 	@JsonProperty("id")
 	private int id;
 	
+	@JsonProperty("tournament_id")
 	private int tournamentId;
 	
 	@JsonProperty("image")

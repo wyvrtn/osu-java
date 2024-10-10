@@ -44,6 +44,11 @@ public class AsyncLazyEnumerable<T, TResult> implements Iterable<CompletableFutu
 		}
     	return out;
     }
+
+    public <KResult> AsyncLazyEnumerable<T, KResult> append(Function<CompletableFuture<TResult>, CompletableFuture<KResult>> func) {
+        Function<ExitToken<T>, CompletableFuture<KResult>> appended = iterator.andThen(func);
+        return new AsyncLazyEnumerable<>(appended, token, type);
+    }
     
     public CompletableFuture<TResult> current() {
         if (type==ExitType.WHILE) {

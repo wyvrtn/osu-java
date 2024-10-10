@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 import osuapi.client.authorization.AbstractOsuApiClientInternal;
 import osuapi.client.authorization.RequestBundle;
@@ -23,12 +24,17 @@ public final class OsuApiClientInternal extends AbstractOsuApiClientInternal {
 	private static final String REQTOKEN = "/oauth/token";
 	private static final String AUTH = "/oauth/authorize";
 
-	protected OsuApiClientInternal(RequestBundle bundle, AbstractApiAuthorization auth) {
-		super(bundle, auth);
+    private RestTemplate restTemplate;
+	private AbstractApiAuthorization authorization;
+
+    protected OsuApiClientInternal(RequestBundle bundle, AbstractApiAuthorization auth) {
+		this.restTemplate = bundle.getApiRestTemplate();
+		this.authorization = auth;
 	}
+
 	
 	protected void updateAuthorization(AbstractApiAuthorization newAuth) {
-		authorization = newAuth;
+		this.authorization = newAuth;
 	}
 
 	protected void requestAuthorization(String authBody) {

@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import osuapi.enums.Grade;
+import osuapi.enums.misc.Grade;
 
 @Getter
 @Setter
@@ -29,18 +29,13 @@ public class UserStatistics {
 	@JsonProperty("country_rank")
 	private int countryRank;
 	
-	@JsonProperty("global_rank")
-	private int globalRank;
-	
-	@JsonProperty("global_rank_exp")
-	private int globalRankExp;
-	
 	@JsonProperty("grade_counts")
 	private Map<Grade, Integer> grades;
 	
 	@JsonProperty("hit_accuracy")
 	private float accuracy;
 	
+	@JsonProperty("is_ranked")
 	private boolean IsRanked;
 	
 	@JsonProperty("level")
@@ -61,9 +56,29 @@ public class UserStatistics {
 	@JsonProperty("pp_exp")
 	private float ppExp;
 	
+	@JsonProperty("global_rank")
+	private int globalRank;
+	
+	@JsonProperty("global_rank_exp")
+	private int globalRankExp;
+
 	@JsonProperty("ranked_score")
 	private long rankedScore;
+
+	@JsonProperty("replays_watched_by_others")
+	private int replaysWatched;
 	
+	@JsonProperty("total_hits")
+	private long totalHits;
+
 	@JsonProperty("total_score")
 	private long totalScore;
+
+	// Optional Attributes
+
+	@JsonProperty("rank_change_since_30_days")
+	private int rankChangeSince30;
+
+	@JsonProperty("user")
+	private User user;
 }

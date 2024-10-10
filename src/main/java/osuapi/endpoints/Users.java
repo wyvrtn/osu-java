@@ -6,9 +6,9 @@ import java.util.concurrent.CompletableFuture;
 
 import osuapi.client.core.OsuApiClient;
 import osuapi.client.resources.ClientUtil;
-import osuapi.enums.BeatmapType;
-import osuapi.enums.Ruleset;
-import osuapi.enums.UserScoreType;
+import osuapi.enums.beatmaps.BeatmapType;
+import osuapi.enums.misc.Ruleset;
+import osuapi.enums.users.UserScoreType;
 import osuapi.models.beatmaps.BeatmapSetExtended;
 import osuapi.models.scores.Score;
 import osuapi.models.users.BeatmapPlaycount;

@@ -6,16 +6,19 @@ import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
+import org.springframework.http.HttpMethod;
+
 import osuapi.client.core.OsuApiClient;
 import osuapi.client.resources.OsuApiException;
-import osuapi.enums.CommentSortType;
-import osuapi.enums.CommentableType;
+import osuapi.enums.comments.CommentSortType;
+import osuapi.enums.comments.CommentableType;
 import osuapi.iterator.AsyncLazyEnumerable;
 import osuapi.iterator.ExitToken;
 import osuapi.models.comments.CommentBundle;
 import osuapi.models.comments.CommentBundle.Cursor;
 
 public final class Comments {
+	private static final String BASE = "/comments/";
 	
 	private OsuApiClient client;
 
@@ -25,7 +28,7 @@ public final class Comments {
 	
 	public CompletableFuture<CommentBundle> getComment(int commentId) {
 		return CompletableFuture.supplyAsync(() -> 
-			client.getJson("/comments/"+commentId)
+			client.getJson(BASE+commentId)
 		);
 	}
 	
@@ -43,7 +46,7 @@ public final class Comments {
 				params.put("parent_id", parentId);
 				params.put("sort", sort);
 				CommentBundle bundle = new CommentBundle();
-				bundle = client.getJson("/comments", params);
+				bundle = client.getJson(BASE, params);
 				if (bundle==null) {
 			        try {
 						throw new OsuApiException("An error occured while requesting the comment bundle. (bundle is null)");
@@ -55,5 +58,19 @@ public final class Comments {
 				return bundle;
 			});
 			return new AsyncLazyEnumerable<>(func, token);
+	}
+
+	// REQUIRES USER
+
+	public CompletableFuture<CommentBundle> newComment(int id, CommentableType type, String message, int parentId) {
+		client.requiresUser();
+		return CompletableFuture.supplyAsync(() -> {
+			Map<String, Object> params = new HashMap<>();
+			params.put("commentable_id", id);
+			params.put("commentable_type", type);
+			params.put("message", message);
+			params.put("parent_id", parentId);
+			return client.getJson(BASE, params, HttpMethod.POST);
+		});
 	}
 } 

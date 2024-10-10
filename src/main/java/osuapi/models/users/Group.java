@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import osuapi.enums.Ruleset;
 
 @Getter
 @Setter
@@ -14,9 +13,6 @@ public class Group {
 	
 	@JsonProperty("colour")
 	private String colour;
-	
-	@JsonProperty("description")
-	private GroupDescription description;
 	
 	@JsonProperty("has_listing")
 	private boolean hasListing;
@@ -38,7 +34,8 @@ public class Group {
 	
 	@JsonProperty("short_name")
 	private String shortName;
-	
-	@JsonProperty("playmodes")
-	private Ruleset[] playModes;
+
+	//Optional
+	@JsonProperty("description")
+	private GroupDescription description;
 }

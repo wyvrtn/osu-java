@@ -1,6 +1,6 @@
 package osuapi.models.users;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -17,5 +17,5 @@ public class MonthlyReplaysWatchedEntry {
 	private int count;
 	
 	@JsonProperty("start_date")
-	private OffsetDateTime startDate;
+	private LocalDate startDate;
 }
