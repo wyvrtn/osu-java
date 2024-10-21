@@ -13,12 +13,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import osuapi.client.authorization.AbstractOsuApiClientInternal;
+import osuapi.client.authorization.AbstractHttpAccessDriver;
 import osuapi.client.authorization.RequestBundle;
 import osuapi.models.authorization.ApiAuthorizationResponse;
 import osuapi.models.authorization.AuthorizationCodeResponse;
 
-public final class OsuApiClientInternal extends AbstractOsuApiClientInternal {
+public final class OsuApiClientInternal extends AbstractHttpAccessDriver {
     private static final Logger LOG = LoggerFactory.getLogger(OsuApiClientInternal.class);
 	private static final String ROOT = "/api/v2";
 	private static final String REQTOKEN = "/oauth/token";
