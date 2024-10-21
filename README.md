@@ -45,7 +45,7 @@ News (100% 2/2)
   [✓] /news
   [✓] /news/{news}
 
-Ranking (33% 1/3)
+Ranking (100% 3/3)
   [✓] /rankings/kudosu
   [✓] /rankings/{mode}/{type}
   [✓] /spotlights

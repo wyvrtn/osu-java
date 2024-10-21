@@ -1,7 +1,5 @@
 package osuapi.endpoints;
 
-import java.util.Arrays;
-
 import lombok.experimental.Delegate;
 import osuapi.client.core.OsuApiClient;
 
@@ -41,15 +39,6 @@ public final class EndpointManager {
 	
 	private EndpointManager(OsuApiClient client) {
 		this.client = client;
-		Arrays.asList(this.getClass().getDeclaredFields()).stream()
-		.filter(field -> !(field.getAnnotation(Delegate.class)==null))
-		.forEach(field -> {
-			try {
-				field.set(this, field.getType().getDeclaredConstructor(OsuApiClient.class).newInstance(this.client));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		});
 		beatmapPacksDelegate = new BeatmapPacks(this.client);
 		beatmapsDelegate = new Beatmaps(this.client);
 		beatmapSetsDelegate = new BeatmapSets(this.client);
