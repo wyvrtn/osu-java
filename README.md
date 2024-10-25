@@ -38,8 +38,9 @@ Events (100% 1/1)
 Home (0% 0/1)
   [ ] /search
 
-Multiplayer (0% 0/1)
-  [ ] /rooms/{room}/playlist/{playlist}/scores
+Multiplayer (100% 2/2)
+  [✓] /rooms/{room}/playlist/{playlist}/scores
+  [✓] /rooms
 
 News (100% 2/2)
   [✓] /news

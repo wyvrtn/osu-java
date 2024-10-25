@@ -14,6 +14,7 @@ import osuapi.models.scores.Score;
 import osuapi.models.users.BeatmapPlaycount;
 import osuapi.models.users.KudosuHistoryEntry;
 import osuapi.models.users.User;
+import osuapi.models.users.UserExtended;
 
 public final class Users {
     private static final String BASE = "/users/";
@@ -22,6 +23,15 @@ public final class Users {
 
 	protected Users(OsuApiClient client) {
 		this.client = client;
+	}
+
+	public CompletableFuture<UserExtended> getOwnData() {
+		return getOwnData(null);
+	}
+
+	public CompletableFuture<UserExtended> getOwnData(Ruleset ruleset) {
+		client.requiresUser();
+		return client.getJsonAsync("/me/"+ClientUtil.nullishCoalesce(ruleset, ""));
 	}
 
 	public CompletableFuture<KudosuHistoryEntry[]> getKudosuHistory(int userId, int limit, int offset) {
@@ -76,20 +86,18 @@ public final class Users {
 	}
 
 	private CompletableFuture<User> getUserInternal(String userIdentifier, Ruleset ruleset) {
-		return CompletableFuture.supplyAsync(() -> 
-			client.getJson(BASE+userIdentifier+"/"+ClientUtil.nullishCoalesce(ruleset, ""))
-		);
+		return client.getJsonAsync(BASE+userIdentifier+"/"+ClientUtil.nullishCoalesce(ruleset, ""));
 	}
 
 	public CompletableFuture<User[]> getUsers(int[] ids, boolean includeVariantStatistics) {
 		if (ids.length>50) {
 			throw new IndexOutOfBoundsException("Parameter 'ids' can only have an array length of 50 or less");
 		}
-		Map<String, Object> params = new HashMap<>();
-		params.put("include_variant_statistics", includeVariantStatistics);
-		for (int id : ids) {
-			params.put("ids[]", id);
-		}
-		return client.getJson(BASE, params);
+		return CompletableFuture.supplyAsync(() -> {
+			Map<String, Object> params = new HashMap<>();
+			params.put("include_variant_statistics", includeVariantStatistics);
+			for (int id : ids) params.put("ids[]", id);
+			return client.getJson(BASE, params);
+		});
 	}
 }

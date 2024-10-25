@@ -3,7 +3,7 @@ package osuapi.endpoints;
 import lombok.experimental.Delegate;
 import osuapi.client.core.OsuApiClient;
 
-public final class EndpointManager {
+public final class ApiEndpoints {
 
 	private OsuApiClient client;
 	
@@ -37,7 +37,7 @@ public final class EndpointManager {
 	@Delegate
 	private Wikis wikisDelegate;
 	
-	private EndpointManager(OsuApiClient client) {
+	private ApiEndpoints(OsuApiClient client) {
 		this.client = client;
 		beatmapPacksDelegate = new BeatmapPacks(this.client);
 		beatmapsDelegate = new Beatmaps(this.client);
@@ -51,8 +51,8 @@ public final class EndpointManager {
 		wikisDelegate = new Wikis(this.client);
 	}
 	
-	public static EndpointManager createInstance(OsuApiClient client) {
-		return new EndpointManager(client);
+	public static ApiEndpoints createInstance(OsuApiClient client) {
+		return new ApiEndpoints(client);
 	}
 
 	@Override

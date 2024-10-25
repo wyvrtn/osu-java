@@ -13,28 +13,23 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import osuapi.client.authorization.AbstractHttpAccessDriver;
+import osuapi.client.authorization.HttpServiceProvider;
 import osuapi.client.authorization.RequestBundle;
 import osuapi.models.authorization.ApiAuthorizationResponse;
 import osuapi.models.authorization.AuthorizationCodeResponse;
 
-public final class OsuApiClientInternal extends AbstractHttpAccessDriver {
+public final class OsuApiClientInternal extends HttpServiceProvider {
     private static final Logger LOG = LoggerFactory.getLogger(OsuApiClientInternal.class);
 	private static final String ROOT = "/api/v2";
 	private static final String REQTOKEN = "/oauth/token";
 	private static final String AUTH = "/oauth/authorize";
 
     private RestTemplate restTemplate;
-	private AbstractApiAuthorization authorization;
+	private AbstractApiAuthorizationContainer authorization;
 
-    protected OsuApiClientInternal(RequestBundle bundle, AbstractApiAuthorization auth) {
+    protected OsuApiClientInternal(RequestBundle bundle, AbstractApiAuthorizationContainer auth) {
 		this.restTemplate = bundle.getApiRestTemplate();
 		this.authorization = auth;
-	}
-
-	
-	protected void updateAuthorization(AbstractApiAuthorization newAuth) {
-		this.authorization = newAuth;
 	}
 
 	protected void requestAuthorization(String authBody) {
@@ -67,7 +62,7 @@ public final class OsuApiClientInternal extends AbstractHttpAccessDriver {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 		headers.setContentType(MediaType.APPLICATION_JSON);
-		headers.add("Authorization", "Bearer " + authorization.getAccessToken());
+		headers.add("Authorization", "Bearer " + authorization.getInstance().getAccessToken());
 		HttpEntity<String> requestEntity = new HttpEntity<>(headers);
 		LOG.debug("osu-api side request url: {}", url);
 		LOG.debug("Http request method: {}", method);

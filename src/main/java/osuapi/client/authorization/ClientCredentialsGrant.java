@@ -23,7 +23,7 @@ public final class ClientCredentialsGrant extends AbstractApiAuthorization {
 				this.getClass().getName(), Thread.currentThread().getName());
 	}
 	
-	protected synchronized void authorizationFlow(AbstractHttpAccessDriver svc) {
+	protected synchronized void authorizationFlow(HttpServiceProvider svc) {
 		String authBody = super.encodeFormUrl(authorizationBody);
 		ClientCredentialsResponse apResponse = (ClientCredentialsResponse) svc.requestNewToken(authBody);
 		apResponse.validation();
@@ -33,7 +33,7 @@ public final class ClientCredentialsGrant extends AbstractApiAuthorization {
 		LOG.info(getAccessToken());
 	}
 
-	protected void refreshAccessToken(AbstractHttpAccessDriver svc) {
+	protected void refreshAccessToken(HttpServiceProvider svc) {
 		authorizationFlow(svc);
 	}
 }

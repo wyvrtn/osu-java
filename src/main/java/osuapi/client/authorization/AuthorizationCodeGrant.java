@@ -28,7 +28,7 @@ public class AuthorizationCodeGrant extends AbstractApiAuthorization {
     }
 
     @Override
-    protected void authorizationFlow(AbstractHttpAccessDriver svc) {
+    protected void authorizationFlow(HttpServiceProvider svc) {
     	String authBody = super.encodeFormUrl(authorizationBody);
 		AuthorizationCodeResponse acResponse = svc.exchangeCode(authBody);
 		acResponse.validation();
@@ -40,7 +40,7 @@ public class AuthorizationCodeGrant extends AbstractApiAuthorization {
 		setStatus(true);
     }
 
-	protected void refreshAccessToken(AbstractHttpAccessDriver svc) {
+	protected void refreshAccessToken(HttpServiceProvider svc) {
 		authorizationBody.clear();
 		authorizationBody.put("client_id", clientId);
 		authorizationBody.put("client_secret", clientSecret);

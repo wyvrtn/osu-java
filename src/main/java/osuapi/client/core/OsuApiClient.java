@@ -14,12 +14,12 @@ import osuapi.client.authorization.ClientCredentialsGrant;
 import osuapi.client.authorization.RequestBundle;
 import osuapi.client.resources.ClientUtil;
 import osuapi.client.resources.OsuApiException;
-import osuapi.endpoints.EndpointManager;
+import osuapi.endpoints.ApiEndpoints;
 
 public final class OsuApiClient {
 	private static final Logger LOG = LoggerFactory.getLogger(OsuApiClient.class);
-	public final EndpointManager endpoints;
-	private AbstractApiAuthorization authorization; 
+	public final ApiEndpoints endpoints;
+	private AbstractApiAuthorizationContainer authorization; 
 	protected final OsuApiClientInternal svc;
 	
 	public OsuApiClient(AbstractApiAuthorization auth) {
@@ -28,31 +28,30 @@ public final class OsuApiClient {
 	}
 	
 	public OsuApiClient(AbstractApiAuthorization auth, RequestBundle bundle) {
-		endpoints = EndpointManager.createInstance(this);
-		authorization = auth;
+		endpoints = ApiEndpoints.createInstance(this);
+		authorization = AbstractApiAuthorizationContainer.newInstance(auth);
 		svc = new OsuApiClientInternal(bundle, authorization);
 	}
 
 	public synchronized void updateAuthorization(AbstractApiAuthorization newAuth) {
-		this.authorization = newAuth;
-		svc.updateAuthorization(newAuth);
+		authorization.setInstance(newAuth);
 		ensureAccessToken();
 	}
 
 	public void requiresUser() {
-		if (authorization instanceof ClientCredentialsGrant) {
+		if (authorization.getInstance() instanceof ClientCredentialsGrant) {
 			throw new IllegalStateException("The method called must use Authorization Code Grant");
 		}
 	}
 	
 	public synchronized void ensureAccessToken() {
-		if (authorization.getExpirationDate().isAfter(OffsetDateTime.now())) {
+		if (authorization.getInstance().getExpirationDate().isAfter(OffsetDateTime.now())) {
 			return;
 		}
-		if (!authorization.isStatus()) {
-			authorization.authorizationFlow(svc);
+		if (!authorization.getInstance().isStatus()) {
+			authorization.getInstance().authorizationFlow(svc);
 		} else {
-			authorization.refreshAccessToken(svc);
+			authorization.getInstance().refreshAccessToken(svc);
 		}
 	}
 	
@@ -68,11 +67,10 @@ public final class OsuApiClient {
 		return getJson(url + ClientUtil.buildQueryString(queryParams), methods);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public <T> T getJson(String url, HttpMethod... methods) {
 		ensureAccessToken();
 		HttpMethod method = ClientUtil.optDefault(methods, HttpMethod.GET);
-		ResponseEntity<T> entity = (ResponseEntity<T>) svc.genericGetJson(url, method);
+		ResponseEntity<T> entity = svc.genericGetJson(url, method);
 		if (entity.getStatusCode()!=HttpStatus.OK) {
 			throw new OsuApiException("Request Did Not Receive HTTP Status Code 200");
 		}
