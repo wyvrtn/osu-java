@@ -8,5 +8,5 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class BeatmapSetEvent {
-	// TODO: Implement lol (mini plz implement)
+	// Implement lol (mini plz implement)
 }

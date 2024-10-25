@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import osuapi.client.authorization.AbstractOsuApiClientInternal;
+import osuapi.client.authorization.HttpServiceProvider;
 import osuapi.client.resources.ClientUtil;
 
 @Getter
@@ -41,9 +41,9 @@ public abstract class AbstractApiAuthorization {
 		return result;
 	}
 	
-	protected abstract void authorizationFlow(AbstractOsuApiClientInternal svc);
+	protected abstract void authorizationFlow(HttpServiceProvider svc);
 
-	protected abstract void refreshAccessToken(AbstractOsuApiClientInternal svc);
+	protected abstract void refreshAccessToken(HttpServiceProvider svc);
 	
 	@Override
 	public String toString() {

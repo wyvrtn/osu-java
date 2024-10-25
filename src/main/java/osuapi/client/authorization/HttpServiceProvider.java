@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import osuapi.models.authorization.ApiAuthorizationResponse;
 import osuapi.models.authorization.AuthorizationCodeResponse;
 
-public abstract class AbstractOsuApiClientInternal {
+public abstract class HttpServiceProvider {
     protected abstract void requestAuthorization(String authBody);
 
     protected abstract AuthorizationCodeResponse exchangeCode(String authBody);

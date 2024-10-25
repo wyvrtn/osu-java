@@ -3,6 +3,8 @@ package osuapi.client.resources;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
@@ -45,6 +47,13 @@ public final class ClientUtil {
 		});
 		out.deleteCharAt(0);
 		return new String(out);
+	}
+
+	public static Map<String, Object> buildQueryMap(List<String> keys, Object... params) {
+		Map<String, Object> result = new HashMap<>();
+		if (keys.size()!=params.length) return result;
+		for (int index=0; index<keys.size(); index++) result.put(keys.get(index), params[index]);
+		return result;
 	}
 	
 	public static <I, X extends Throwable> I exceptCoalesce(I input, X except) throws X {
