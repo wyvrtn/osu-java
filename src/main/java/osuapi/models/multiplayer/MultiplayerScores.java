@@ -1,4 +1,4 @@
-package osuapi.models.multiplayers;
+package osuapi.models.multiplayer;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

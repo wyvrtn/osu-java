@@ -38,6 +38,10 @@ Events (100% 1/1)
 Home (0% 0/1)
   [ ] /search
 
+Matches (0% 0/2)
+  [ ] /matches
+  [ ] /matches/{match}
+
 Multiplayer (100% 2/2)
   [✓] /rooms/{room}/playlist/{playlist}/scores
   [✓] /rooms

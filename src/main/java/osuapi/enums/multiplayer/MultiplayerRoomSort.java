@@ -1,4 +1,4 @@
-package osuapi.enums.multiplayers;
+package osuapi.enums.multiplayer;
 
 import org.apache.commons.lang3.StringUtils;
 
