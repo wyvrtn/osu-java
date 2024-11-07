@@ -1,9 +1,8 @@
 package osuapi.app;
 
-import lombok.Getter;
-import lombok.Setter;
 import osuapi.client.authorization.ClientCredentialsGrant;
 import osuapi.client.core.OsuApiClient;
+import osuapi.models.structs.MatchEventParameters;
 
 public class OsuApiApp {
 	public static void main(String[] args) {
@@ -11,33 +10,12 @@ public class OsuApiApp {
 		OsuApiClient client = new OsuApiClient(grant);
 		System.out.println(client.endpoints);
 		System.out.println(client);
-		OsuApiApp app = new OsuApiApp();
-		app.test();
-	}
-
-	public void test() {
-		Foo foo = new Foo(){
+		System.out.println((new MatchEventParameters() {
 			@Override
-			public void constructor() {
-				super.id = 2;
-				super.sus = "skibidi";
+			public Class<? extends MatchEventParameters> constructor() {
+				System.out.println("called");
+				return this.getClass();
 			}
-		};
-		test1(foo);
-	}
-
-	public void test1(Foo foo) {
-		foo.constructor();
-		System.out.println(foo.getId());
-		System.out.println(foo.getSus());
-	}
-
-	@Getter
-	@Setter
-	public static abstract class Foo {
-		private int id = 1;
-		private String sus = "sus";
-
-		public abstract void constructor();
+		}));
 	}
 }

@@ -35,12 +35,12 @@ Comments (100% 2/2)
 Events (100% 1/1)
   [✓] /events
 
-Home (0% 0/1)
-  [ ] /search
+Home (100% 1/1)
+  [✓] /search
 
-Matches (0% 0/2)
-  [ ] /matches
-  [ ] /matches/{match}
+Matches (100% 2/2)
+  [✓] /matches
+  [✓] /matches/{match}
 
 Multiplayer (100% 2/2)
   [✓] /rooms/{room}/playlist/{playlist}/scores
