@@ -7,7 +7,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
 import osuapi.client.core.OsuApiClient;
-import osuapi.enums.misc.PostSort;
+import osuapi.enums.events.PostSort;
 import osuapi.iterator.AsyncLazyEnumerable;
 import osuapi.iterator.ExitToken;
 import osuapi.models.events.Event;

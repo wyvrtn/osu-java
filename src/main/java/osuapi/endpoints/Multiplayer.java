@@ -7,20 +7,20 @@ import java.util.function.Function;
 
 import osuapi.client.core.OsuApiClient;
 import osuapi.client.resources.ClientUtil;
-import osuapi.enums.multiplayers.MultiplayerRoomMode;
-import osuapi.enums.multiplayers.MultiplayerRoomSort;
-import osuapi.enums.multiplayers.MultiplayerRoomTypeGroup;
-import osuapi.enums.multiplayers.MultiplayerScoresSort;
+import osuapi.enums.multiplayer.MultiplayerRoomMode;
+import osuapi.enums.multiplayer.MultiplayerRoomSort;
+import osuapi.enums.multiplayer.MultiplayerRoomTypeGroup;
+import osuapi.enums.multiplayer.MultiplayerScoresSort;
 import osuapi.iterator.AsyncLazyEnumerable;
 import osuapi.iterator.ExitToken;
-import osuapi.models.multiplayers.MultiplayerScores;
+import osuapi.models.multiplayer.MultiplayerScores;
 
-public class Multiplayers {
+public class Multiplayer {
 	private static final String BASE = "/rooms/";
 	
 	private OsuApiClient client;
 
-	protected Multiplayers(OsuApiClient client) {
+	protected Multiplayer(OsuApiClient client) {
 		this.client = client;
 	}
 
