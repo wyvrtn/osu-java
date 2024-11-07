@@ -29,6 +29,9 @@ public final class ApiEndpoints {
 	private Home homeDelegate;
 
 	@Delegate
+	private Matches matchesDelegate;
+
+	@Delegate
 	private Multiplayer multiplayerDelegate;
 
 	@Delegate
@@ -52,6 +55,7 @@ public final class ApiEndpoints {
 		commentsDelegate = new Comments(this.client);
 		eventsDelegate = new Events(this.client);
 		homeDelegate = new Home(this.client);
+		matchesDelegate = new Matches(this.client);
 		multiplayerDelegate = new Multiplayer(this.client);
 		newsDelegate = new News(this.client);
 		rankingsDelegate = new Rankings(this.client);

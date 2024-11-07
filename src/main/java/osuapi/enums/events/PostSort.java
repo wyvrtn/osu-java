@@ -1,4 +1,4 @@
-package osuapi.enums.misc;
+package osuapi.enums.events;
 
 import org.apache.commons.lang3.StringUtils;
 
