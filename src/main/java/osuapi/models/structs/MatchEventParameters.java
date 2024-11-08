@@ -2,8 +2,8 @@ package osuapi.models.structs;
 
 import lombok.Getter;
 import lombok.Setter;
-import osuapi.models.structs.hierarchy.QueryProcessable;
-import osuapi.models.structs.hierarchy.Struct;
+import osuapi.models.structs.interfaces.QueryProcessable;
+import osuapi.models.structs.processors.Struct;
 
 @Getter
 @Setter
@@ -26,7 +26,7 @@ public abstract class MatchEventParameters extends Struct<MatchEventParameters> 
 
     protected abstract Class<? extends MatchEventParameters> constructor();
 
-    public final String process() {
+    public final String queryProcess() {
         StringBuilder outSB = new StringBuilder("?");
         String[] names = {"before", "after", "limit"};
         int[] values = {before, after, limit};

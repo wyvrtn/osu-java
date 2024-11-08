@@ -14,7 +14,7 @@ import osuapi.models.matches.Match;
 import osuapi.models.matches.MatchBundle;
 import osuapi.models.matches.MatchesBundle;
 import osuapi.models.structs.MatchEventParameters;
-import osuapi.models.structs.hierarchy.StructConstructor;
+import osuapi.models.structs.processors.AnonymousStructProcessor;
 
 public class Matches {
     private static final String BASE = "/matches/";
@@ -40,7 +40,7 @@ public class Matches {
 	}
 
 	public <T extends MatchEventParameters> CompletableFuture<MatchBundle> getMatch(int matchId, T params) {
-		StructConstructor.construct(params);
-		return client.getJsonAsync(BASE+matchId+params.process());
+		AnonymousStructProcessor.construct(params);
+		return client.getJsonAsync(BASE+matchId+params.queryProcess());
 	}
 }
