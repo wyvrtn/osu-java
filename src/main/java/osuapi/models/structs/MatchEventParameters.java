@@ -1,13 +1,17 @@
 package osuapi.models.structs;
 
+import java.util.Arrays;
+import java.util.List;
+
+import org.apache.commons.lang3.tuple.Pair;
+
 import lombok.Getter;
 import lombok.Setter;
-import osuapi.models.structs.interfaces.QueryProcessable;
 import osuapi.models.structs.processors.Struct;
 
 @Getter
 @Setter
-public abstract class MatchEventParameters extends Struct<MatchEventParameters> implements QueryProcessable {
+public abstract class MatchEventParameters extends Struct<MatchEventParameters> {
     private int before;
     private int after;
     private int limit;
@@ -26,17 +30,9 @@ public abstract class MatchEventParameters extends Struct<MatchEventParameters> 
 
     protected abstract Class<? extends MatchEventParameters> constructor();
 
-    public final String queryProcess() {
-        StringBuilder outSB = new StringBuilder("?");
-        String[] names = {"before", "after", "limit"};
-        int[] values = {before, after, limit};
-        for (int i=0; i<names.length; i++) {
-            outSB.append(names[i]);
-            outSB.append('=');
-            outSB.append(values[i]);
-            outSB.append('&');
-        }
-        outSB.deleteCharAt(outSB.length()-1);
-        return new String(outSB);
+    public final Pair<List<String>, Object[]> queryProcess() {
+        List<String> names = Arrays.asList("before", "after", "limit");
+        Object[] values = {before, after, limit};
+        return Pair.of(names, values);
     }
 }

@@ -12,6 +12,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import osuapi.enums.DescriptionEnum;
+import osuapi.models.structs.processors.Struct;
 
 public final class ClientUtil {
 	private ClientUtil() {
@@ -33,7 +34,7 @@ public final class ClientUtil {
 	}
 
 	public static String buildQueryString(Map<String, Object> params) {
-		StringBuilder out = new StringBuilder("");
+		StringBuilder out = new StringBuilder("?");
 		params.entrySet().stream().filter(entry -> entry.getValue()!=null).forEach(entry -> {
 			out.append(String.format("&%s=", encode(entry.getKey())));
 			final Object value = entry.getValue();
@@ -45,7 +46,7 @@ public final class ClientUtil {
 				out.append(encode(value.toString()));
 			}
 		});
-		out.deleteCharAt(0);
+		out.deleteCharAt(1);
 		return new String(out);
 	}
 
@@ -54,6 +55,10 @@ public final class ClientUtil {
 		if (keys.size()!=params.length) return result;
 		for (int index=0; index<keys.size(); index++) result.put(keys.get(index), params[index]);
 		return result;
+	}
+
+	public static <T extends Struct<T>> Map<String, Object> buildQueryMap(Struct<T> abstractStruct) {
+		return null;
 	}
 	
 	public static <I, X extends Throwable> I exceptCoalesce(I input, X except) throws X {

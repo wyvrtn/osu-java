@@ -1,5 +1,7 @@
 package osuapi.models.structs.processors;
 
-public abstract class Struct<T extends Struct<T>> {
+import osuapi.models.structs.interfaces.QueryProcessable;
+
+public abstract class Struct<T extends Struct<T>> implements QueryProcessable {
     protected abstract Class<? extends T> constructor();
 }
