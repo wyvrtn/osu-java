@@ -11,8 +11,12 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import osuapi.enums.DescriptionEnum;
+import osuapi.models.structs.processors.AbstractStructProcessorFactory;
 import osuapi.models.structs.processors.Struct;
+import osuapi.models.structs.processors.StructProcessor;
 
 public final class ClientUtil {
 	private ClientUtil() {
@@ -57,8 +61,11 @@ public final class ClientUtil {
 		return result;
 	}
 
-	public static <T extends Struct<T>> Map<String, Object> buildQueryMap(Struct<T> abstractStruct) {
-		return null;
+	public static <T extends Struct<T>, V extends StructProcessor<V>> Map<String, Object> buildQueryMap(Struct<? extends T> abstractStruct, Class<? extends V> clazz) {
+		StructProcessor<V> processor = AbstractStructProcessorFactory.generate(clazz); 
+		processor.process(abstractStruct);
+		Pair<List<String>, Object[]> prepare = abstractStruct.queryProcess();
+		return buildQueryMap(prepare.getLeft(), prepare.getRight());
 	}
 	
 	public static <I, X extends Throwable> I exceptCoalesce(I input, X except) throws X {

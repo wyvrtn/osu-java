@@ -11,6 +11,8 @@ import osuapi.enums.misc.Ruleset;
 import osuapi.enums.users.UserScoreType;
 import osuapi.models.beatmaps.BeatmapSetExtended;
 import osuapi.models.scores.Score;
+import osuapi.models.structs.UserParameters;
+import osuapi.models.structs.processors.AnonymousStructProcessor;
 import osuapi.models.users.BeatmapPlaycount;
 import osuapi.models.users.KudosuHistoryEntry;
 import osuapi.models.users.User;
@@ -34,47 +36,32 @@ public final class Users {
 		return client.getJsonAsync("/me/"+ClientUtil.nullishCoalesce(ruleset, ""));
 	}
 
-	public CompletableFuture<KudosuHistoryEntry[]> getKudosuHistory(int userId, int limit, int offset) {
-		Map<String, Object> params = new HashMap<>();
-		params.put("limit", limit);
-		params.put("offset", offset);
-		return CompletableFuture.supplyAsync(() -> 
-			client.getJson(BASE+userId+"/kudosu", params)
-		);
+	public <T extends UserParameters> CompletableFuture<KudosuHistoryEntry[]> getKudosuHistory(int userId, T params) {
+		return client.getJsonAsync(BASE+userId+"/kudosu", ClientUtil.buildQueryMap(params, AnonymousStructProcessor.class));
 	}
 
-	public CompletableFuture<Score[]> getUserScores(int userId, UserScoreType type, boolean legacyOnly, 
-		boolean includeFails, Ruleset ruleset, int limit, int offset) {
-		Map<String, Object> params = new HashMap<>();
-		params.put("legacy_only", legacyOnly);
-		params.put("include_fails", includeFails);
-		params.put("mode", ruleset);
-		params.put("limit", limit);
-		params.put("offset", offset);
-		return CompletableFuture.supplyAsync(() -> 
-			client.getJson(BASE+userId+"/scores/"+type.getDescription(), params)
-		);
+	public <T extends UserParameters> CompletableFuture<Score[]> getUserScores(int userId, UserScoreType type, boolean legacyOnly, 
+		boolean includeFails, Ruleset ruleset, T userParams) {
+		return CompletableFuture.supplyAsync(() -> {
+			Map<String, Object> params = new HashMap<>();
+			params.put("legacy_only", legacyOnly);
+			params.put("include_fails", includeFails);
+			params.put("mode", ruleset);
+			params.putAll(ClientUtil.buildQueryMap(userParams, AnonymousStructProcessor.class));
+			return client.getJson(BASE+userId+"/scores/"+type.getDescription(), params);
+		});
 	}
 
-	public CompletableFuture<BeatmapPlaycount[]> getUserMostPlayed(int userId, int limit, int offset) {
-		Map<String, Object> params = new HashMap<>();
-		params.put("limit", limit);
-		params.put("offset", offset);
-		return CompletableFuture.supplyAsync(() -> 
-			client.getJson(BASE+userId+"/beatmapsets/"+BeatmapType.MOST_PLAYED.getDescription(), params)
-		);
+	public <T extends UserParameters> CompletableFuture<BeatmapPlaycount[]> getUserMostPlayed(int userId, T params) {
+		return client.getJsonAsync(BASE+userId+"/beatmapsets/"+BeatmapType.MOST_PLAYED.getDescription(), ClientUtil.buildQueryMap(params, AnonymousStructProcessor.class));
+		
 	}
 
-	public CompletableFuture<BeatmapSetExtended[]> getUserBeatmaps(int userId, BeatmapType type, int limit, int offset) {
+	public <T extends UserParameters> CompletableFuture<BeatmapSetExtended[]> getUserBeatmaps(int userId, BeatmapType type, T params) {
 		if (type==BeatmapType.MOST_PLAYED) {
 			throw new IllegalArgumentException("Please use GetUserMostPlayed(), as the response type differs.");
 		}
-		Map<String, Object> params = new HashMap<>();
-		params.put("limit", limit);
-		params.put("offset", offset);
-		return CompletableFuture.supplyAsync(() -> 
-			client.getJson(BASE+userId+"/beatmapsets/"+type.getDescription(), params)
-		);
+		return client.getJsonAsync(BASE+userId+"/beatmapsets/"+type.getDescription(), ClientUtil.buildQueryMap(params, AnonymousStructProcessor.class));
 	}
 
 	public CompletableFuture<User> getUser(int userId, Ruleset ruleset) {

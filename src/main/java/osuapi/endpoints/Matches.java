@@ -7,6 +7,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
 import osuapi.client.core.OsuApiClient;
+import osuapi.client.resources.ClientUtil;
 import osuapi.iterator.AsyncLazyEnumerable;
 import osuapi.iterator.ExitToken;
 import osuapi.enums.matches.MatchBundleSort;
@@ -40,7 +41,6 @@ public class Matches {
 	}
 
 	public <T extends MatchEventParameters> CompletableFuture<MatchBundle> getMatch(int matchId, T params) {
-		AnonymousStructProcessor.construct(params);
-		return client.getJsonAsync(BASE+matchId+params.queryProcess());
+		return client.getJsonAsync(BASE+matchId, ClientUtil.buildQueryMap(params, AnonymousStructProcessor.class));
 	}
 }

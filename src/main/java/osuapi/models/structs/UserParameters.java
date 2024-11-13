@@ -7,10 +7,11 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import lombok.Getter;
 import lombok.Setter;
+import osuapi.models.structs.processors.Struct;
 
 @Getter
 @Setter
-public abstract class UserParameters {
+public abstract class UserParameters extends Struct<UserParameters> {
     private int limit;
     private int offset;
 

@@ -13,5 +13,5 @@ public abstract class StructProcessor<T extends StructProcessor<T>> {
         private InternalStructProccessorLock() {}
     }
 
-    protected abstract void process(Struct<?> abstractStruct);
+    public abstract void process(Struct<?> abstractStruct);
 }
