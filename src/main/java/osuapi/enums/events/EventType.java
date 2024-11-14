@@ -1,12 +1,10 @@
 package osuapi.enums.events;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import osuapi.enums.DescriptionEnum;
 
-public enum EventType implements DescriptionEnum<EventType> {
+public enum EventType implements DescriptionEnum {
 	ACHIEVEMENT("achievement"),
 	BEATMAPPLAYCOUNT("beatmapPlaycount"),
 	BEATMAPSETAPPROVE("beatmapsetApprove"),
@@ -30,17 +28,5 @@ public enum EventType implements DescriptionEnum<EventType> {
 	@JsonValue
 	public String getDescription() {
 		return this.description;
-	}
-	
-	public EventType getEnum(String input) {
-		EventType result = null;
-		for (EventType EventType : values()) {
-			if (StringUtils.equalsIgnoreCase(EventType.name(), input) ||
-					StringUtils.equalsIgnoreCase(EventType.getDescription(), input)) {
-				result = EventType;
-				break;
-			}
-		}
-		return result;
 	}
 }

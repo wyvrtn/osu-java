@@ -2,8 +2,8 @@ package osuapi.models.home;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.commons.lang3.tuple.Pair;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -24,13 +24,16 @@ public class SearchResult<T> {
     @JsonProperty("total")
     private int total;
 
-    public static <T> Pair<List<User>, List<WikiPage>> process(SearchResult<T> instance) {
-        List<User> left = new ArrayList<>();
-        List<WikiPage> right = new ArrayList<>();
+    public static <T extends Object> Map<String, List<?>> process(SearchResult<? extends T> instance) {
+        List<User> userEntries = new ArrayList<>();
+        List<WikiPage> wikiPageEntries = new ArrayList<>();
         for (T element : instance.getData()) {
-            if (element instanceof User) left.add((User) element);
-            if (element instanceof WikiPage) right.add((WikiPage) element);
+            if (element instanceof User) userEntries.add((User) element);
+            if (element instanceof WikiPage) wikiPageEntries.add((WikiPage) element);
         }
-        return Pair.of(left, right);
+        Map<String, List<?>> result = new ConcurrentHashMap<>();
+        result.put("user_entries", userEntries);
+        result.put("wiki_page_entries", wikiPageEntries);
+        return result;
     }
 }

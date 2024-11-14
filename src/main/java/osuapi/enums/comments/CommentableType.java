@@ -1,12 +1,10 @@
 package osuapi.enums.comments;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import osuapi.enums.DescriptionEnum;
 
-public enum CommentableType implements DescriptionEnum<CommentableType> {
+public enum CommentableType implements DescriptionEnum {
 	BEATMAPSET("beatmapset"),
 	NEWSPOST("news_post"),
 	BUILD("build");
@@ -20,17 +18,5 @@ public enum CommentableType implements DescriptionEnum<CommentableType> {
 	@JsonValue
 	public String getDescription() {
 		return this.description;
-	}
-	
-	public CommentableType getEnum(String input) {
-		CommentableType result = null;
-		for (CommentableType CommentableType : values()) {
-			if (StringUtils.equalsIgnoreCase(CommentableType.name(), input) ||
-					StringUtils.equalsIgnoreCase(CommentableType.getDescription(), input)) {
-				result = CommentableType;
-				break;
-			}
-		}
-		return result;
 	}
 }

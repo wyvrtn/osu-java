@@ -1,12 +1,10 @@
 package osuapi.enums.rankings;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import osuapi.enums.DescriptionEnum;
 
-public enum UserRankingType implements DescriptionEnum<UserRankingType> {
+public enum UserRankingType implements DescriptionEnum {
 	SPOTLIGHT("charts"),
 	COUNTRY("country"),
 	PERFORMANCE("performance"),
@@ -21,17 +19,5 @@ public enum UserRankingType implements DescriptionEnum<UserRankingType> {
 	@JsonValue
 	public String getDescription() {
 		return this.description;
-	}
-	
-	public UserRankingType getEnum(String input) {
-		UserRankingType result = null;
-		for (UserRankingType RankingType : values()) {
-			if (StringUtils.equalsIgnoreCase(RankingType.name(), input) ||
-					StringUtils.equalsIgnoreCase(RankingType.getDescription(), input)) {
-				result = RankingType;
-				break;
-			}
-		}
-		return result;
 	}
 }

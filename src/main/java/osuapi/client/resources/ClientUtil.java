@@ -79,7 +79,7 @@ public final class ClientUtil {
 	
 	public static String getDescription(Enum<?> descriptableEnum) {
 		if (descriptableEnum instanceof DescriptionEnum) {
-			return ((DescriptionEnum<?>) descriptableEnum).getDescription();
+			return ((DescriptionEnum) descriptableEnum).getDescription();
 		}
 		return descriptableEnum.toString();
 	}

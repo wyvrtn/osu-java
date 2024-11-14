@@ -1,12 +1,10 @@
 package osuapi.enums.beatmaps;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import osuapi.enums.DescriptionEnum;
 
-public enum BeatmapType implements DescriptionEnum<BeatmapType> {
+public enum BeatmapType implements DescriptionEnum {
 	FAVOURITE("favourite"),
 	GRAVEYARD("graveyard"),
 	GUEST("guest"),
@@ -25,17 +23,5 @@ public enum BeatmapType implements DescriptionEnum<BeatmapType> {
 	@JsonValue
 	public String getDescription() {
 		return this.description;
-	}
-	
-	public BeatmapType getEnum(String input) {
-		BeatmapType result = null;
-		for (BeatmapType BeatmapType : values()) {
-			if (StringUtils.equalsIgnoreCase(BeatmapType.name(), input) ||
-					StringUtils.equalsIgnoreCase(BeatmapType.getDescription(), input)) {
-				result = BeatmapType;
-				break;
-			}
-		}
-		return result;
 	}
 }

@@ -13,7 +13,6 @@ import osuapi.enums.matches.MatchBundleSort;
 import osuapi.models.matches.Match;
 import osuapi.models.matches.MatchBundle;
 import osuapi.models.matches.MatchesBundle;
-import osuapi.models.structs.MatchEventParams;
 
 public class Matches {
     private static final String BASE = "/matches/";
@@ -38,8 +37,13 @@ public class Matches {
 		return new AsyncLazyEnumerable<>(func, token);
 	}
 
-	public CompletableFuture<MatchBundle> getMatch(int matchId, MatchEventParams params) {
-		params.constructor();
-		return client.getJsonAsync(BASE+matchId+params.process());
+	public CompletableFuture<MatchBundle> getMatch(int matchId, int before, int after, int limit) {
+		return CompletableFuture.supplyAsync(() ->{
+			Map<String, Object> params = new HashMap<>();
+			params.put("before", before);
+			params.put("after", after);
+			params.put("limit", limit);
+			return client.getJson(BASE+matchId, params);
+		});
 	}
 }

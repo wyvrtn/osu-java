@@ -1,12 +1,10 @@
 package osuapi.enums.matches;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import osuapi.enums.DescriptionEnum;
 
-public enum MatchTeamType implements DescriptionEnum<MatchTeamType> {
+public enum MatchTeamType implements DescriptionEnum {
     HEAD_TO_HEAD("head-to-head"),
 	TAG_COOP("tag-coop"),
     TAG_TEAM_VS("tag-team-vs"),
@@ -21,17 +19,5 @@ public enum MatchTeamType implements DescriptionEnum<MatchTeamType> {
 	@JsonValue
 	public String getDescription() {
 		return this.description;
-	}
-	
-	public MatchTeamType getEnum(String input) {
-		MatchTeamType result = null;
-		for (MatchTeamType MatchTeamType : values()) {
-			if (StringUtils.equalsIgnoreCase(MatchTeamType.name(), input) ||
-					StringUtils.equalsIgnoreCase(MatchTeamType.getDescription(), input)) {
-				result = MatchTeamType;
-				break;
-			}
-		}
-		return result;
 	}
 }

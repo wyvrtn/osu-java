@@ -1,12 +1,10 @@
 package osuapi.enums.beatmaps;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import osuapi.enums.DescriptionEnum;
 
-public enum RankedStatus implements DescriptionEnum<RankedStatus> {
+public enum RankedStatus implements DescriptionEnum {
 	GRAVEYARD(-2, "graveyard"),
 	WIP(-1, "wip"),
 	PENDING(0, "pending"),
@@ -30,20 +28,5 @@ public enum RankedStatus implements DescriptionEnum<RankedStatus> {
 	
 	public int getValue() {
 		return this.value;
-	}
-	
-	public RankedStatus getEnum(String input) {
-		RankedStatus result = null;
-		for (RankedStatus RankedStatus : values()) {
-			if (StringUtils.equalsIgnoreCase(RankedStatus.name(), input) ||
-					RankedStatus.getValue()==Integer.parseInt(input)) {
-				result = RankedStatus;
-				break;
-			}
-			if (StringUtils.equalsIgnoreCase("pending", input)) {
-				result = RankedStatus;
-			}
-		}
-		return result;
 	}
 }

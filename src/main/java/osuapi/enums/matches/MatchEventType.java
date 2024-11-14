@@ -1,12 +1,10 @@
 package osuapi.enums.matches;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import osuapi.enums.DescriptionEnum;
 
-public enum MatchEventType implements DescriptionEnum<MatchEventType> {
+public enum MatchEventType implements DescriptionEnum {
     HOST_CHANGED("host-changed"),
 	MATCH_CREATED("match-created"),
     MATCH_DISBANDED("match-disbanded"),
@@ -24,17 +22,5 @@ public enum MatchEventType implements DescriptionEnum<MatchEventType> {
 	@JsonValue
 	public String getDescription() {
 		return this.description;
-	}
-	
-	public MatchEventType getEnum(String input) {
-		MatchEventType result = null;
-		for (MatchEventType MatchEventType : values()) {
-			if (StringUtils.equalsIgnoreCase(MatchEventType.name(), input) ||
-					StringUtils.equalsIgnoreCase(MatchEventType.getDescription(), input)) {
-				result = MatchEventType;
-				break;
-			}
-		}
-		return result;
 	}
 }

@@ -1,7 +1,5 @@
 package osuapi.enums.users;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum UserScoreType {
@@ -18,17 +16,5 @@ public enum UserScoreType {
 	@JsonValue
 	public String getDescription() {
 		return this.description;
-	}
-	
-	public UserScoreType getEnum(String input) {
-		UserScoreType result = null;
-		for (UserScoreType UserScoreType : values()) {
-			if (StringUtils.equalsIgnoreCase(UserScoreType.name(), input) ||
-					StringUtils.equalsIgnoreCase(UserScoreType.getDescription(), input)) {
-				result = UserScoreType;
-				break;
-			}
-		}
-		return result;
 	}
 }

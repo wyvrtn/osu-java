@@ -1,7 +1,5 @@
 package osuapi.enums.misc;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import osuapi.enums.DescriptionEnum;
@@ -13,7 +11,7 @@ import osuapi.enums.DescriptionEnum;
  	Source: <a href="https://github.com/ppy/osu-web/blob/master/app/Enums/Ruleset.php"/>
 	</summary>
 */
-public enum Ruleset implements DescriptionEnum<Ruleset> {
+public enum Ruleset implements DescriptionEnum {
 	OSU("osu"),
 	TAIKO("taiko"),
 	CATCH("fruits"),
@@ -28,17 +26,5 @@ public enum Ruleset implements DescriptionEnum<Ruleset> {
 	@JsonValue
 	public String getDescription() {
 		return this.description;
-	}
-	
-	public Ruleset getEnum(String input) {
-		Ruleset result = null;
-		for (Ruleset Ruleset : values()) {
-			if (StringUtils.equalsIgnoreCase(Ruleset.name(), input) ||
-					StringUtils.equalsIgnoreCase(Ruleset.getDescription(), input)) {
-				result = Ruleset;
-				break;
-			}
-		}
-		return result;
 	}
 }

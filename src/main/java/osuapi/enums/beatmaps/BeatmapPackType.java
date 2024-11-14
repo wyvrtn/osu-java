@@ -1,7 +1,5 @@
 package osuapi.enums.beatmaps;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import osuapi.enums.DescriptionEnum;
@@ -13,7 +11,7 @@ import osuapi.enums.DescriptionEnum;
  	Source: <a href="https://github.com/ppy/osu-web/blob/master/app/Models/BeatmapPack.php#L36"/>
  	</summary>
 */
-public enum BeatmapPackType implements DescriptionEnum<BeatmapPackType> {
+public enum BeatmapPackType implements DescriptionEnum {
 	STANDARD("standard"),
 	FEATURED("featured"),
 	TOURNAMENT("tournament"),
@@ -31,17 +29,5 @@ public enum BeatmapPackType implements DescriptionEnum<BeatmapPackType> {
 	@JsonValue
 	public String getDescription() {
 		return this.description;
-	}
-	
-	public BeatmapPackType getEnum(String input) {
-		BeatmapPackType result = null;
-		for (BeatmapPackType BeatmapPackType : values()) {
-			if (StringUtils.equalsIgnoreCase(BeatmapPackType.name(), input) ||
-					StringUtils.equalsIgnoreCase(BeatmapPackType.getDescription(), input)) {
-				result = BeatmapPackType;
-				break;
-			}
-		}
-		return result;
 	}
 }

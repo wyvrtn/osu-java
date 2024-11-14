@@ -1,12 +1,10 @@
 package osuapi.enums.discussions;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import osuapi.enums.DescriptionEnum;
 
-public enum DiscussionType implements DescriptionEnum<DiscussionType> {
+public enum DiscussionType implements DescriptionEnum {
 	HYPE("hype"),
 	MAPPERNOTE("note"),
 	PRAISE("praise"),
@@ -23,17 +21,5 @@ public enum DiscussionType implements DescriptionEnum<DiscussionType> {
 	@JsonValue
 	public String getDescription() {
 		return this.description;
-	}
-	
-	public DiscussionType getEnum(String input) {
-		DiscussionType result = null;
-		for (DiscussionType DiscussionType : values()) {
-			if (StringUtils.equalsIgnoreCase(DiscussionType.name(), input) ||
-					StringUtils.equalsIgnoreCase(DiscussionType.getDescription(), input)) {
-				result = DiscussionType;
-				break;
-			}
-		}
-		return result;
 	}
 }
