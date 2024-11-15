@@ -11,7 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import osuapi.client.authorization.ClientCredentialsGrant;
-import osuapi.client.authorization.RequestBundle;
+import osuapi.client.request.RequestBundle;
 import osuapi.client.resources.ClientUtil;
 import osuapi.client.resources.OsuApiException;
 import osuapi.endpoints.ApiEndpoints;

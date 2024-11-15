@@ -1,4 +1,4 @@
-package osuapi.client.authorization;
+package osuapi.client.request;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

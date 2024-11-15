@@ -14,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import osuapi.client.authorization.HttpServiceProvider;
-import osuapi.client.authorization.RequestBundle;
+import osuapi.client.request.RequestBundle;
 import osuapi.models.authorization.ApiAuthorizationResponse;
 import osuapi.models.authorization.AuthorizationCodeResponse;
 

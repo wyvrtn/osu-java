@@ -3,13 +3,20 @@
 	<modelVersion>4.0.0</modelVersion>
 	
 	<groupId>wyvrtn</groupId>
-	<artifactId>osu-java</artifactId>
+	<artifactId>jospi</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>osu-java</name>
-	<description>A simple, in development wrapper for the osu! API v2</description>
+	<name>${project.groupId}:${project.artifactId}</name>
+	<description>A simple, in development async wrapper for the osu! API v2</description>
 	<url>https://github.com/wyvrtn/osu-java</url>
+
+	<licenses>
+  		<license>
+    		<name>GNU General Public License</name>
+    		<url>https://www.gnu.org/licenses/gpl-3.0.txt</url>
+  		</license>
+	</licenses>
 
 	<properties>
     	<java.version>1.8</java.version>

@@ -1,4 +1,4 @@
-package osuapi.client.authorization;
+package osuapi.client.request;
 
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
