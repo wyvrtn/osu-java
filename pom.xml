@@ -2,13 +2,14 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	
-	<groupId>com.osujava</groupId>
+	<groupId>wyvrtn</groupId>
 	<artifactId>osu-java</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>osu-java</name>
-	<url>http://maven.apache.org</url>
+	<description>A simple, in development wrapper for the osu! API v2</description>
+	<url>https://github.com/wyvrtn/osu-java</url>
 
 	<properties>
     	<java.version>1.8</java.version>
@@ -57,7 +58,7 @@
     		<version>2.0.16</version>
 		</dependency>
 		
-		<!-- Yaml Dependency -->
+		<!-- Snake Yaml -->
 		<dependency>
 			<groupId>org.yaml</groupId>
 			<artifactId>snakeyaml</artifactId>
