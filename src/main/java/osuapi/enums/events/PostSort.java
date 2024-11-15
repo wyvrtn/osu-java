@@ -1,12 +1,10 @@
 package osuapi.enums.events;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import osuapi.enums.DescriptionEnum;
 
-public enum PostSort implements DescriptionEnum<PostSort> {
+public enum PostSort implements DescriptionEnum {
 	IDASCENDING("IDAscending"),
 	IDDESCENDING("IDDescending");
 	
@@ -19,17 +17,5 @@ public enum PostSort implements DescriptionEnum<PostSort> {
 	@JsonValue
 	public String getDescription() {
 		return this.description;
-	}
-	
-	public PostSort getEnum(String input) {
-		PostSort result = null;
-		for (PostSort PostSort : values()) {
-			if (StringUtils.equalsIgnoreCase(PostSort.name(), input) ||
-					StringUtils.equalsIgnoreCase(PostSort.getDescription(), input)) {
-				result = PostSort;
-				break;
-			}
-		}
-		return result;
 	}
 }

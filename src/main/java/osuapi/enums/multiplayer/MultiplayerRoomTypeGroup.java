@@ -1,12 +1,10 @@
 package osuapi.enums.multiplayer;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import osuapi.enums.DescriptionEnum;
 
-public enum MultiplayerRoomTypeGroup implements DescriptionEnum<MultiplayerRoomTypeGroup> {
+public enum MultiplayerRoomTypeGroup implements DescriptionEnum {
 	PLAYLISTS("playlists"),
 	REALTIME("realtime");
 	
@@ -19,17 +17,5 @@ public enum MultiplayerRoomTypeGroup implements DescriptionEnum<MultiplayerRoomT
 	@JsonValue
 	public String getDescription() {
 		return this.description;
-	}
-	
-	public MultiplayerRoomTypeGroup getEnum(String input) {
-		MultiplayerRoomTypeGroup result = null;
-		for (MultiplayerRoomTypeGroup MultiplayerRoomTypeGroup : values()) {
-			if (StringUtils.equalsIgnoreCase(MultiplayerRoomTypeGroup.name(), input) ||
-					StringUtils.equalsIgnoreCase(MultiplayerRoomTypeGroup.getDescription(), input)) {
-				result = MultiplayerRoomTypeGroup;
-				break;
-			}
-		}
-		return result;
 	}
 }

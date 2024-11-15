@@ -1,12 +1,10 @@
 package osuapi.enums.comments;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import osuapi.enums.DescriptionEnum;
 
-public enum CommentableOwnerTitle implements DescriptionEnum<CommentableOwnerTitle> {
+public enum CommentableOwnerTitle implements DescriptionEnum {
 	MAPPER("Mapper");
 	
 	private String description;
@@ -18,17 +16,5 @@ public enum CommentableOwnerTitle implements DescriptionEnum<CommentableOwnerTit
 	@JsonValue
 	public String getDescription() {
 		return this.description;
-	}
-	
-	public CommentableOwnerTitle getEnum(String input) {
-		CommentableOwnerTitle result = null;
-		for (CommentableOwnerTitle CommentableOwnerTitle : values()) {
-			if (StringUtils.equalsIgnoreCase(CommentableOwnerTitle.name(), input) ||
-					StringUtils.equalsIgnoreCase(CommentableOwnerTitle.getDescription(), input)) {
-				result = CommentableOwnerTitle;
-				break;
-			}
-		}
-		return result;
 	}
 }

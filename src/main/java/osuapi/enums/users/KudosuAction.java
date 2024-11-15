@@ -1,12 +1,10 @@
 package osuapi.enums.users;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import osuapi.enums.DescriptionEnum;
 
-public enum KudosuAction implements DescriptionEnum<KudosuAction> {
+public enum KudosuAction implements DescriptionEnum {
 	GIVE("give"),
 	VOTE_GIVE("vote.give"),
 	RESET("reset"),
@@ -23,17 +21,5 @@ public enum KudosuAction implements DescriptionEnum<KudosuAction> {
 	@JsonValue
 	public String getDescription() {
 		return this.description;
-	}
-	
-	public KudosuAction getEnum(String input) {
-		KudosuAction result = null;
-		for (KudosuAction KudosuAction : values()) {
-			if (StringUtils.equalsIgnoreCase(KudosuAction.name(), input) ||
-					StringUtils.equalsIgnoreCase(KudosuAction.getDescription(), input)) {
-				result = KudosuAction;
-				break;
-			}
-		}
-		return result;
 	}
 }

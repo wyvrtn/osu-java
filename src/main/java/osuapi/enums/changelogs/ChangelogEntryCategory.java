@@ -1,12 +1,10 @@
 package osuapi.enums.changelogs;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import osuapi.enums.DescriptionEnum;
 
-public enum ChangelogEntryCategory implements DescriptionEnum<ChangelogEntryCategory> {
+public enum ChangelogEntryCategory implements DescriptionEnum {
 	WEB("Web"),
 	AUDIO("Audio"),
 	CODE("Code"),
@@ -51,17 +49,5 @@ public enum ChangelogEntryCategory implements DescriptionEnum<ChangelogEntryCate
 	@JsonValue
 	public String getDescription() {
 		return this.description;
-	}
-	
-	public ChangelogEntryCategory getEnum(String input) {
-		ChangelogEntryCategory result = null;
-		for (ChangelogEntryCategory ChangelogEntryCategory : values()) {
-			if (StringUtils.equalsIgnoreCase(ChangelogEntryCategory.name(), input) ||
-					StringUtils.equalsIgnoreCase(ChangelogEntryCategory.getDescription(), input)) {
-				result = ChangelogEntryCategory;
-				break;
-			}
-		}
-		return result;
 	}
 }

@@ -1,12 +1,10 @@
 package osuapi.enums.comments;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import osuapi.enums.DescriptionEnum;
 
-public enum CommentSortType implements DescriptionEnum<CommentSortType> {
+public enum CommentSortType implements DescriptionEnum {
 	NEW("new"),
 	OLD("old"),
 	TOP("top");
@@ -20,17 +18,5 @@ public enum CommentSortType implements DescriptionEnum<CommentSortType> {
 	@JsonValue
 	public String getDescription() {
 		return this.description;
-	}
-	
-	public CommentSortType getEnum(String input) {
-		CommentSortType result = null;
-		for (CommentSortType CommentSortType : values()) {
-			if (StringUtils.equalsIgnoreCase(CommentSortType.name(), input) ||
-					StringUtils.equalsIgnoreCase(CommentSortType.getDescription(), input)) {
-				result = CommentSortType;
-				break;
-			}
-		}
-		return result;
 	}
 }

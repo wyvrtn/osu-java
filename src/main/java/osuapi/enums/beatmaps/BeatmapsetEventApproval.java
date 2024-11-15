@@ -1,12 +1,10 @@
 package osuapi.enums.beatmaps;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import osuapi.enums.DescriptionEnum;
 
-public enum BeatmapsetEventApproval implements DescriptionEnum<BeatmapsetEventApproval> {
+public enum BeatmapsetEventApproval implements DescriptionEnum {
 	RANKED("ranked"),
 	APPROVED("approved"),
 	QUALIFIED("qualified"),
@@ -21,17 +19,5 @@ public enum BeatmapsetEventApproval implements DescriptionEnum<BeatmapsetEventAp
 	@JsonValue
 	public String getDescription() {
 		return this.description;
-	}
-	
-	public BeatmapsetEventApproval getEnum(String input) {
-		BeatmapsetEventApproval result = null;
-		for (BeatmapsetEventApproval BeatmapsetEventApproval : values()) {
-			if (StringUtils.equalsIgnoreCase(BeatmapsetEventApproval.name(), input) ||
-					StringUtils.equalsIgnoreCase(BeatmapsetEventApproval.getDescription(), input)) {
-				result = BeatmapsetEventApproval;
-				break;
-			}
-		}
-		return result;
 	}
 }

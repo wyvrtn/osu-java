@@ -1,12 +1,10 @@
 package osuapi.enums.multiplayer;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import osuapi.enums.DescriptionEnum;
 
-public enum MultiplayerScoresSort implements DescriptionEnum<MultiplayerScoresSort> {
+public enum MultiplayerScoresSort implements DescriptionEnum {
 	SCORE_ASC("score_asc"),
 	SCORE_DESC("score_desc");
 	
@@ -19,17 +17,5 @@ public enum MultiplayerScoresSort implements DescriptionEnum<MultiplayerScoresSo
 	@JsonValue
 	public String getDescription() {
 		return this.description;
-	}
-	
-	public MultiplayerScoresSort getEnum(String input) {
-		MultiplayerScoresSort result = null;
-		for (MultiplayerScoresSort MultiplayerScoresSort : values()) {
-			if (StringUtils.equalsIgnoreCase(MultiplayerScoresSort.name(), input) ||
-					StringUtils.equalsIgnoreCase(MultiplayerScoresSort.getDescription(), input)) {
-				result = MultiplayerScoresSort;
-				break;
-			}
-		}
-		return result;
 	}
 }

@@ -1,12 +1,10 @@
 package osuapi.enums.multiplayer;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import osuapi.enums.DescriptionEnum;
 
-public enum MultiplayerRoomMode implements DescriptionEnum<MultiplayerRoomMode> {
+public enum MultiplayerRoomMode implements DescriptionEnum {
     ACTIVE("active"),
 	ALL("all"),
 	ENDED("ended"),
@@ -22,17 +20,5 @@ public enum MultiplayerRoomMode implements DescriptionEnum<MultiplayerRoomMode> 
 	@JsonValue
 	public String getDescription() {
 		return this.description;
-	}
-	
-	public MultiplayerRoomMode getEnum(String input) {
-		MultiplayerRoomMode result = null;
-		for (MultiplayerRoomMode MultiplayerRoomMode : values()) {
-			if (StringUtils.equalsIgnoreCase(MultiplayerRoomMode.name(), input) ||
-					StringUtils.equalsIgnoreCase(MultiplayerRoomMode.getDescription(), input)) {
-				result = MultiplayerRoomMode;
-				break;
-			}
-		}
-		return result;
 	}
 }
