@@ -1,21 +1,25 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
-	<parent>
-      	<groupId>org.sonatype.oss</groupId>
-        <artifactId>oss-parent</artifactId>
-        <version>9</version>
-    </parent>
-	
-	<groupId>io.github.wyvrtn</groupId>
-	<artifactId>jospi</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<!-- https://stackoverflow.com/questions/77382912/how-to-deploy-on-maven-central -->
+
+	<developers>
+        <developer>
+            <name>Wyvrtn</name>
+            <email>wyvrtn@gmail.com</email>
+            <organization>Wyvrtn</organization>
+            <organizationUrl>https://github.com/wyvrtn</organizationUrl>
+        </developer>
+    </developers>
 
 	<name>${project.groupId}:${project.artifactId}</name>
 	<description>A simple, in development async wrapper for the osu! API v2</description>
 	<url>https://github.com/wyvrtn/jospi</url>
+
+	<groupId>io.github.wyvrtn</groupId>
+	<artifactId>jospi</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
 
 	<licenses>
   		<license>
@@ -23,63 +27,79 @@
     		<url>https://www.gnu.org/licenses/gpl-3.0.txt</url>
   		</license>
 	</licenses>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- Java Version -->
+    	<java.version>1.8</java.version>
+        <!-- Maven Compiler -->
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+        <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
+        <maven-javadoc-plugin.version>3.6.0</maven-javadoc-plugin.version>
+        <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
+        <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
+        <!-- Lombok Version -->
+        <lombok.version>1.18.30</lombok.version>
+	</properties>
+
+	<scm>
+        <connection>scm:git:git://github.com/wyvrtn/jospi.git</connection>
+        <developerConnection>scm:git:ssh://github.com/wyvrtn/jospi.git</developerConnection>
+        <url>https://github.com/wyvrtn/jospi</url>
+    </scm>
 	
 	<distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
-          	<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+          	<url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
         <repository>
             <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
-
-	<properties>
-    	<java.version>1.8</java.version>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
-	</properties>
 
 	<dependencies>
 		<!-- Spring Web -->
 		<dependency>
-    	<groupId>org.springframework</groupId>
-    		<artifactId>spring-web</artifactId>
-    		<version>5.3.39</version>
-		</dependency>
-	
-		<!-- Fasterxml-Jackson -->
-		<dependency>
-    		<groupId>com.fasterxml.jackson.core</groupId>
-    		<artifactId>jackson-databind</artifactId>
-    		<version>2.16.1</version><!--$NO-MVN-MAN-VER$-->
-		</dependency>
-		
-		<dependency>
-    		<groupId>com.fasterxml.jackson.core</groupId>
-   		 	<artifactId>jackson-annotations</artifactId>
-    		<version>2.16.1</version><!--$NO-MVN-MAN-VER$-->
-		</dependency>
-		
-		<dependency>
-    		<groupId>com.fasterxml.jackson.core</groupId>
-    		<artifactId>jackson-core</artifactId>
-    		<version>2.16.1</version><!--$NO-MVN-MAN-VER$-->
+		<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>5.3.39</version>
 		</dependency>
 
+		<!-- Fasterxml-Jackson -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.16.1</version><!--$NO-MVN-MAN-VER$-->
+		</dependency>
+		
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.16.1</version><!--$NO-MVN-MAN-VER$-->
+		</dependency>
+		
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.16.1</version><!--$NO-MVN-MAN-VER$-->
+		</dependency>
 
 		<!-- SLF4j -->
 		<dependency>
-    		<groupId>org.slf4j</groupId>
-    		<artifactId>slf4j-api</artifactId>
-    		<version>2.0.16</version>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>2.0.16</version>
 		</dependency>
 
 		<dependency>
-    		<groupId>org.slf4j</groupId>
-    		<artifactId>jul-to-slf4j</artifactId>
-    		<version>2.0.16</version>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jul-to-slf4j</artifactId>
+			<version>2.0.16</version>
 		</dependency>
 		
 		<!-- Snake Yaml -->
@@ -91,10 +111,10 @@
 				
 		<!-- Lombok -->
 		<dependency>
-      		<groupId>org.projectlombok</groupId>
-      		<artifactId>lombok</artifactId>
-      		<version>1.18.30</version><!--$NO-MVN-MAN-VER$-->
-      		<scope>provided</scope>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version><!--$NO-MVN-MAN-VER$-->
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 	
@@ -102,8 +122,25 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source> <!-- depending on your project -->
+                    <target>${maven.compiler.target}</target> <!-- depending on your project -->
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>2.2.1</version>
+                <version>${maven-source-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -116,7 +153,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.9.1</version>
+                <version>${maven-javadoc-plugin.version}</version>
+				<configuration>
+  					<source>8</source>
+				</configuration>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -129,7 +169,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.5</version>
+                <version>${maven-gpg-plugin.version}</version>
+				<configuration>
+         			<skip>true</skip>
+       			</configuration>
                 <executions>
                     <execution>
                         <id>sign-artifacts</id>
@@ -143,7 +186,7 @@
             <plugin>
                 <groupId>org.sonatype.plugins</groupId>
                 <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.7</version>
+                <version>${nexus-staging-maven-plugin.version}</version>
                 <extensions>true</extensions>
                 <configuration>
                     <serverId>ossrh</serverId>
@@ -151,6 +194,21 @@
                     <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>
+			
         </plugins>
+		<pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.1</version>
+                    <configuration>
+                        <mavenExecutorId>forked-path</mavenExecutorId>
+                        <useReleaseProfile>false</useReleaseProfile>
+                        <arguments>${arguments} -Psonatype-oss-release</arguments>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 </project>
