@@ -4,8 +4,6 @@ import java.time.OffsetDateTime;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +15,6 @@ import jospi.client.resources.OsuApiException;
 import jospi.endpoints.ApiEndpoints;
 
 public final class OsuApiClient {
-	private static final Logger LOG = LoggerFactory.getLogger(OsuApiClient.class);
 	public final ApiEndpoints endpoints;
 	private AbstractApiAuthorizationContainer authorization; 
 	protected final OsuApiClientInternal svc;
@@ -74,7 +71,6 @@ public final class OsuApiClient {
 		if (entity.getStatusCode()!=HttpStatus.OK) {
 			throw new OsuApiException("Request Did Not Receive HTTP Status Code 200");
 		}
-		LOG.info("Request Successful");
 		return entity.getBody();
 	}
 }

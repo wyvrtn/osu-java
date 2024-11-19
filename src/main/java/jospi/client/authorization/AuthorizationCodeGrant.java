@@ -15,7 +15,6 @@ public class AuthorizationCodeGrant extends AbstractApiAuthorization {
 	private String refreshToken;
 
     public AuthorizationCodeGrant(int clientId, String clientSecret, String code, String redirectUri) {
-        super(AuthorizationCodeGrant.class);
         this.clientId = Integer.toString(clientId);
         this.clientSecret = clientSecret;
         authorizationBody.put("client_id", this.clientId);
@@ -23,8 +22,6 @@ public class AuthorizationCodeGrant extends AbstractApiAuthorization {
 		authorizationBody.put("code", code);
 		authorizationBody.put("grant_type", "authorization_code");
         authorizationBody.put("redirect_uri", redirectUri);
-		LOG.info("New Instance of {} created in Thread {}", 
-				this.getClass().getName(), Thread.currentThread().getName());
     }
 
     @Override
@@ -36,7 +33,6 @@ public class AuthorizationCodeGrant extends AbstractApiAuthorization {
 		setExpirationDate(OffsetDateTime.now(ZoneId.systemDefault())
 			.plusSeconds(acResponse.getExpiresIn() - 30L /** Leniency */));
 		refreshToken = acResponse.getRefreshToken();
-		LOG.info(getAccessToken());
 		setStatus(true);
     }
 
@@ -46,7 +42,6 @@ public class AuthorizationCodeGrant extends AbstractApiAuthorization {
 		authorizationBody.put("client_secret", clientSecret);
 		authorizationBody.put("grant_type", "refresh_token");
 		authorizationBody.put("refresh_token", refreshToken);
-		
 		String authBody = super.encodeFormUrl(authorizationBody);
 		AuthorizationCodeResponse acResponse = (AuthorizationCodeResponse) svc.requestNewToken(authBody);
 		acResponse.validation();

@@ -13,14 +13,11 @@ public final class ClientCredentialsGrant extends AbstractApiAuthorization {
 	}
 	
 	public ClientCredentialsGrant(String clientId, String clientSecret) {
-		super(ClientCredentialsGrant.class);
 		authorizationBody.put("client_id", clientId);
 		authorizationBody.put("client_secret", clientSecret);
 		authorizationBody.put("grant_type", "client_credentials");
 		authorizationBody.put("scope", "public");
 		setStatus(true);
-		LOG.info("New Instance of {} created in Thread {}", 
-				this.getClass().getName(), Thread.currentThread().getName());
 	}
 	
 	protected synchronized void authorizationFlow(HttpServiceProvider svc) {
@@ -30,7 +27,6 @@ public final class ClientCredentialsGrant extends AbstractApiAuthorization {
 		setAccessToken(apResponse.getAccessToken());
 		setExpirationDate(OffsetDateTime.now(ZoneId.systemDefault())
 			.plusSeconds(apResponse.getExpiresIn() - 30L /** Leniency */));
-		LOG.info(getAccessToken());
 	}
 
 	protected void refreshAccessToken(HttpServiceProvider svc) {
