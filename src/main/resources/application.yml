@@ -1,25 +1,9 @@
-server:
-  servlet:
-    context-path: /osuapi
-    
 #============================================================#
 ##                 Spring Config                            ##
 #============================================================#
 spring:
-  application:
-    name: osu-api
   jackson:
     default-property-inclusion: non-null
-
-#============================================================#
-##                 URL Config                               ##
-#============================================================# 
-api:
-  gateway: https://osu.ppy.sh
-  root: /api/v2
-  auth: /oauth/token
-  readTimeout: 1000
-  connectTimeout: 1000
   
 #============================================================#
 ##                 Log Config                               ##
