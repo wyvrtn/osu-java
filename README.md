@@ -1,6 +1,6 @@
 
 # Jospi
-![Maven Central Version](https://img.shields.io/maven-central/v/io.github.wyvrtn/jospi)
+[![Maven Central Version](https://img.shields.io/maven-central/v/io.github.wyvrtn/jospi)](https://central.sonatype.com/artifact/io.github.wyvrtn/jospi) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/d82cfab8be7043a688f157342147021f)](https://app.codacy.com/gh/wyvrtn/jospi/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 A simple, in-development async wrapper for the osu! API v2
 
