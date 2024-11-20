@@ -20,7 +20,7 @@ import jospi.models.scores.UserBeatmapScore;
 public final class Beatmaps {
 	private static final String BASE = "/beatmaps/";
 
-	private OsuApiClient client; 
+	private final OsuApiClient client; 
 
 	public Beatmaps(OsuApiClient client) {
 		this.client = client;

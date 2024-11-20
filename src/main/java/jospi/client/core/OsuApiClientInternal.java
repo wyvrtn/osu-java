@@ -21,8 +21,8 @@ public final class OsuApiClientInternal extends HttpServiceProvider {
 	private static final String REQTOKEN = "/oauth/token";
 	private static final String AUTH = "/oauth/authorize";
 
-    private RestTemplate restTemplate;
-	private AbstractApiAuthorizationContainer authorization;
+    private final RestTemplate restTemplate;
+	private final AbstractApiAuthorizationContainer authorization;
 
     protected OsuApiClientInternal(RequestBundle bundle, AbstractApiAuthorizationContainer auth) {
 		this.restTemplate = bundle.getApiRestTemplate();

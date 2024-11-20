@@ -9,18 +9,17 @@ import java.util.concurrent.ExecutionException;
 import java.util.function.Function;
 
 public class AsyncLazyEnumerable<T, TResult> implements Iterable<CompletableFuture<TResult>> {
-    private Function<ExitToken<T>, CompletableFuture<TResult>> iterator;
-    private ExitToken<T> token;
-    private ExitType type = ExitType.WHILE;
+    private final Function<ExitToken<T>, CompletableFuture<TResult>> enumerator;
+    private final ExitToken<T> token;
+    private final ExitType type;
     private List<CompletableFuture<TResult>> cache;
     
     public AsyncLazyEnumerable(Function<ExitToken<T>, CompletableFuture<TResult>> func, ExitToken<T> token) {
-        this.iterator = func;
-        this.token = token;
+    	this(func, token, ExitType.WHILE);
     }
     
     public AsyncLazyEnumerable(Function<ExitToken<T>, CompletableFuture<TResult>> func, ExitToken<T> token, ExitType type) {
-        this.iterator = func;
+        this.enumerator = func;
         this.token = token;
         this.type = type;
     }
@@ -46,7 +45,7 @@ public class AsyncLazyEnumerable<T, TResult> implements Iterable<CompletableFutu
     }
 
     public <KResult> AsyncLazyEnumerable<T, KResult> append(Function<CompletableFuture<TResult>, CompletableFuture<KResult>> func) {
-        Function<ExitToken<T>, CompletableFuture<KResult>> appended = iterator.andThen(func);
+        Function<ExitToken<T>, CompletableFuture<KResult>> appended = enumerator.andThen(func);
         return new AsyncLazyEnumerable<>(appended, token, type);
     }
     
@@ -54,20 +53,20 @@ public class AsyncLazyEnumerable<T, TResult> implements Iterable<CompletableFutu
         if (type==ExitType.WHILE) {
         	if (token.doExit()) return null;
         	else {
-        		CompletableFuture<TResult> out = iterator.apply(token);
+        		CompletableFuture<TResult> out = enumerator.apply(token);
                 cache.add(out);
                 return out;
         	}
         } else if (type==ExitType.DO_WHILE) {
         	if (type.getState()==0) {
                 type.setState(1);
-                CompletableFuture<TResult> out = iterator.apply(token);
+                CompletableFuture<TResult> out = enumerator.apply(token);
                 cache.add(out);
                 return out;
             } else {
                 if (token.doExit()) return null;
                 else {
-                    CompletableFuture<TResult> out = iterator.apply(token);
+                    CompletableFuture<TResult> out = enumerator.apply(token);
                     cache.add(out);
                     return out;
                 }
@@ -76,14 +75,16 @@ public class AsyncLazyEnumerable<T, TResult> implements Iterable<CompletableFutu
         return null;
     }
     
-    public synchronized CompletableFuture<Boolean> moveNextAsync() {
-    	if (token.getNext()!=null) {
-    		return CompletableFuture.supplyAsync(() -> {
-    				token.setToken(token.getNext());
-    				return Boolean.TRUE;
-    		});
-    	} else {
-    		return CompletableFuture.completedFuture(Boolean.FALSE);
+    public CompletableFuture<Boolean> moveNextAsync() {
+    	synchronized(this) {
+        	if (token.getNext()!=null) {
+        		return CompletableFuture.supplyAsync(() -> {
+        				token.setToken(token.getNext());
+        				return Boolean.TRUE;
+        		});
+        	} else {
+        		return CompletableFuture.completedFuture(Boolean.FALSE);
+        	}
     	}
     }
 

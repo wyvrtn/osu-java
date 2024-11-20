@@ -11,7 +11,7 @@ import jospi.models.changelogs.ChangelogListing;
 public final class Changelogs {
 	private static final String BASE = "/changelog/";
 	
-	private OsuApiClient client;
+	private final OsuApiClient client;
 
 	protected Changelogs(OsuApiClient client) {
 		this.client = client;

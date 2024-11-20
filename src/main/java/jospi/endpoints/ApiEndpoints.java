@@ -5,46 +5,46 @@ import lombok.experimental.Delegate;
 
 public final class ApiEndpoints {
 
-	private OsuApiClient client;
+	private final OsuApiClient client;
 	
 	@Delegate
-	private BeatmapPacks beatmapPacksDelegate;
+	private final BeatmapPacks beatmapPacksDelegate;
 	
 	@Delegate
-	private Beatmaps beatmapsDelegate;
+	private final Beatmaps beatmapsDelegate;
 	
 	@Delegate
-	private BeatmapSets beatmapSetsDelegate;
+	private final BeatmapSets beatmapSetsDelegate;
 	
 	@Delegate
-	private Changelogs changelogsDelegate;
+	private final Changelogs changelogsDelegate;
 
 	@Delegate
-	private Comments commentsDelegate;
+	private final Comments commentsDelegate;
 
 	@Delegate
-	private Events eventsDelegate;
+	private final Events eventsDelegate;
 
 	@Delegate
-	private Home homeDelegate;
+	private final Home homeDelegate;
 
 	@Delegate
-	private Matches matchesDelegate;
+	private final Matches matchesDelegate;
 
 	@Delegate
-	private Multiplayer multiplayerDelegate;
+	private final Multiplayer multiplayerDelegate;
 
 	@Delegate
-	private News newsDelegate;
+	private final News newsDelegate;
 	
 	@Delegate
-	private Rankings rankingsDelegate;
+	private final Rankings rankingsDelegate;
 
 	@Delegate
-	private Users usersDelegate;
+	private final Users usersDelegate;
 	
 	@Delegate
-	private Wikis wikisDelegate;
+	private final Wikis wikisDelegate;
 	
 	private ApiEndpoints(OsuApiClient client) {
 		this.client = client;

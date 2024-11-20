@@ -20,7 +20,7 @@ import jospi.models.comments.CommentBundle.Cursor;
 public final class Comments {
 	private static final String BASE = "/comments/";
 	
-	private OsuApiClient client;
+	private final OsuApiClient client;
 
 	protected Comments(OsuApiClient client) {
 		this.client = client;

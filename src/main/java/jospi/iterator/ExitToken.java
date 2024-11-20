@@ -5,7 +5,7 @@ import java.util.function.Function;
 public class ExitToken<T> {
     private T token;
     private T next;
-    private Function<T, Boolean> evaluate;
+    private final Function<T, Boolean> evaluate;
     
     public ExitToken(T token, Function<T, Boolean> eval) {
         this.token = token;

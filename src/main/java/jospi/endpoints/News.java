@@ -15,7 +15,7 @@ import jospi.models.news.NewsPost;
 public final class News {
     private static final String BASE = "/news/";
 	
-	private OsuApiClient client;
+	private final OsuApiClient client;
 
 	protected News(OsuApiClient client) {
 		this.client = client;
