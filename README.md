@@ -1,6 +1,13 @@
 # In Development
 
-
+To import using maven:
+```
+<dependency>
+    <groupId>io.github.wyvrtn</groupId>
+    <artifactId>jospi</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
 
 # Features
 
