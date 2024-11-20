@@ -1,6 +1,23 @@
-# In Development
 
+# Jospi
+[![Maven Central Version](https://img.shields.io/maven-central/v/io.github.wyvrtn/jospi)](https://central.sonatype.com/artifact/io.github.wyvrtn/jospi) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/d82cfab8be7043a688f157342147021f)](https://app.codacy.com/gh/wyvrtn/jospi/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
+A simple, in-development async wrapper for the osu! API v2
+
+*Note: As of current, only Java version 1.8 is supported*
+
+# Maven
+
+Note that this project is still in development, so it will be expected that some of the features may not work as intended.
+
+To import using Maven:
+```
+<dependency>
+    <groupId>io.github.wyvrtn</groupId>
+    <artifactId>jospi</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
 
 # Features
 
