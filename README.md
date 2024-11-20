@@ -1,6 +1,16 @@
-# In Development
 
-To import using maven:
+# Jospi
+![Maven Central Version](https://img.shields.io/maven-central/v/io.github.wyvrtn/jospi)
+
+A simple, in-development async wrapper for the osu! API v2
+
+*Note: As of current, only Java version 1.8 is supported*
+
+# Maven
+
+Note that this project is still in development, so it will be expected that some of the features may not work as intended.
+
+To import using Maven:
 ```
 <dependency>
     <groupId>io.github.wyvrtn</groupId>
