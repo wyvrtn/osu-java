@@ -1,75 +1,161 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
-	<groupId>com.osujava</groupId>
-	<artifactId>osu-java</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+
+	<developers>
+        <developer>
+            <name>Wyvrtn</name>
+            <email>wyvrtn@gmail.com</email>
+            <organization>Wyvrtn</organization>
+            <organizationUrl>https://github.com/wyvrtn</organizationUrl>
+        </developer>
+    </developers>
+
+	<name>${project.groupId}:${project.artifactId}</name>
+	<description>A simple, in development async wrapper for the osu! API v2</description>
+	<url>https://github.com/wyvrtn/jospi</url>
+
+	<groupId>io.github.wyvrtn</groupId>
+	<artifactId>jospi</artifactId>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
-	<name>osu-java</name>
-	<url>http://maven.apache.org</url>
+	<licenses>
+  		<license>
+    		<name>GNU General Public License</name>
+    		<url>https://www.gnu.org/licenses/gpl-3.0.txt</url>
+  		</license>
+	</licenses>
 
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- Java Version -->
     	<java.version>1.8</java.version>
+        <!-- Maven Compiler -->
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+        <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
+        <maven-javadoc-plugin.version>3.6.0</maven-javadoc-plugin.version>
+        <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
+        <!-- Lombok Version -->
+        <lombok.version>1.18.30</lombok.version>
 	</properties>
 
+	<scm>
+        <connection>scm:git:git://github.com/wyvrtn/jospi.git</connection>
+        <developerConnection>scm:git:ssh://github.com/wyvrtn/jospi.git</developerConnection>
+        <url>https://github.com/wyvrtn/jospi</url>
+    </scm>
+	
 	<dependencies>
 		<!-- Spring Web -->
 		<dependency>
-    	<groupId>org.springframework</groupId>
-    		<artifactId>spring-web</artifactId>
-    		<version>5.3.39</version>
+		<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>5.3.39</version>
 		</dependency>
-	
+
 		<!-- Fasterxml-Jackson -->
 		<dependency>
-    		<groupId>com.fasterxml.jackson.core</groupId>
-    		<artifactId>jackson-databind</artifactId>
-    		<version>2.16.1</version><!--$NO-MVN-MAN-VER$-->
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.16.1</version><!--$NO-MVN-MAN-VER$-->
 		</dependency>
 		
 		<dependency>
-    		<groupId>com.fasterxml.jackson.core</groupId>
-   		 	<artifactId>jackson-annotations</artifactId>
-    		<version>2.16.1</version><!--$NO-MVN-MAN-VER$-->
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.16.1</version><!--$NO-MVN-MAN-VER$-->
 		</dependency>
 		
 		<dependency>
-    		<groupId>com.fasterxml.jackson.core</groupId>
-    		<artifactId>jackson-core</artifactId>
-    		<version>2.16.1</version><!--$NO-MVN-MAN-VER$-->
-		</dependency>
-
-
-		<!-- SLF4j -->
-		<dependency>
-    		<groupId>org.slf4j</groupId>
-    		<artifactId>slf4j-api</artifactId>
-    		<version>2.0.16</version>
-		</dependency>
-
-		<dependency>
-    		<groupId>org.slf4j</groupId>
-    		<artifactId>jul-to-slf4j</artifactId>
-    		<version>2.0.16</version>
-		</dependency>
-		
-		<!-- Yaml Dependency -->
-		<dependency>
-			<groupId>org.yaml</groupId>
-			<artifactId>snakeyaml</artifactId>
-			<version>2.0</version>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.16.1</version><!--$NO-MVN-MAN-VER$-->
 		</dependency>
 				
 		<!-- Lombok -->
 		<dependency>
-      		<groupId>org.projectlombok</groupId>
-      		<artifactId>lombok</artifactId>
-      		<version>1.18.30</version><!--$NO-MVN-MAN-VER$-->
-      		<scope>provided</scope>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version><!--$NO-MVN-MAN-VER$-->
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
+	
+	<build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven-source-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc-plugin.version}</version>
+				<configuration>
+  					<source>8</source>
+				</configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>${maven-gpg-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.6.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
