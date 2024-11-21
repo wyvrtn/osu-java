@@ -20,7 +20,7 @@ public final class ClientCredentialsGrant extends AbstractApiAuthorization {
 		setStatus(true);
 	}
 	
-	protected synchronized void authorizationFlow(HttpServiceProvider svc) {
+	protected void authorizationFlow(HttpServiceProvider svc) {
 		String authBody = super.encodeFormUrl(authorizationBody);
 		ClientCredentialsResponse apResponse = (ClientCredentialsResponse) svc.requestNewToken(authBody);
 		apResponse.validation();

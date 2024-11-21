@@ -19,6 +19,10 @@ public final class OsuApiClient {
 	private AbstractApiAuthorizationContainer authorization; 
 	protected final OsuApiClientInternal svc;
 	
+    public OsuApiClient(int clientId, String clientSecret) {
+    	this(new ClientCredentialsGrant(clientId, clientSecret));
+    }
+	
 	public OsuApiClient(AbstractApiAuthorization auth) {
 		this(auth, new RequestBundle());
 		
@@ -30,9 +34,11 @@ public final class OsuApiClient {
 		svc = new OsuApiClientInternal(bundle, authorization);
 	}
 
-	public synchronized void updateAuthorization(AbstractApiAuthorization newAuth) {
-		authorization.setInstance(newAuth);
-		ensureAccessToken();
+	public void updateAuthorization(AbstractApiAuthorization newAuth) {
+		synchronized(this) {
+			authorization.setInstance(newAuth);
+			ensureAccessToken();
+		}
 	}
 
 	public void requiresUser() {
@@ -41,14 +47,16 @@ public final class OsuApiClient {
 		}
 	}
 	
-	public synchronized void ensureAccessToken() {
-		if (authorization.getInstance().getExpirationDate().isAfter(OffsetDateTime.now())) {
-			return;
-		}
-		if (!authorization.getInstance().isStatus()) {
-			authorization.getInstance().authorizationFlow(svc);
-		} else {
-			authorization.getInstance().refreshAccessToken(svc);
+	public void ensureAccessToken() {
+		synchronized(this) {
+			if (authorization.getInstance().getExpirationDate().isAfter(OffsetDateTime.now())) {
+				return;
+			}
+			if (!authorization.getInstance().isStatus()) {
+				authorization.getInstance().authorizationFlow(svc);
+			} else {
+				authorization.getInstance().refreshAccessToken(svc);
+			}
 		}
 	}
 	

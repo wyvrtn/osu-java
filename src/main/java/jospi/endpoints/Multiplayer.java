@@ -18,7 +18,7 @@ import jospi.models.multiplayer.MultiplayerScores;
 public class Multiplayer {
 	private static final String BASE = "/rooms/";
 	
-	private OsuApiClient client;
+	private final OsuApiClient client;
 
 	protected Multiplayer(OsuApiClient client) {
 		this.client = client;

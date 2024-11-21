@@ -13,11 +13,10 @@ import jospi.iterator.ExitToken;
 import jospi.models.beatmaps.BeatmapPack;
 import jospi.models.beatmaps.BeatmapPackExtended;
 
-// API docs: https://osu.ppy.sh/docs/index.html#beatmap-packs
 public final class BeatmapPacks {
 	private static final String BASE = "/beatmaps/";
 	
-	private OsuApiClient client;
+	private final OsuApiClient client;
 
 	protected BeatmapPacks(OsuApiClient client) {
 		this.client = client;

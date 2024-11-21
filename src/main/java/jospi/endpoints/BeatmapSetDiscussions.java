@@ -8,7 +8,7 @@ import jospi.client.core.OsuApiClient;
 public final class BeatmapSetDiscussions {
 	private static final String BASE = "/beatmapsets/discussions";
 	
-	private OsuApiClient client; 
+	private final OsuApiClient client; 
 
 	public BeatmapSetDiscussions(OsuApiClient client) {
 		this.client = client;

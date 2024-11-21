@@ -2,8 +2,8 @@ package jospi.client.core;
 
 import java.io.UnsupportedEncodingException;
 import java.time.OffsetDateTime;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import jospi.client.authorization.HttpServiceProvider;
 import jospi.client.resources.ClientUtil;
@@ -15,11 +15,11 @@ import lombok.Setter;
 @Setter(AccessLevel.PROTECTED)
 public abstract class AbstractApiAuthorization {
 	
-	protected final Map<String, String> authorizationBody = new HashMap<>();
+	protected final Map<String, String> authorizationBody = new ConcurrentHashMap<>();
 	
 	private String accessToken = "";
 	private OffsetDateTime expirationDate = OffsetDateTime.MIN;
-	private boolean status = false;
+	private boolean status;
 	
 	protected String encodeFormUrl(Map<String, String> params) {
 		String result = "";

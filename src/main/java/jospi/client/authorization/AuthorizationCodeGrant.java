@@ -24,7 +24,6 @@ public class AuthorizationCodeGrant extends AbstractApiAuthorization {
         authorizationBody.put("redirect_uri", redirectUri);
     }
 
-    @Override
     protected void authorizationFlow(HttpServiceProvider svc) {
     	String authBody = super.encodeFormUrl(authorizationBody);
 		AuthorizationCodeResponse acResponse = svc.exchangeCode(authBody);

@@ -16,7 +16,7 @@ import jospi.models.generic.CursorResponse;
 public class Events {
     private static final String BASE = "/events/";
 
-    private OsuApiClient client;
+    private final OsuApiClient client;
 
 	protected Events(OsuApiClient client) {
 		this.client = client;

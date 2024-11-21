@@ -22,7 +22,7 @@ import jospi.models.users.UserStatistics;
 public final class Rankings {
 	private static final String BASE = "/rankings/";
 
-	private OsuApiClient client;
+	private final OsuApiClient client;
 
 	protected Rankings(OsuApiClient client) {
 		this.client = client;

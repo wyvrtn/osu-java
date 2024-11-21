@@ -23,10 +23,10 @@ public final class ClientUtil {
 	    boolean first = true;
 	    for(Entry<String, String> entry : params.entrySet()){
 	        if (first) first = false;
-	        else result.append("&");
+	        else result.append('&');
 	        
 	        result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
-	        result.append("=");
+	        result.append('=');
 	        result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
 	    }    
 	    return result.toString();

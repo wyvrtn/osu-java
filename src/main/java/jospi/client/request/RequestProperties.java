@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.Getter;
 
 @Data
-public class RequestProperties {
+public final class RequestProperties {
 	@Getter
 	private static final String GATEWAY = "https://osu.ppy.sh";
 

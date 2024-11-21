@@ -7,7 +7,7 @@ import jospi.models.wikis.WikiPage;
 
 public final class Wikis {
 	
-	private OsuApiClient client;
+	private final OsuApiClient client;
 
 	protected Wikis(OsuApiClient client) {
 		this.client = client;

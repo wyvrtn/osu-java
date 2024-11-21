@@ -13,7 +13,7 @@ import jospi.models.wikis.WikiPage;
 public class Home {
     private static final String BASE = "/search/";
     	
-	private OsuApiClient client;
+	private final OsuApiClient client;
 
 	protected Home(OsuApiClient client) {
 		this.client = client;

@@ -17,7 +17,7 @@ import jospi.models.matches.MatchesBundle;
 public class Matches {
     private static final String BASE = "/matches/";
 
-    private OsuApiClient client;
+    private final OsuApiClient client;
 
 	protected Matches(OsuApiClient client) {
 		this.client = client;
