@@ -1,6 +1,6 @@
 
 # Jospi
-[![Maven Central Version](https://img.shields.io/maven-central/v/io.github.wyvrtn/jospi)](https://central.sonatype.com/artifact/io.github.wyvrtn/jospi) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/d82cfab8be7043a688f157342147021f)](https://app.codacy.com/gh/wyvrtn/jospi/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![Java Version](https://img.shields.io/badge/java-1.8-blue)](https://www.oracle.com/java/technologies/downloads/#java8) [![Maven Central Version](https://img.shields.io/maven-central/v/io.github.wyvrtn/jospi)](https://central.sonatype.com/artifact/io.github.wyvrtn/jospi) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/d82cfab8be7043a688f157342147021f)](https://app.codacy.com/gh/wyvrtn/jospi/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 A simple, in-development async wrapper for the osu! API v2
 
