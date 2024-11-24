@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -15,7 +14,7 @@ import jospi.enums.DescriptionEnum;
 
 public final class ClientUtil {
 	private ClientUtil() {
-		throw new AssertionError("No osuapi.client.resources.ClientUtil instances for you!");
+		throw new InstantiationError("Class " + ClientUtil.class.getName() + " cannot be instantiated");
 	}
 	
 	public static String toFormUrl(Map<String, String> params) throws UnsupportedEncodingException {
@@ -33,12 +32,17 @@ public final class ClientUtil {
 	}
 
 	public static String buildQueryString(Map<String, Object> params) {
+		if (params instanceof Dictionary<?, ?>) ((Dictionary<String, Object>) params).init(new HashMap<>());
 		StringBuilder out = new StringBuilder("");
 		params.entrySet().stream().filter(entry -> entry.getValue()!=null).forEach(entry -> {
 			out.append(String.format("&%s=", encode(entry.getKey())));
 			final Object value = entry.getValue();
-			if (value instanceof Enum) {
-				out.append(ClientUtil.getDescription((Enum<?>) value));
+			if (value instanceof Enum<?>) {
+				if (value instanceof DescriptionEnum) {
+					out.append(((DescriptionEnum) value).getDescription());
+				} else {
+					out.append(value.toString());
+				}
 			} else if (value instanceof LocalDateTime) {
 				out.append(((LocalDateTime) value).toString());
 			} else {
@@ -56,32 +60,8 @@ public final class ClientUtil {
 		return result;
 	}
 	
-	public static <I, X extends Throwable> I exceptCoalesce(I input, X except) throws X {
-		return Optional.ofNullable(input).orElseThrow(() -> except);
-	}
-	
 	public static <L, R> Object nullishCoalesce(L leftArg, R rightArg) {
 		return leftArg==null? rightArg : leftArg;
-	}
-
-	public static <T> T optDefault(T[] givenArgs, T defaultArg) {
-		if (givenArgs==null || givenArgs.length>1) {
-			throw new IllegalArgumentException("Optional Default Argument Must be Non-Null and Singular");
-		} else if (givenArgs.length==0) {
-			return defaultArg;
-		} else return givenArgs[0];
-	}
-	
-	public static boolean anyNull(Object... args) {
-		for (Object obj : args) if (obj==null) return false;
-		return true;
-	}
-	
-	public static String getDescription(Enum<?> descriptableEnum) {
-		if (descriptableEnum instanceof DescriptionEnum) {
-			return ((DescriptionEnum) descriptableEnum).getDescription();
-		}
-		return descriptableEnum.toString();
 	}
 	
 	public static void awaitRunnable(CompletableFuture<Void> runnable) {

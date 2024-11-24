@@ -59,22 +59,37 @@ public final class OsuApiClient {
 			}
 		}
 	}
-	
-	public <T> CompletableFuture<T> getJsonAsync(String url, HttpMethod... methods) {
-		return CompletableFuture.supplyAsync(() -> getJson(url, methods));
+
+	public <T> CompletableFuture<T> getJsonAsync(String url) {
+		return getJsonAsync(url, HttpMethod.GET);
 	}
 	
-	public <T> CompletableFuture<T> getJsonAsync(String url, Map<String, Object> queryParams, HttpMethod... methods) {
-		return CompletableFuture.supplyAsync(() -> getJson(url, queryParams, methods));
+	public <T> CompletableFuture<T> getJsonAsync(String url, HttpMethod method) {
+		return CompletableFuture.supplyAsync(() -> getJson(url, method));
+	}
+
+	public <T> CompletableFuture<T> getJsonAsync(String url, Map<String, Object> queryParams) {
+		return getJsonAsync(url, queryParams, HttpMethod.GET);
 	}
 	
-	public <T> T getJson(String url, Map<String, Object> queryParams, HttpMethod... methods) {
-		return getJson(url + ClientUtil.buildQueryString(queryParams), methods);
+	public <T> CompletableFuture<T> getJsonAsync(String url, Map<String, Object> queryParams, HttpMethod method) {
+		return CompletableFuture.supplyAsync(() -> getJson(url, queryParams, method));
+	}
+
+	public <T> T getJson(String url, Map<String, Object> queryParams) {
+		return getJson(url + ClientUtil.buildQueryString(queryParams), HttpMethod.GET);
 	}
 	
-	public <T> T getJson(String url, HttpMethod... methods) {
+	public <T> T getJson(String url, Map<String, Object> queryParams, HttpMethod method) {
+		return getJson(url + ClientUtil.buildQueryString(queryParams), method);
+	}
+
+	public <T> T getJson(String url) {
+		return getJson(url, HttpMethod.GET);
+	}
+	
+	public <T> T getJson(String url, HttpMethod method) {
 		ensureAccessToken();
-		HttpMethod method = ClientUtil.optDefault(methods, HttpMethod.GET);
 		ResponseEntity<T> entity = svc.genericGetJson(url, method);
 		if (entity.getStatusCode()!=HttpStatus.OK) {
 			throw new OsuApiException("Request Did Not Receive HTTP Status Code 200");
