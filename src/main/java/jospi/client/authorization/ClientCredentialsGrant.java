@@ -20,8 +20,8 @@ public final class ClientCredentialsGrant extends AbstractApiAuthorization {
 		setStatus(true);
 	}
 	
-	protected void authorizationFlow(HttpServiceProvider svc) {
-		String authBody = super.encodeFormUrl(authorizationBody);
+	protected void authorizationFlow(StatefulHttpServiceProvider svc) {
+		String authBody = toFormUrl(authorizationBody);
 		ClientCredentialsResponse apResponse = (ClientCredentialsResponse) svc.requestNewToken(authBody);
 		apResponse.validation();
 		setAccessToken(apResponse.getAccessToken());
@@ -29,7 +29,7 @@ public final class ClientCredentialsGrant extends AbstractApiAuthorization {
 			.plusSeconds(apResponse.getExpiresIn() - 30L /** Leniency */));
 	}
 
-	protected void refreshAccessToken(HttpServiceProvider svc) {
+	protected void refreshAccessToken(StatefulHttpServiceProvider svc) {
 		authorizationFlow(svc);
 	}
 }

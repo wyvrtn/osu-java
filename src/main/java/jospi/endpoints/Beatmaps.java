@@ -6,9 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-import org.springframework.http.HttpMethod;
-
 import jospi.client.core.OsuApiClient;
+import jospi.client.request.HttpMethod;
 import jospi.enums.misc.Ruleset;
 import jospi.models.beatmaps.Beatmap;
 import jospi.models.beatmaps.BeatmapExtended;

@@ -1,23 +1,11 @@
 package jospi.client.request;
 
 import lombok.Data;
-import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Data
+@RequiredArgsConstructor(staticName = "createInstance")
 public final class RequestProperties {
-	@Getter
-	private static final String GATEWAY = "https://osu.ppy.sh";
-
-	private int readTimeout;
-	private int connectTimeout;
-	
-
-	private RequestProperties(int readTimeout, int connectTimeout) {
-		this.readTimeout = readTimeout;
-		this.connectTimeout = connectTimeout;
-	}
-
-	public static RequestProperties createInstance(int readTimeout, int connectTimeout) {
-		return new RequestProperties(readTimeout, connectTimeout);
-	}
+	private final int readTimeout;
+	private final int connectTimeout;
 }

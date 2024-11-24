@@ -6,9 +6,8 @@ import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
-import org.springframework.http.HttpMethod;
-
 import jospi.client.core.OsuApiClient;
+import jospi.client.request.HttpMethod;
 import jospi.client.resources.OsuApiException;
 import jospi.enums.comments.CommentSortType;
 import jospi.enums.comments.CommentableType;
