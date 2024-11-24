@@ -4,20 +4,16 @@ import java.time.OffsetDateTime;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
 import jospi.client.authorization.ClientCredentialsGrant;
+import jospi.client.request.HttpMethod;
+import jospi.client.request.NetIOUtilities;
 import jospi.client.request.RequestBundle;
-import jospi.client.resources.ClientUtil;
-import jospi.client.resources.OsuApiException;
 import jospi.endpoints.ApiEndpoints;
 
-public final class OsuApiClient {
+public final class OsuApiClient implements NetIOUtilities {
 	public final ApiEndpoints endpoints;
 	private AbstractApiAuthorizationContainer authorization; 
-	protected final OsuApiClientInternal svc;
+	protected final OsuApiClientInternalStatefulHttpServiceProvider svc;
 	
     public OsuApiClient(int clientId, String clientSecret) {
     	this(new ClientCredentialsGrant(clientId, clientSecret));
@@ -31,7 +27,7 @@ public final class OsuApiClient {
 	public OsuApiClient(AbstractApiAuthorization auth, RequestBundle bundle) {
 		endpoints = ApiEndpoints.createInstance(this);
 		authorization = AbstractApiAuthorizationContainer.newInstance(auth);
-		svc = new OsuApiClientInternal(bundle, authorization);
+		svc = new OsuApiClientInternalStatefulHttpServiceProvider(bundle, authorization);
 	}
 
 	public void updateAuthorization(AbstractApiAuthorization newAuth) {
@@ -59,26 +55,37 @@ public final class OsuApiClient {
 			}
 		}
 	}
-	
-	public <T> CompletableFuture<T> getJsonAsync(String url, HttpMethod... methods) {
-		return CompletableFuture.supplyAsync(() -> getJson(url, methods));
+
+	public <T> CompletableFuture<T> getJsonAsync(String url) {
+		return getJsonAsync(url, HttpMethod.GET);
 	}
 	
-	public <T> CompletableFuture<T> getJsonAsync(String url, Map<String, Object> queryParams, HttpMethod... methods) {
-		return CompletableFuture.supplyAsync(() -> getJson(url, queryParams, methods));
+	public <T> CompletableFuture<T> getJsonAsync(String url, HttpMethod method) {
+		return CompletableFuture.supplyAsync(() -> getJson(url, method));
+	}
+
+	public <T> CompletableFuture<T> getJsonAsync(String url, Map<String, Object> queryParams) {
+		return getJsonAsync(url, queryParams, HttpMethod.GET);
 	}
 	
-	public <T> T getJson(String url, Map<String, Object> queryParams, HttpMethod... methods) {
-		return getJson(url + ClientUtil.buildQueryString(queryParams), methods);
+	public <T> CompletableFuture<T> getJsonAsync(String url, Map<String, Object> queryParams, HttpMethod method) {
+		return CompletableFuture.supplyAsync(() -> getJson(url, queryParams, method));
+	}
+
+	public <T> T getJson(String url, Map<String, Object> queryParams) {
+		return getJson(url + toQueryString(queryParams), HttpMethod.GET);
 	}
 	
-	public <T> T getJson(String url, HttpMethod... methods) {
+	public <T> T getJson(String url, Map<String, Object> queryParams, HttpMethod method) {
+		return getJson(url + toQueryString(queryParams), method);
+	}
+
+	public <T> T getJson(String url) {
+		return getJson(url, HttpMethod.GET);
+	}
+	
+	public <T> T getJson(String url, HttpMethod method) {
 		ensureAccessToken();
-		HttpMethod method = ClientUtil.optDefault(methods, HttpMethod.GET);
-		ResponseEntity<T> entity = svc.genericGetJson(url, method);
-		if (entity.getStatusCode()!=HttpStatus.OK) {
-			throw new OsuApiException("Request Did Not Receive HTTP Status Code 200");
-		}
-		return entity.getBody();
+		return svc.genericGetJson(url, method);
 	}
 }

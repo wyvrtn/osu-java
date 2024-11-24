@@ -2,7 +2,6 @@ package jospi.models.authorization;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import jospi.client.resources.ClientUtil;
 import jospi.client.resources.OsuApiException;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,7 +26,7 @@ public class ClientCredentialsResponse implements ApiAuthorizationResponse {
 
 	@Override
 	public void validation() {
-		if (ClientUtil.anyNull(accessToken, expiresIn)) {
+		if (anyNull(accessToken, expiresIn)) {
 			throw new OsuApiException("An error occured while requesting a "
 	        + "new access token: " + errorDescription
 	        + " (" + errorCode + ").");

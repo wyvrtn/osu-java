@@ -1,15 +1,20 @@
 package jospi.client.request;
 
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.DefaultUriBuilderFactory;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.hc.client5.http.config.RequestConfig;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
 
 import lombok.Getter;
 
 @Getter
 public final class RequestBundle {
+	private static CloseableHttpClient defaultClient;
+	private static final Object LOCK = new Object();
+	
     private RequestProperties properties;
-    private RestTemplate apiRestTemplate;
+    private CloseableHttpClient httpClient;
     
     public RequestBundle() {
     	this(1000, 1000);
@@ -17,11 +22,27 @@ public final class RequestBundle {
     
     public RequestBundle(int readTimeout, int connectTimeout) {
         properties = RequestProperties.createInstance(readTimeout, connectTimeout);
-        apiRestTemplate = new RestTemplate();
-        apiRestTemplate.setUriTemplateHandler(new DefaultUriBuilderFactory(RequestProperties.getGATEWAY()));
-        HttpComponentsClientHttpRequestFactory rf =
-            (HttpComponentsClientHttpRequestFactory) apiRestTemplate.getRequestFactory();
-        rf.setReadTimeout(properties.getReadTimeout());
-        rf.setConnectTimeout(properties.getConnectTimeout());
+		RequestConfig config = RequestConfig.custom()
+				.setResponseTimeout(readTimeout, TimeUnit.MILLISECONDS)
+				.setConnectionRequestTimeout(connectTimeout, TimeUnit.MILLISECONDS)
+				.build();
+		httpClient = HttpClients.custom()
+				.setDefaultRequestConfig(config)
+				.build();
+    }
+    
+    public static CloseableHttpClient getDefaultClient() {
+    	synchronized(LOCK) {
+        	if (defaultClient==null) {
+        		RequestConfig config = RequestConfig.custom()
+        				.setResponseTimeout(1000, TimeUnit.MILLISECONDS)
+        				.setConnectionRequestTimeout(1000, TimeUnit.MILLISECONDS)
+        				.build();
+        		defaultClient = HttpClients.custom()
+        				.setDefaultRequestConfig(config)
+        				.build();
+        		return defaultClient;
+        	} else return defaultClient;
+    	}
     }
 }

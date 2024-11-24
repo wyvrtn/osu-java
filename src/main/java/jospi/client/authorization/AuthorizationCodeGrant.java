@@ -24,8 +24,8 @@ public class AuthorizationCodeGrant extends AbstractApiAuthorization {
         authorizationBody.put("redirect_uri", redirectUri);
     }
 
-    protected void authorizationFlow(HttpServiceProvider svc) {
-    	String authBody = super.encodeFormUrl(authorizationBody);
+    protected void authorizationFlow(StatefulHttpServiceProvider svc) {
+    	String authBody = toFormUrl(authorizationBody);
 		AuthorizationCodeResponse acResponse = svc.exchangeCode(authBody);
 		acResponse.validation();
 		setAccessToken(acResponse.getAccessToken());
@@ -35,13 +35,13 @@ public class AuthorizationCodeGrant extends AbstractApiAuthorization {
 		setStatus(true);
     }
 
-	protected void refreshAccessToken(HttpServiceProvider svc) {
+	protected void refreshAccessToken(StatefulHttpServiceProvider svc) {
 		authorizationBody.clear();
 		authorizationBody.put("client_id", clientId);
 		authorizationBody.put("client_secret", clientSecret);
 		authorizationBody.put("grant_type", "refresh_token");
 		authorizationBody.put("refresh_token", refreshToken);
-		String authBody = super.encodeFormUrl(authorizationBody);
+		String authBody = toFormUrl(authorizationBody);
 		AuthorizationCodeResponse acResponse = (AuthorizationCodeResponse) svc.requestNewToken(authBody);
 		acResponse.validation();
 		setAccessToken(acResponse.getAccessToken());

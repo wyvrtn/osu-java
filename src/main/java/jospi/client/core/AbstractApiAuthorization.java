@@ -1,19 +1,18 @@
 package jospi.client.core;
 
-import java.io.UnsupportedEncodingException;
 import java.time.OffsetDateTime;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import jospi.client.authorization.HttpServiceProvider;
-import jospi.client.resources.ClientUtil;
+import jospi.client.authorization.StatefulHttpServiceProvider;
+import jospi.client.request.NetIOUtilities;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter(AccessLevel.PROTECTED)
-public abstract class AbstractApiAuthorization {
+public abstract class AbstractApiAuthorization implements NetIOUtilities {
 	
 	protected final Map<String, String> authorizationBody = new ConcurrentHashMap<>();
 	
@@ -21,19 +20,9 @@ public abstract class AbstractApiAuthorization {
 	private OffsetDateTime expirationDate = OffsetDateTime.MIN;
 	private boolean status;
 	
-	protected String encodeFormUrl(Map<String, String> params) {
-		String result = "";
-		try {
-			result = ClientUtil.toFormUrl(params);
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
-	
-	protected abstract void authorizationFlow(HttpServiceProvider svc);
+	protected abstract void authorizationFlow(StatefulHttpServiceProvider svc);
 
-	protected abstract void refreshAccessToken(HttpServiceProvider svc);
+	protected abstract void refreshAccessToken(StatefulHttpServiceProvider svc);
 	
 	@Override
 	public String toString() {
