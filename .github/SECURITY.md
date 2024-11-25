@@ -9,11 +9,10 @@ responsibility of the user to remain up-to-date.
 | ------- | ------------------ |
 | latest  | :white_check_mark: |
 
-
 ## Reporting a Vulnerability
 
 If you notice any vulnerabilities, please contact me urgently at
-wyvrtn@gmail.com or via security advisories in the repository.
+<wyvrtn@gmail.com> or via security advisories in the repository.
 
 Please DO NOT file a public issue to report a security vulberability, instead send your report via the methods above. This will help ensure that any vulnerabilities that are found can be disclosed responsibly to any affected parties.
 

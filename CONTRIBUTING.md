@@ -2,7 +2,7 @@
 
 *Pull requests, bug reports, and all other forms of contribution are welcomed and highly encouraged!* :octocat:
 
-### Contents
+## Contents
 
 - [Code of Conduct](#book-code-of-conduct)
 - [Opening an Issue](#inbox_tray-opening-an-issue)
@@ -157,7 +157,7 @@ When possible, style and format will be enforced with a linter.
 
 ## :medal_sports: Certificate of Origin
 
-*Developer's Certificate of Origin 1.1*
+### Developer's Certificate of Origin 1.1
 
 By making a contribution to this project, I certify that:
 

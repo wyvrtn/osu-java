@@ -8,28 +8,28 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Function;
 
-public class AsyncLazyEnumerable<T, TResult> implements Iterable<CompletableFuture<TResult>> {
-    private final Function<ExitToken<T>, CompletableFuture<TResult>> enumerator;
+public class AsyncLazyEnumerable<T, R> implements Iterable<CompletableFuture<R>> {
+    private final Function<ExitToken<T>, CompletableFuture<R>> enumerator;
     private final ExitToken<T> token;
     private final ExitType type;
-    private List<CompletableFuture<TResult>> cache;
+    private List<CompletableFuture<R>> cache;
     
-    public AsyncLazyEnumerable(Function<ExitToken<T>, CompletableFuture<TResult>> func, ExitToken<T> token) {
+    public AsyncLazyEnumerable(Function<ExitToken<T>, CompletableFuture<R>> func, ExitToken<T> token) {
     	this(func, token, ExitType.WHILE);
     }
     
-    public AsyncLazyEnumerable(Function<ExitToken<T>, CompletableFuture<TResult>> func, ExitToken<T> token, ExitType type) {
+    public AsyncLazyEnumerable(Function<ExitToken<T>, CompletableFuture<R>> func, ExitToken<T> token, ExitType type) {
         this.enumerator = func;
         this.token = token;
         this.type = type;
     }
     
-    public List<CompletableFuture<TResult>> getCache() {
+    public List<CompletableFuture<R>> getCache() {
         return cache;
     }
     
-    public List<CompletableFuture<TResult>> asList() {
-    	List<CompletableFuture<TResult>> out = new ArrayList<>();
+    public List<CompletableFuture<R>> asList() {
+    	List<CompletableFuture<R>> out = new ArrayList<>();
     	try {
 			while (Boolean.TRUE.equals(moveNextAsync().get())) {
 				out.add(current());
@@ -44,29 +44,29 @@ public class AsyncLazyEnumerable<T, TResult> implements Iterable<CompletableFutu
     	return out;
     }
 
-    public <KResult> AsyncLazyEnumerable<T, KResult> append(Function<CompletableFuture<TResult>, CompletableFuture<KResult>> func) {
+    public <KResult> AsyncLazyEnumerable<T, KResult> append(Function<CompletableFuture<R>, CompletableFuture<KResult>> func) {
         Function<ExitToken<T>, CompletableFuture<KResult>> appended = enumerator.andThen(func);
         return new AsyncLazyEnumerable<>(appended, token, type);
     }
     
-    public CompletableFuture<TResult> current() {
+    public CompletableFuture<R> current() {
         if (type==ExitType.WHILE) {
         	if (token.doExit()) return null;
         	else {
-        		CompletableFuture<TResult> out = enumerator.apply(token);
+        		CompletableFuture<R> out = enumerator.apply(token);
                 cache.add(out);
                 return out;
         	}
         } else if (type==ExitType.DO_WHILE) {
         	if (type.getState()==0) {
                 type.setState(1);
-                CompletableFuture<TResult> out = enumerator.apply(token);
+                CompletableFuture<R> out = enumerator.apply(token);
                 cache.add(out);
                 return out;
             } else {
                 if (token.doExit()) return null;
                 else {
-                    CompletableFuture<TResult> out = enumerator.apply(token);
+                    CompletableFuture<R> out = enumerator.apply(token);
                     cache.add(out);
                     return out;
                 }
@@ -89,15 +89,15 @@ public class AsyncLazyEnumerable<T, TResult> implements Iterable<CompletableFutu
     }
 
     @Override
-    public Iterator<CompletableFuture<TResult>> iterator() {
+    public Iterator<CompletableFuture<R>> iterator() {
         return new AsyncLazyEnumerator(this);
     }
 
-    public class AsyncLazyEnumerator implements Iterator<CompletableFuture<TResult>> {
+    public class AsyncLazyEnumerator implements Iterator<CompletableFuture<R>> {
 
-        private final AsyncLazyEnumerable<T, TResult> instance;
+        private final AsyncLazyEnumerable<T, R> instance;
 
-        public AsyncLazyEnumerator(AsyncLazyEnumerable<T, TResult> instance) {
+        public AsyncLazyEnumerator(AsyncLazyEnumerable<T, R> instance) {
             this.instance = instance;
         }
 
@@ -107,7 +107,7 @@ public class AsyncLazyEnumerable<T, TResult> implements Iterable<CompletableFutu
         }
 
         @Override
-        public CompletableFuture<TResult> next() {
+        public CompletableFuture<R> next() {
         	if (!hasNext()) {
         		throw new NoSuchElementException();
         	}

@@ -13,14 +13,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CommentBundle {
-	public class Cursor {
-		@JsonProperty("id")
-		public int id;
-		
-		@JsonProperty("created_at")
-		public OffsetDateTime createdAt;
-	}
-	
 	@JsonProperty("cursor")
 	Cursor cursor;
 	
@@ -59,4 +51,12 @@ public class CommentBundle {
 	
 	@JsonProperty("users")
 	private User[] users;
+
+	public class Cursor {
+		@JsonProperty("id")
+		public int id;
+		
+		@JsonProperty("created_at")
+		public OffsetDateTime createdAt;
+	}
 }
