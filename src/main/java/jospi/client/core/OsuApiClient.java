@@ -13,7 +13,7 @@ import jospi.endpoints.ApiEndpoints;
 public final class OsuApiClient implements NetIOUtilities {
 	public final ApiEndpoints endpoints;
 	private AbstractApiAuthorizationContainer authorization; 
-	protected final OsuApiClientInternalStatefulHttpServiceProvider svc;
+	protected final OsuApiClientInternalBlockingStatefulHttpServiceProvider svc;
 	
     public OsuApiClient(int clientId, String clientSecret) {
     	this(new ClientCredentialsGrant(clientId, clientSecret));
@@ -27,7 +27,7 @@ public final class OsuApiClient implements NetIOUtilities {
 	public OsuApiClient(AbstractApiAuthorization auth, RequestBundle bundle) {
 		endpoints = ApiEndpoints.createInstance(this);
 		authorization = AbstractApiAuthorizationContainer.newInstance(auth);
-		svc = new OsuApiClientInternalStatefulHttpServiceProvider(bundle, authorization);
+		svc = new OsuApiClientInternalBlockingStatefulHttpServiceProvider(bundle, authorization);
 	}
 
 	public void updateAuthorization(AbstractApiAuthorization newAuth) {
