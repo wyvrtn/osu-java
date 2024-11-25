@@ -1,8 +1,5 @@
 package jospi.endpoints;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
@@ -24,13 +21,13 @@ public class Matches {
 	}
 
 	public AsyncLazyEnumerable<String, Match[]> getMatches(int limit, MatchBundleSort sort) {
-		ExitToken<String> token = new ExitToken<>("", Objects::nonNull);
+		ExitToken<String> token = new ExitToken<>("");
 		Function<ExitToken<String>, CompletableFuture<Match[]>> func = t -> 
 			CompletableFuture.supplyAsync(() -> {
-				Map<String, Object> params = new HashMap<>();
-				params.put("limit", limit);
-				params.put("sort", sort);
-				MatchesBundle packs = client.getJson(BASE, params);
+				MatchesBundle packs = client.getJson(BASE, map -> {
+					map.put("limit", limit);
+					map.put("sort", sort);
+				});
 				token.setNext(packs.getCursorString());
 				return packs.getMatches();
 			});
@@ -38,12 +35,10 @@ public class Matches {
 	}
 
 	public CompletableFuture<MatchBundle> getMatch(int matchId, int before, int after, int limit) {
-		return CompletableFuture.supplyAsync(() ->{
-			Map<String, Object> params = new HashMap<>();
-			params.put("before", before);
-			params.put("after", after);
-			params.put("limit", limit);
-			return client.getJson(BASE+matchId, params);
-		});
+		return client.getJsonAsync(BASE+matchId, map -> {
+				map.put("before", before);
+				map.put("after", after);
+				map.put("limit", limit);
+			});
 	}
 }

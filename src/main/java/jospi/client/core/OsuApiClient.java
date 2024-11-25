@@ -8,6 +8,7 @@ import jospi.client.authorization.ClientCredentialsGrant;
 import jospi.client.request.HttpMethod;
 import jospi.client.request.NetIOUtilities;
 import jospi.client.request.RequestBundle;
+import jospi.client.resources.Dictionary;
 import jospi.endpoints.ApiEndpoints;
 
 public final class OsuApiClient implements NetIOUtilities {
@@ -64,16 +65,32 @@ public final class OsuApiClient implements NetIOUtilities {
 		return CompletableFuture.supplyAsync(() -> getJson(url, method));
 	}
 
+	public <T> CompletableFuture<T> getJsonAsync(String url, Dictionary<String, Object> queryParams) {
+		return getJsonAsync(url, queryParams, HttpMethod.GET);
+	}
+
 	public <T> CompletableFuture<T> getJsonAsync(String url, Map<String, Object> queryParams) {
 		return getJsonAsync(url, queryParams, HttpMethod.GET);
+	}
+
+	public <T> CompletableFuture<T> getJsonAsync(String url, Dictionary<String, Object> queryParams, HttpMethod method) {
+		return CompletableFuture.supplyAsync(() -> getJson(url, queryParams, method));
 	}
 	
 	public <T> CompletableFuture<T> getJsonAsync(String url, Map<String, Object> queryParams, HttpMethod method) {
 		return CompletableFuture.supplyAsync(() -> getJson(url, queryParams, method));
 	}
 
+	public <T> T getJson(String url, Dictionary<String, Object> queryParams) {
+		return getJson(url + toQueryString(queryParams), HttpMethod.GET);
+	}
+
 	public <T> T getJson(String url, Map<String, Object> queryParams) {
 		return getJson(url + toQueryString(queryParams), HttpMethod.GET);
+	}
+
+	public <T> T getJson(String url, Dictionary<String, Object> queryParams, HttpMethod method) {
+		return getJson(url + toQueryString(queryParams), method);
 	}
 	
 	public <T> T getJson(String url, Map<String, Object> queryParams, HttpMethod method) {

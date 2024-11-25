@@ -1,8 +1,5 @@
 package jospi.endpoints;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
@@ -29,15 +26,11 @@ public final class Rankings {
 	}
 	
 	public CompletableFuture<User[]> getKudosuRanking(int page) {
-		return CompletableFuture.supplyAsync(() -> 
-			client.getJson("/rankings/kudosu?page"+page)
-		);
+		return client.getJsonAsync("/rankings/kudosu?page"+page);
 	}
 
 	public CompletableFuture<Spotlight[]> getSpotlights() {
-		return CompletableFuture.supplyAsync(() -> 
-			client.getJson("/spotlights")
-		);
+		return client.getJsonAsync("/spotlights");
 	}
 
 	public AsyncLazyEnumerable<String, UserStatistics[]> getPerformanceRanking(Ruleset ruleset, String countryCode, String variant) {
@@ -79,18 +72,18 @@ public final class Rankings {
 
 	//Internal method
 	private AsyncLazyEnumerable<String, RankingsBundle> getRankingInternal(Ruleset ruleset, UserRankingType type, String countryCode, RankingFilter filter, String spotlightId, String variant) {
-		ExitToken<String> token = new ExitToken<>("", Objects::nonNull);
+		ExitToken<String> token = new ExitToken<>("");
 		Function<ExitToken<String>, CompletableFuture<RankingsBundle>> func = t -> 
 			CompletableFuture.supplyAsync(() -> {
-				Map<String, Object> params = new HashMap<>();
-				params.put("mode", ruleset);
-				params.put("type", type);
-				params.put("country", countryCode);
-				params.put("cursor", token.getToken());
-				params.put("filter", filter);
-				params.put("spotlight", spotlightId);
-				params.put("variant", variant);
-				RankingsBundle bundle = client.getJson(BASE + "packs", params);
+				RankingsBundle bundle = client.getJson(BASE + "packs", map -> {
+					map.put("mode", ruleset);
+					map.put("type", type);
+					map.put("country", countryCode);
+					map.put("cursor", token.getToken());
+					map.put("filter", filter);
+					map.put("spotlight", spotlightId);
+					map.put("variant", variant);
+				});
 				token.setNext(bundle.getCursorString());
 				return bundle;
 			});

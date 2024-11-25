@@ -1,8 +1,5 @@
 package jospi.endpoints;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
@@ -27,13 +24,13 @@ public final class BeatmapPacks {
 	}
 	
 	public AsyncLazyEnumerable<String, BeatmapPack[]> getBeatmapPacks(BeatmapPackType type) {
-		ExitToken<String> token = new ExitToken<>("", Objects::nonNull);
+		ExitToken<String> token = new ExitToken<>("");
 		Function<ExitToken<String>, CompletableFuture<BeatmapPack[]>> func = t -> 
 			CompletableFuture.supplyAsync(() -> {
-				Map<String, Object> params = new HashMap<>();
-				params.put("type", type.toString());
-				params.put("cursor_string", token.getToken());
-				BeatmapPackExtended packs = client.getJson(BASE + "packs", params);
+				BeatmapPackExtended packs = client.getJson(BASE + "packs", map -> {
+					map.put("type", type.toString());
+					map.put("cursor_string", token.getToken());
+				});
 				token.setNext(packs.getCursorString());
 				return packs.getBeatmapPacks();
 			});

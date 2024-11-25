@@ -1,10 +1,8 @@
 package jospi.endpoints;
 
-import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 
 import jospi.client.core.OsuApiClient;
-import jospi.client.resources.ClientUtil;
 import jospi.enums.home.HomeSearchQueryMode;
 import jospi.models.home.SearchResult;
 import jospi.models.users.User;
@@ -32,6 +30,9 @@ public class Home {
     }
 
     private <T> CompletableFuture<SearchResult<T>> searchInternal(HomeSearchQueryMode mode, String query) {
-        return client.getJsonAsync(BASE, ClientUtil.buildQueryMap(Arrays.asList("mode", "query"), mode, query));
+        return client.getJsonAsync(BASE, map -> {
+            map.put("mode", mode);
+            map.put("query", query);
+        });
     }
 }

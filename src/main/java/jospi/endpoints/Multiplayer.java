@@ -1,12 +1,9 @@
 package jospi.endpoints;
 
-import java.util.Arrays;
-import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
 import jospi.client.core.OsuApiClient;
-import jospi.client.resources.ClientUtil;
 import jospi.enums.multiplayer.MultiplayerRoomMode;
 import jospi.enums.multiplayer.MultiplayerRoomSort;
 import jospi.enums.multiplayer.MultiplayerRoomTypeGroup;
@@ -25,11 +22,14 @@ public class Multiplayer {
 	}
 
 	public AsyncLazyEnumerable<String, MultiplayerScores> getMultiplayerScores(int roomId, int playlistId, int limit, MultiplayerScoresSort sort) {
-		ExitToken<String> token = new ExitToken<>("", Objects::nonNull);
+		ExitToken<String> token = new ExitToken<>("");
 		Function<ExitToken<String>, CompletableFuture<MultiplayerScores>> func = tkn -> 
 			CompletableFuture.supplyAsync(() -> {
-				MultiplayerScores multiplayerScores = client.getJson(BASE+roomId+"/playlist/"+playlistId+"/scores",
-				ClientUtil.buildQueryMap(Arrays.asList("limit", "sort", "cursor_string"), limit, sort, tkn.getToken()));
+				MultiplayerScores multiplayerScores = client.getJson(BASE+roomId+"/playlist/"+playlistId+"/scores", map -> {
+					map.put("limit", limit);
+					map.put("sort", sort);
+					map.put("cursor_string", tkn.getToken());
+				});
 				tkn.setNext(multiplayerScores.getCursorString());
 				return multiplayerScores;
 			});
@@ -38,6 +38,12 @@ public class Multiplayer {
 
     public <T> CompletableFuture<T> getRooms(int limit, MultiplayerRoomMode mode, String seasonId, MultiplayerRoomSort sort, MultiplayerRoomTypeGroup typeGroup) {
 		client.requiresUser();
-        return client.getJsonAsync(BASE, ClientUtil.buildQueryMap(Arrays.asList("limit", "mode", "season_id", "sort", "type_group"), limit, mode, seasonId, sort, typeGroup));
+        return client.getJsonAsync(BASE, map -> {
+				map.put("limit", limit);
+				map.put("mode", mode);
+				map.put("season_id", seasonId);
+				map.put("sort", sort);
+				map.put("type_group", typeGroup);
+			});
     }
 }

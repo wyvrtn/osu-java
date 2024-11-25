@@ -1,8 +1,5 @@
 package jospi.endpoints;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
@@ -22,12 +19,12 @@ public final class News {
 	}
 
     public AsyncLazyEnumerable<String, NewsPost[]> getNewsPosts() {
-        ExitToken<String> token = new ExitToken<>("", Objects::nonNull);
+        ExitToken<String> token = new ExitToken<>("");
 		Function<ExitToken<String>, CompletableFuture<NewsPost[]>> func = t -> 
 			CompletableFuture.supplyAsync(() -> {
-				Map<String, Object> params = new HashMap<>();
-				params.put("cursor_string", token.getToken());
-				NewsBundle bundle = client.getJson(BASE, params);
+				NewsBundle bundle = client.getJson(BASE, map -> {
+					map.put("cursor_string", token.getToken());
+				});
 				token.setNext(bundle.getCursorString());
 				return bundle.getNewsPosts();
 			});
@@ -35,9 +32,7 @@ public final class News {
     }
 
     public CompletableFuture<NewsPost> getNewsPost(String slug) {
-        return CompletableFuture.supplyAsync(() ->
-            client.getJson(BASE+"slug")
-        );
+        return client.getJsonAsync(BASE+slug);
     }
 
 	public CompletableFuture<NewsPost> getNewsPost(int id) {

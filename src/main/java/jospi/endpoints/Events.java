@@ -1,8 +1,5 @@
 package jospi.endpoints;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
@@ -27,13 +24,13 @@ public class Events {
     }
 
     public AsyncLazyEnumerable<String, Event[]> getEvents(PostSort sort) {
-        ExitToken<String> token = new ExitToken<>("", Objects::nonNull);
+        ExitToken<String> token = new ExitToken<>("");
     	Function<ExitToken<String>, CompletableFuture<Event[]>> func = t -> 
 			CompletableFuture.supplyAsync(() -> {
-				Map<String, Object> params = new HashMap<>();
-				params.put("sort", sort);
-				params.put("cursor_string", token.getToken());
-				CursorResponse<Event> events = client.getJson(BASE, params);
+				CursorResponse<Event> events = client.getJson(BASE, map -> {
+					map.put("sort", sort);
+					map.put("cursor_string", token.getToken());
+				});
 				token.setNext(events.getCursorString());
 				return events.getData();
 			});

@@ -1,7 +1,5 @@
 package jospi.endpoints;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import jospi.client.core.OsuApiClient;
@@ -41,13 +39,12 @@ public final class Users {
 
 	public CompletableFuture<Score[]> getUserScores(int userId, UserScoreType type, boolean legacyOnly, 
 		boolean includeFails, Ruleset ruleset, UserResultParams usrParams) {
-		Map<String, Object> params = new HashMap<>();
-		params.put("legacy_only", legacyOnly);
-		params.put("include_fails", includeFails);
-		params.put("mode", ruleset);
-		return CompletableFuture.supplyAsync(() -> 
-			client.getJson(BASE+userId+"/scores/"+type.getDescription(), usrParams.convert(params))
-		);
+		return client.getJsonAsync(BASE+userId+"/scores/"+type.getDescription(), map -> {
+				map.put("legacy_only", legacyOnly);
+				map.put("include_fails", includeFails);
+				map.put("mode", ruleset);
+				map.put("", usrParams);
+			});
 	}
 
 	public CompletableFuture<BeatmapPlaycount[]> getUserMostPlayed(int userId, UserResultParams params) {
@@ -77,11 +74,9 @@ public final class Users {
 		if (ids.length>50) {
 			throw new IndexOutOfBoundsException("Parameter 'ids' can only have an array length of 50 or less");
 		}
-		return CompletableFuture.supplyAsync(() -> {
-			Map<String, Object> params = new HashMap<>();
-			params.put("include_variant_statistics", includeVariantStatistics);
-			for (int id : ids) params.put("ids[]", id);
-			return client.getJson(BASE, params);
-		});
+		return client.getJsonAsync(BASE, map -> {
+				map.put("include_variant_statistics", includeVariantStatistics);
+				for (int id : ids) map.put("ids[]", id);
+			});
 	}
 }

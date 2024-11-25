@@ -1,7 +1,5 @@
 package jospi.endpoints;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import jospi.client.core.OsuApiClient;
@@ -18,31 +16,23 @@ public final class Changelogs {
 	}
 	
 	public CompletableFuture<Build> getBuild(String stream, String build) {
-		return CompletableFuture.supplyAsync(() -> 
-			client.getJson(BASE+stream+"/"+build)
-		);
+		return client.getJsonAsync(BASE+stream+"/"+build);
 	}
 	
 	public CompletableFuture<ChangelogListing> getChangelogListing(String stream, String fromBuild, String toBuild, int maxBuildId) {
-		Map<String, Object> params = new HashMap<>();
-		params.put("stream", stream);
-		params.put("from", fromBuild);
-		params.put("to", toBuild);
-		params.put("max_id", maxBuildId);
-		return CompletableFuture.supplyAsync(() -> 
-			client.getJson("/changelog", params)
-		);
+		return client.getJsonAsync("/changelog", map -> {
+					map.put("stream", stream);
+					map.put("from", fromBuild);
+					map.put("to", toBuild);
+					map.put("max_id", maxBuildId);
+				});
 	}
 	
 	public CompletableFuture<Build> lookupBuildId(int buildId) {
-		return CompletableFuture.supplyAsync(() -> 
-			client.getJson(BASE+buildId+"?key=id")
-		);
+		return client.getJsonAsync(BASE+buildId+"?key=id");
 	}
 	
 	public CompletableFuture<Build> lookupLatestBuild(String stream) {
-		return CompletableFuture.supplyAsync(() -> 
-				client.getJson(BASE+stream)
-		);
+		return client.getJsonAsync(BASE+stream);
 	}
 }
