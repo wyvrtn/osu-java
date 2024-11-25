@@ -21,11 +21,11 @@ import jospi.client.request.RequestBundle;
 import jospi.models.authorization.ApiAuthorizationResponse;
 import jospi.models.authorization.AuthorizationCodeResponse;
 
-public final class OsuApiClientInternalStatefulHttpServiceProvider extends StatefulHttpServiceProvider {
+public final class OsuApiClientInternalBlockingStatefulHttpServiceProvider extends StatefulHttpServiceProvider {
     private final CloseableHttpClient httpClient;
 	private final AbstractApiAuthorizationContainer authorization;
 
-    protected OsuApiClientInternalStatefulHttpServiceProvider(RequestBundle bundle, AbstractApiAuthorizationContainer auth) {
+    protected OsuApiClientInternalBlockingStatefulHttpServiceProvider(RequestBundle bundle, AbstractApiAuthorizationContainer auth) {
 		this.httpClient = bundle.getHttpClient();
 		this.authorization = auth;
 	}
