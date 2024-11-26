@@ -9,7 +9,7 @@
 
 A simple, in-development async wrapper for the osu! API v2
 
-## Note: As of current, only Java version 1.8 is supported
+*Note: As of current, only Java version 1.8 is supported*
 
 # Maven
 
