@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class NewsSearchMeta {
-    
+
     @JsonProperty("limit")
     private int limit;
 

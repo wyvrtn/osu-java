@@ -10,10 +10,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class DiscussionVoters {
-	
+
 	@JsonProperty("down")
 	private int[] down;
-	
+
 	@JsonProperty("up")
 	private int[] up;
 }

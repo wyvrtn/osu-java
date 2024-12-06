@@ -12,20 +12,20 @@ public enum RankedStatus implements DescriptionEnum {
 	APPROVED(2, "approved"),
 	QUALIFIED(3, "qualified"),
 	LOVED(4, "loved");
-	
+
 	private int value;
 	private String description;
-	
+
 	private RankedStatus(int value, String description) {
 		this.value = value;
 		this.description = description;
 	}
-	
+
 	@JsonValue
 	public String getDescription() {
 		return this.description;
 	}
-	
+
 	public int getValue() {
 		return this.value;
 	}

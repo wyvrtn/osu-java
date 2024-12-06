@@ -10,10 +10,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Hypes {
-	
+
 	@JsonProperty("current")
 	private int current;
-	
+
 	@JsonProperty("required")
 	private int required;
 }

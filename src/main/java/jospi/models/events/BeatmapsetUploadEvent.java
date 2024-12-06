@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class BeatmapsetUploadEvent extends Event {
-    
+
     @JsonProperty("beatmapset")
     private EventBeatmapset beatmapset;
 

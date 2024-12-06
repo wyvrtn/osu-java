@@ -10,15 +10,15 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Text {
-	
+
 	@JsonProperty("html")
 	private String html;
-	
+
 	@JsonProperty("bbcode")
 	private String bbcode;
-	
+
 	@JsonProperty("raw")
 	private String raw;
-	
+
 	private String markup = bbcode!=null? bbcode : raw;
 }

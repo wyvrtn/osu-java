@@ -12,10 +12,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class MonthlyReplaysWatchedEntry {
-	
+
 	@JsonProperty("count")
 	private int count;
-	
+
 	@JsonProperty("start_date")
 	private LocalDate startDate;
 }

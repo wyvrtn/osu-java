@@ -12,13 +12,13 @@ public enum MatchEventType implements DescriptionEnum {
     PLAYER_JOINED("player-joined"),
     PLAYER_KICKED("player-kicked"),
     PLAYER_LEFT("player-left");
-	
+
 	private String description;
-	
+
 	private MatchEventType(String description) {
 		this.description = description;
 	}
-	
+
 	@JsonValue
 	public String getDescription() {
 		return this.description;

@@ -39,13 +39,13 @@ public enum ChangelogEntryCategory implements DescriptionEnum {
 	SKINNING("Skinning"),
 	MAINMENU("Main Menu"),
 	SPECTATOR("Spectator");
-	
+
 	private String description;
-	
+
 	private ChangelogEntryCategory(String description) {
 		this.description = description;
 	}
-	
+
 	@JsonValue
 	public String getDescription() {
 		return this.description;

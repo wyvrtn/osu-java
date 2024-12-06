@@ -18,11 +18,11 @@ public interface NetIOUtilities {
 	    for(Entry<String, String> entry : params.entrySet()){
 	        if (first) first = false;
 	        else result.append('&');
-	        
+
 	        result.append(encode(entry.getKey()));
 	        result.append('=');
 	        result.append(encode(entry.getValue()));
-	    }    
+	    }
 	    return result.toString();
 	}
 
@@ -49,7 +49,7 @@ public interface NetIOUtilities {
 				}
 			} else if (value instanceof LocalDateTime) {
 				out.append(((LocalDateTime) value).toString());
-			
+
 			} else {
 				out.append(encode(value.toString()));
 			}
@@ -57,7 +57,7 @@ public interface NetIOUtilities {
 		out.deleteCharAt(0);
 		return new String(out);
 	}
-	
+
 	public static String encode(String str) {
 		try {
 			return URLEncoder.encode(str, "UTF-8");

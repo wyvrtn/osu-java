@@ -9,13 +9,13 @@ public enum Ruleset implements DescriptionEnum {
 	TAIKO("taiko"),
 	CATCH("fruits"),
 	MANIA("mania");
-	
+
 	private String description;
-	
+
 	private Ruleset(String description) {
 		this.description = description;
 	}
-	
+
 	@JsonValue
 	public String getDescription() {
 		return this.description;

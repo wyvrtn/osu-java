@@ -9,13 +9,13 @@ public enum UserAccountHistoryEntryType implements DescriptionEnum {
 	RESTRICTION("restriction"),
 	SILENCE("silence"),
 	TOURNAMENTBAN("tournament_ban");
-	
+
 	private String description;
-	
+
 	private UserAccountHistoryEntryType(String description) {
 		this.description = description;
 	}
-	
+
 	@JsonValue
 	public String getDescription() {
 		return this.description;

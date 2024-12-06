@@ -24,7 +24,7 @@ public final class Rankings {
 	protected Rankings(OsuApiClient client) {
 		this.client = client;
 	}
-	
+
 	public CompletableFuture<User[]> getKudosuRanking(int page) {
 		return client.getJsonAsync("/rankings/kudosu?page"+page);
 	}
@@ -73,7 +73,7 @@ public final class Rankings {
 	//Internal method
 	private AsyncLazyEnumerable<String, RankingsBundle> getRankingInternal(Ruleset ruleset, UserRankingType type, String countryCode, RankingFilter filter, String spotlightId, String variant) {
 		ExitToken<String> token = new ExitToken<>("");
-		Function<ExitToken<String>, CompletableFuture<RankingsBundle>> func = t -> 
+		Function<ExitToken<String>, CompletableFuture<RankingsBundle>> func = t ->
 			CompletableFuture.supplyAsync(() -> {
 				RankingsBundle bundle = client.getJson(BASE + "packs", map -> {
 					map.put("mode", ruleset);

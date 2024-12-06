@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class BeatmapPlaycountEvent extends Event {
-    
+
     @JsonProperty("beatmap")
     private EventBeatmap beatmap;
 

@@ -10,10 +10,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Versions {
-	
+
 	@JsonProperty("next")
 	private Build next;
-	
+
 	@JsonProperty("previous")
 	private Build previous;
 }

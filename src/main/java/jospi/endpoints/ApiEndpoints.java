@@ -6,16 +6,16 @@ import lombok.experimental.Delegate;
 public final class ApiEndpoints {
 
 	private final OsuApiClient client;
-	
+
 	@Delegate
 	private final BeatmapPacks beatmapPacksDelegate;
-	
+
 	@Delegate
 	private final Beatmaps beatmapsDelegate;
-	
+
 	@Delegate
 	private final BeatmapSets beatmapSetsDelegate;
-	
+
 	@Delegate
 	private final Changelogs changelogsDelegate;
 
@@ -36,16 +36,16 @@ public final class ApiEndpoints {
 
 	@Delegate
 	private final News newsDelegate;
-	
+
 	@Delegate
 	private final Rankings rankingsDelegate;
 
 	@Delegate
 	private final Users usersDelegate;
-	
+
 	@Delegate
 	private final Wikis wikisDelegate;
-	
+
 	private ApiEndpoints(OsuApiClient client) {
 		this.client = client;
 		beatmapPacksDelegate = new BeatmapPacks(this.client);
@@ -62,7 +62,7 @@ public final class ApiEndpoints {
 		usersDelegate = new Users(this.client);
 		wikisDelegate = new Wikis(this.client);
 	}
-	
+
 	public static ApiEndpoints createInstance(OsuApiClient client) {
 		return new ApiEndpoints(client);
 	}

@@ -10,13 +10,13 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Country {
-	
+
 	@JsonProperty("code")
 	private String code;
-	
+
 	@JsonProperty("display")
 	private int display;
-	
+
 	@JsonProperty("name")
 	private String name;
 }

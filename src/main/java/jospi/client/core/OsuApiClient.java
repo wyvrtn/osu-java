@@ -19,12 +19,12 @@ public final class OsuApiClient implements NetIOUtilities {
     public OsuApiClient(final int clientId, final String clientSecret) {
         this(new ClientCredentialsGrant(clientId, clientSecret));
     }
-	
+
     public OsuApiClient(final AbstractApiAuthorization auth) {
         this(auth, new RequestBundle());
 
     }
-	
+
 	public OsuApiClient(final AbstractApiAuthorization auth, final RequestBundle bundle) {
 		endpoints = ApiEndpoints.createInstance(this);
 		authorization = AbstractApiAuthorizationContainer.newInstance(auth);

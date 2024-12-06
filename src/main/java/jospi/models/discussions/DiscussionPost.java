@@ -12,35 +12,35 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class DiscussionPost {
-	
+
 	@JsonProperty("beatmapset_discussion_id")
 	private int discussionId;
-	
+
 	@JsonProperty("created_at")
 	private OffsetDateTime createdAt;
-	
+
 	@JsonProperty("deleted_at")
 	private OffsetDateTime deletedAt;
-	
+
 	@JsonProperty("deleted_by_id")
 	private int deletedById;
-	
+
 	@JsonProperty("id")
 	private int id;
-	
+
 	@JsonProperty("last_editor_id")
 	private int lastEditorId;
-	
+
 	@JsonProperty("updated_at")
 	private OffsetDateTime updatedAt;
-	
+
 	@JsonProperty("user_id")
 	private int userId;
-	
+
 	/**
 	 * Optional
 	 */
-	
+
 	@JsonProperty("beatmap_discussion")
 	private Discussion discussion;
 }

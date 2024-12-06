@@ -17,7 +17,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class SearchResult<T> {
-    
+
     @JsonProperty("data")
     private T[] data;
 

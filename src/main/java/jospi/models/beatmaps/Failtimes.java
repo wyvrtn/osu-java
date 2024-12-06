@@ -10,10 +10,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Failtimes {
-	
+
 	@JsonProperty("exit")
 	private int[] exits;
-	
+
 	@JsonProperty("fail")
 	private int[] fails;
 }

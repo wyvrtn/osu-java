@@ -12,14 +12,14 @@ import lombok.Getter;
 public final class RequestBundle {
 	private static CloseableHttpClient defaultClient;
 	private static final Object LOCK = new Object();
-	
+
     private RequestProperties properties;
     private CloseableHttpClient httpClient;
-    
+
     public RequestBundle() {
     	this(1000, 1000);
     }
-    
+
     public RequestBundle(int readTimeout, int connectTimeout) {
         properties = RequestProperties.createInstance(readTimeout, connectTimeout);
 		RequestConfig config = RequestConfig.custom()
@@ -30,7 +30,7 @@ public final class RequestBundle {
 				.setDefaultRequestConfig(config)
 				.build();
     }
-    
+
     public static CloseableHttpClient getDefaultClient() {
     	synchronized(LOCK) {
         	if (defaultClient==null) {

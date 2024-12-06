@@ -10,7 +10,7 @@ public enum Grade implements DescriptionEnum {
 	SH("sh"),
 	X("ss"),
 	S("s"),
-	A("a"), 
+	A("a"),
 	B("b"),
 	C("c"),
 	D("d");

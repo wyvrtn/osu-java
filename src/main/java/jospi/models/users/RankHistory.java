@@ -11,10 +11,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class RankHistory {
-	
+
 	@JsonProperty("data")
 	private int[] data;
-	
+
 	@JsonProperty("mode")
 	private Ruleset ruleset;
 }

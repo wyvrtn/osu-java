@@ -10,22 +10,22 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class UpdateStream {
-	
+
 	@JsonProperty("display_name")
 	private String displayName;
-	
+
 	@JsonProperty("id")
 	private int id;
-	
+
 	@JsonProperty("is_featured")
 	private boolean isFeatured;
-	
+
 	@JsonProperty("name")
 	private String name;
-	
+
 	@JsonProperty("latest_build")
 	private Build latestBuild;
-	
+
 	@JsonProperty("user_count")
 	private int userCount;
 }

@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class RankingsBundle {
-    
+
     @JsonProperty("beatmapsets")
     private BeatmapSetExtended[] beatmapsets;
 

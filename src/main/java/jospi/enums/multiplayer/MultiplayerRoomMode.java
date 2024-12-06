@@ -10,13 +10,13 @@ public enum MultiplayerRoomMode implements DescriptionEnum {
 	ENDED("ended"),
 	PARTICIPATED("participated"),
     OWNED("owned");
-	
+
 	private String description;
-	
+
 	private MultiplayerRoomMode(String description) {
 		this.description = description;
 	}
-	
+
 	@JsonValue
 	public String getDescription() {
 		return this.description;

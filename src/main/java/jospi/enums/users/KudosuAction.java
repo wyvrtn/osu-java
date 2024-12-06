@@ -11,13 +11,13 @@ public enum KudosuAction implements DescriptionEnum {
 	VOTE_RESET("vote.reset"),
     REVOKE("revoke"),
 	VOTE_REVOKE("vote.revoke");
-	
+
 	private String description;
-	
+
 	private KudosuAction(String description) {
 		this.description = description;
 	}
-	
+
 	@JsonValue
 	public String getDescription() {
 		return this.description;

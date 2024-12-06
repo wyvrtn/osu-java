@@ -10,10 +10,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Level {
-	
+
 	@JsonProperty("current")
 	private int current;
-	
+
 	@JsonProperty("progress")
 	private int progress;
 }

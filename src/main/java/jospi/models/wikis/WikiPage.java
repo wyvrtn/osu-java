@@ -11,26 +11,26 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class WikiPage {
-	
+
 	@JsonProperty("available_locales")
 	private String[] availableLocales;
-	
+
 	@JsonProperty("layout")
 	private WikiPageLayout layout;
-	
+
 	@JsonProperty("locale")
 	private String locale;
 	private String markdown;
-	
+
 	@JsonProperty("path")
 	private String path;
-	
+
 	@JsonProperty("subtitle")
 	private String subtitle;
-	
+
 	@JsonProperty("tags")
 	private String[] tags;
-	
+
 	@JsonProperty("title")
 	private String title;
 }

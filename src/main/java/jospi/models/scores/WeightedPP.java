@@ -10,10 +10,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class WeightedPP {
-	
+
 	@JsonProperty("percentage")
 	private float weight;
-	
+
 	@JsonProperty("pp")
 	private float pp;
 }

@@ -10,10 +10,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ForumTopicBundle {
-	
+
 	@JsonProperty("topic")
 	private ForumTopic topic;
-	
+
 	@JsonProperty("posts")
 	private ForumPost[] posts;
 }

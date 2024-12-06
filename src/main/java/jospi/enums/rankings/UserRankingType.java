@@ -9,13 +9,13 @@ public enum UserRankingType implements DescriptionEnum {
 	COUNTRY("country"),
 	PERFORMANCE("performance"),
 	SCORE("score");
-	
+
 	private String description;
-	
+
 	private UserRankingType(String description) {
 		this.description = description;
 	}
-	
+
 	@JsonValue
 	public String getDescription() {
 		return this.description;

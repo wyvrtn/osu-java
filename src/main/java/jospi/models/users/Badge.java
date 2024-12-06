@@ -12,19 +12,19 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Badge {
-	
+
 	@JsonProperty("awarded_at")
 	private OffsetDateTime awardedAt;
-	
+
 	@JsonProperty("description")
 	private String description;
-	
+
 	@JsonProperty("image@2x_url")
 	private String image2X;
-	
+
 	@JsonProperty("image_url")
 	private String image;
-	
+
 	@JsonProperty("url")
 	private String url;
 }

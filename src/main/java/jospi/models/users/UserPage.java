@@ -10,10 +10,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class UserPage {
-	
+
 	@JsonProperty("html")
 	private String html;
-	
+
 	@JsonProperty("raw")
 	private String raw;
 }

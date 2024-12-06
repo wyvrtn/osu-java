@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class KudosuPost {
-    
+
     @JsonProperty("url")
     private String url;
 

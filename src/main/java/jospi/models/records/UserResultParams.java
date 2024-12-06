@@ -10,7 +10,7 @@ import lombok.Getter;
 public final class UserResultParams implements HttpRecord {
 	private final int limit;
 	private final int offset;
-	
+
 	public Map<String, Object> convert(Map<String, Object> map) {
 		map.put("limit", limit);
 		map.put("offset", offset);

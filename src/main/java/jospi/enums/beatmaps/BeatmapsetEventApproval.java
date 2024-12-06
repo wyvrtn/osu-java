@@ -9,13 +9,13 @@ public enum BeatmapsetEventApproval implements DescriptionEnum {
 	APPROVED("approved"),
 	QUALIFIED("qualified"),
 	LOVED("loved");
-	
+
 	private String description;
-	
+
 	private BeatmapsetEventApproval(String description) {
 		this.description = description;
 	}
-	
+
 	@JsonValue
 	public String getDescription() {
 		return this.description;

@@ -11,7 +11,7 @@ import jospi.models.news.NewsPost;
 
 public final class News {
     private static final String BASE = "/news/";
-	
+
 	private final OsuApiClient client;
 
 	protected News(OsuApiClient client) {
@@ -20,7 +20,7 @@ public final class News {
 
     public AsyncLazyEnumerable<String, NewsPost[]> getNewsPosts() {
         ExitToken<String> token = new ExitToken<>("");
-		Function<ExitToken<String>, CompletableFuture<NewsPost[]>> func = t -> 
+		Function<ExitToken<String>, CompletableFuture<NewsPost[]>> func = t ->
 			CompletableFuture.supplyAsync(() -> {
 				NewsBundle bundle = client.getJson(BASE, map -> {
 					map.put("cursor_string", token.getToken());

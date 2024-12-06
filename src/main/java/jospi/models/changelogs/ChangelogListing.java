@@ -10,10 +10,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ChangelogListing {
-	
+
 	@JsonProperty("builds")
 	private Build[] builds;
-	
+
 	@JsonProperty("streams")
 	private UpdateStream[] streams;
 }

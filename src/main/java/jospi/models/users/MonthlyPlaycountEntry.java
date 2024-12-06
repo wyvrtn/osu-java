@@ -15,7 +15,7 @@ public class MonthlyPlaycountEntry {
 
 	@JsonProperty("start_date")
 	private LocalDate startDate;
-	
+
 	@JsonProperty("count")
 	private int count;
 }

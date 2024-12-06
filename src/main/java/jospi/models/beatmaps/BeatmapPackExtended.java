@@ -10,10 +10,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class BeatmapPackExtended extends BeatmapPack {
-	
+
 	@JsonProperty("beatmap_packs")
 	private BeatmapPack[] beatmapPacks;
-	
+
 	@JsonProperty("cursor_string")
 	private String cursorString;
 }

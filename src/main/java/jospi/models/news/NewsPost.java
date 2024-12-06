@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Setter
 @NoArgsConstructor
 public class NewsPost {
-    
+
     @JsonProperty("author")
     private String author;
 

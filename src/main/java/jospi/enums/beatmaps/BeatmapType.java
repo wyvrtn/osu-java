@@ -13,13 +13,13 @@ public enum BeatmapType implements DescriptionEnum {
 	NOMINATED("nominated"),
 	PENDING("pending"),
     RANKED("ranked");
-	
+
 	private String description;
-	
+
 	private BeatmapType(String description) {
 		this.description = description;
 	}
-	
+
 	@JsonValue
 	public String getDescription() {
 		return this.description;

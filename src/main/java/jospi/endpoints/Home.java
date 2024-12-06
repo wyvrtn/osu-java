@@ -10,7 +10,7 @@ import jospi.models.wikis.WikiPage;
 
 public class Home {
     private static final String BASE = "/search/";
-    	
+
 	private final OsuApiClient client;
 
 	protected Home(OsuApiClient client) {
@@ -20,7 +20,7 @@ public class Home {
     public CompletableFuture<SearchResult<User>> searchUser(String query) {
         return searchInternal(HomeSearchQueryMode.USER, query);
     }
-    
+
     public CompletableFuture<SearchResult<WikiPage>> searchWiki(String query) {
         return searchInternal(HomeSearchQueryMode.WIKIPAGE, query);
     }

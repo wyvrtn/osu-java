@@ -25,7 +25,7 @@ public class Events {
 
     public AsyncLazyEnumerable<String, Event[]> getEvents(PostSort sort) {
         ExitToken<String> token = new ExitToken<>("");
-    	Function<ExitToken<String>, CompletableFuture<Event[]>> func = t -> 
+    	Function<ExitToken<String>, CompletableFuture<Event[]>> func = t ->
 			CompletableFuture.supplyAsync(() -> {
 				CursorResponse<Event> events = client.getJson(BASE, map -> {
 					map.put("sort", sort);

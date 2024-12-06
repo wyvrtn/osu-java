@@ -14,7 +14,7 @@ import jospi.models.multiplayer.MultiplayerScores;
 
 public class Multiplayer {
 	private static final String BASE = "/rooms/";
-	
+
 	private final OsuApiClient client;
 
 	protected Multiplayer(OsuApiClient client) {
@@ -23,7 +23,7 @@ public class Multiplayer {
 
 	public AsyncLazyEnumerable<String, MultiplayerScores> getMultiplayerScores(int roomId, int playlistId, int limit, MultiplayerScoresSort sort) {
 		ExitToken<String> token = new ExitToken<>("");
-		Function<ExitToken<String>, CompletableFuture<MultiplayerScores>> func = tkn -> 
+		Function<ExitToken<String>, CompletableFuture<MultiplayerScores>> func = tkn ->
 			CompletableFuture.supplyAsync(() -> {
 				MultiplayerScores multiplayerScores = client.getJson(BASE+roomId+"/playlist/"+playlistId+"/scores", map -> {
 					map.put("limit", limit);

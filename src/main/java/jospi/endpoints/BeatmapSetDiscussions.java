@@ -7,12 +7,12 @@ import jospi.client.core.OsuApiClient;
 @SuppressWarnings("unused")
 public final class BeatmapSetDiscussions {
 	private static final String BASE = "/beatmapsets/discussions";
-	
-	private final OsuApiClient client; 
+
+	private final OsuApiClient client;
 
 	public BeatmapSetDiscussions(OsuApiClient client) {
 		this.client = client;
 	}
-	
-	
+
+
 }

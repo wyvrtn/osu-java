@@ -15,17 +15,17 @@ import jospi.models.comments.CommentBundle.Cursor;
 
 public final class Comments {
 	private static final String BASE = "/comments/";
-	
+
 	private final OsuApiClient client;
 
 	protected Comments(OsuApiClient client) {
 		this.client = client;
 	}
-	
+
 	public CompletableFuture<CommentBundle> getComment(int commentId) {
 		return client.getJsonAsync(BASE+commentId);
 	}
-	
+
 	public AsyncLazyEnumerable<Cursor, CommentBundle> getComments(int after, CommentableType type,
 			int commentableId, int parentId, CommentSortType sort) {
 		ExitToken<Cursor> token = new ExitToken<>((new CommentBundle()).new Cursor());
@@ -61,4 +61,4 @@ public final class Comments {
 				map.put("parent_id", parentId);
 			}, HttpMethod.POST);
 	}
-} 
+}

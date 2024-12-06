@@ -41,14 +41,14 @@ public abstract class AbstractApiAuthorization implements NetIOUtilities {
     /**
      * Requests an access token for an instance of a subclass, for the first time.
      *
-     * @param svc Instance of an inheriting subclass of <a href="#{@link}">{@link StatefulHttpServiceProvider}</a>
+     * @param svc Instance of an inheriting subclass of {@link StatefulHttpServiceProvider StatefulHttpServiceProvider}
      */
 	protected abstract void authorizationFlow(StatefulHttpServiceProvider svc);
 
     /**
      * Refreshes the access token of an instance of a subclass.
      *
-     * @param svc Instance of an inheriting subclass of <a href="#{@link}">{@link StatefulHttpServiceProvider}</a>
+     * @param svc Instance of an inheriting subclass of {@link StatefulHttpServiceProvider StatefulHttpServiceProvider}
      */
 	protected abstract void refreshAccessToken(StatefulHttpServiceProvider svc);
 }

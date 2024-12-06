@@ -14,7 +14,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class KudosuHistoryEntry {
-    
+
     @JsonProperty("id")
     private int id;
 

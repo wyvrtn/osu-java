@@ -18,13 +18,13 @@ public enum EventType implements DescriptionEnum {
     USERSUPPORTFIRST("userSupportFirst"),
     USERSUPPORTGIFT("userSupportGift"),
     USERNAMECHANGE("usernameChange");
-	
+
 	private String description;
-	
+
 	private EventType(String description) {
 		this.description = description;
 	}
-	
+
 	@JsonValue
 	public String getDescription() {
 		return this.description;

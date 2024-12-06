@@ -12,7 +12,7 @@ import jospi.models.beatmaps.BeatmapPackExtended;
 
 public final class BeatmapPacks {
 	private static final String BASE = "/beatmaps/";
-	
+
 	private final OsuApiClient client;
 
 	protected BeatmapPacks(OsuApiClient client) {
@@ -22,10 +22,10 @@ public final class BeatmapPacks {
 	public AsyncLazyEnumerable<String, BeatmapPack[]> getBeatmapPacks() {
 		return getBeatmapPacks(BeatmapPackType.STANDARD);
 	}
-	
+
 	public AsyncLazyEnumerable<String, BeatmapPack[]> getBeatmapPacks(BeatmapPackType type) {
 		ExitToken<String> token = new ExitToken<>("");
-		Function<ExitToken<String>, CompletableFuture<BeatmapPack[]>> func = t -> 
+		Function<ExitToken<String>, CompletableFuture<BeatmapPack[]>> func = t ->
 			CompletableFuture.supplyAsync(() -> {
 				BeatmapPackExtended packs = client.getJson(BASE + "packs", map -> {
 					map.put("type", type.toString());
@@ -36,13 +36,13 @@ public final class BeatmapPacks {
 			});
 		return new AsyncLazyEnumerable<>(func, token);
 	}
-	
+
 	public CompletableFuture<BeatmapPack> getBeatmapPack(String tag) {
 		return getBeatmapPack(tag, false);
 	}
 
 	public CompletableFuture<BeatmapPack> getBeatmapPack(String tag, boolean legacyOnly) {
-		return CompletableFuture.supplyAsync(() -> 
+		return CompletableFuture.supplyAsync(() ->
 			client.getJson(BASE + "packs/"+ tag + "?" + (legacyOnly? 1:0))
 		);
 	}

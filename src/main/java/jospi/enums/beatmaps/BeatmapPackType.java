@@ -12,13 +12,13 @@ public enum BeatmapPackType implements DescriptionEnum {
 	CHART("chart"),
 	THEME("theme"),
 	ARTIST("artist");
-	
+
 	private String description;
-	
+
 	private BeatmapPackType(String description) {
 		this.description = description;
 	}
-	
+
 	@JsonValue
 	public String getDescription() {
 		return this.description;

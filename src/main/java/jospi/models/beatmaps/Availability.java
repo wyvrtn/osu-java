@@ -10,10 +10,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Availability {
-	
+
 	@JsonProperty("download_disabled")
 	private boolean isDownloadDisabled;
-	
+
 	@JsonProperty("more_information")
 	private String information;
 }

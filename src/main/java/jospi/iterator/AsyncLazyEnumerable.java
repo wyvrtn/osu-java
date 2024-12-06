@@ -13,21 +13,21 @@ public class AsyncLazyEnumerable<T, R> implements Iterable<CompletableFuture<R>>
     private final ExitToken<T> token;
     private final ExitType type;
     private List<CompletableFuture<R>> cache;
-    
+
     public AsyncLazyEnumerable(Function<ExitToken<T>, CompletableFuture<R>> func, ExitToken<T> token) {
     	this(func, token, ExitType.WHILE);
     }
-    
+
     public AsyncLazyEnumerable(Function<ExitToken<T>, CompletableFuture<R>> func, ExitToken<T> token, ExitType type) {
         this.enumerator = func;
         this.token = token;
         this.type = type;
     }
-    
+
     public List<CompletableFuture<R>> getCache() {
         return cache;
     }
-    
+
     public List<CompletableFuture<R>> asList() {
     	List<CompletableFuture<R>> out = new ArrayList<>();
     	try {
@@ -48,7 +48,7 @@ public class AsyncLazyEnumerable<T, R> implements Iterable<CompletableFuture<R>>
         Function<ExitToken<T>, CompletableFuture<KResult>> appended = enumerator.andThen(func);
         return new AsyncLazyEnumerable<>(appended, token, type);
     }
-    
+
     public CompletableFuture<R> current() {
         if (type==ExitType.WHILE) {
         	if (token.doExit()) return null;
@@ -74,7 +74,7 @@ public class AsyncLazyEnumerable<T, R> implements Iterable<CompletableFuture<R>>
         }
         return null;
     }
-    
+
     public CompletableFuture<Boolean> moveNextAsync() {
     	synchronized(this) {
         	if (token.getNext()!=null) {

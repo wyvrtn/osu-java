@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class BeatmapSetDescription {
-    
+
     @JsonProperty("bbcode")
     private String bbCode;
 

@@ -7,11 +7,11 @@ public final class ClientUtil {
 	private ClientUtil() {
 		throw new InstantiationError("Class " + ClientUtil.class.getName() + " cannot be instantiated");
 	}
-	
+
 	public static <L, R> Object nullishCoalesce(L leftArg, R rightArg) {
 		return leftArg==null? rightArg : leftArg;
 	}
-	
+
 	public static void awaitRunnable(CompletableFuture<Void> runnable) {
 		try {
 			runnable.get();
@@ -22,7 +22,7 @@ public final class ClientUtil {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static <T> T awaitTask(CompletableFuture<T> task) {
 		try {
 			return task.get();

@@ -8,13 +8,13 @@ public enum ChangelogEntryType implements DescriptionEnum {
 	ADD("add"),
 	FIX("fix"),
 	MISCELLANEOUS("misc");
-	
+
 	private String description;
-	
+
 	private ChangelogEntryType(String description) {
 		this.description = description;
 	}
-	
+
 	@JsonValue
 	public String getDescription() {
 		return this.description;

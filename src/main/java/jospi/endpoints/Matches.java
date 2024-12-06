@@ -22,7 +22,7 @@ public class Matches {
 
 	public AsyncLazyEnumerable<String, Match[]> getMatches(int limit, MatchBundleSort sort) {
 		ExitToken<String> token = new ExitToken<>("");
-		Function<ExitToken<String>, CompletableFuture<Match[]>> func = t -> 
+		Function<ExitToken<String>, CompletableFuture<Match[]>> func = t ->
 			CompletableFuture.supplyAsync(() -> {
 				MatchesBundle packs = client.getJson(BASE, map -> {
 					map.put("limit", limit);

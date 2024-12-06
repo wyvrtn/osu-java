@@ -17,7 +17,7 @@ import jospi.models.users.UserExtended;
 
 public final class Users {
     private static final String BASE = "/users/";
-	
+
 	private final OsuApiClient client;
 
 	protected Users(OsuApiClient client) {
@@ -37,7 +37,7 @@ public final class Users {
 		return client.getJsonAsync(BASE+userId+"/kudosu", params.convert());
 	}
 
-	public CompletableFuture<Score[]> getUserScores(int userId, UserScoreType type, boolean legacyOnly, 
+	public CompletableFuture<Score[]> getUserScores(int userId, UserScoreType type, boolean legacyOnly,
 		boolean includeFails, Ruleset ruleset, UserResultParams usrParams) {
 		return client.getJsonAsync(BASE+userId+"/scores/"+type.getDescription(), map -> {
 				map.put("legacy_only", legacyOnly);

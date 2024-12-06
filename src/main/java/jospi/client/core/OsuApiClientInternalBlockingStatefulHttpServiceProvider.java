@@ -70,13 +70,13 @@ public final class OsuApiClientInternalBlockingStatefulHttpServiceProvider exten
 		}
 		return response;
 	}
-	
+
 	private String buildUri(String... pathArgs) {
 		StringBuilder sb = new StringBuilder(GATEWAY);
 		for (String arg : pathArgs) sb.append(arg);
 		return new String(sb);
 	}
-	
+
 	private String readInputStream(InputStream inputStream) {
 		ByteArrayOutputStream result = new ByteArrayOutputStream();
 		byte[] buffer = new byte[1024];

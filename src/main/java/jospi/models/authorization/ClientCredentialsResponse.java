@@ -11,16 +11,16 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ClientCredentialsResponse implements ApiAuthorizationResponse {
-	
+
 	@JsonProperty("access_token")
 	private String accessToken;
-	
+
 	@JsonProperty("expires_in")
 	private Integer expiresIn;
-	
+
 	@JsonProperty("error")
 	private String errorCode;
-	
+
 	@JsonProperty("error_description")
 	private String errorDescription;
 

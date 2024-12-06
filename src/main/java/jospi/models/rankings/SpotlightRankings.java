@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class SpotlightRankings {
-    
+
     private BeatmapSetExtended[] beatmapsets;
 
     private UserStatistics[] rankings;

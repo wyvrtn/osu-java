@@ -12,10 +12,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class HighestRank {
-	
+
 	@JsonProperty("rank")
 	private int rank;
-	
+
 	@JsonProperty("updated_at")
 	public OffsetDateTime updatedAt;
 }

@@ -13,13 +13,13 @@ import lombok.Setter;
 public class Nomination {
 	@JsonProperty("beatmapset_id")
 	private int beatmapSetId;
-	
+
 	@JsonProperty("rulesets")
 	private Ruleset[] rulesets;
-	
+
 	@JsonProperty("reset")
 	private boolean reset;
-	
+
 	@JsonProperty("user_id")
 	private int UserId;
 }
