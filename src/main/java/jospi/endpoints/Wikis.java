@@ -7,13 +7,13 @@ import jospi.models.wikis.WikiPage;
 
 public final class Wikis {
 
-	private final OsuApiClient client;
+    private final OsuApiClient client;
 
-	protected Wikis(OsuApiClient client) {
-		this.client = client;
-	}
+    protected Wikis(OsuApiClient client) {
+        this.client = client;
+    }
 
-	public CompletableFuture<WikiPage> getWikiPage(String locale, String path) {
-		return client.getJsonAsync("/wiki/"+locale+"/"+path);
-	}
+    public CompletableFuture<WikiPage> getWikiPage(String locale, String path) {
+        return client.getJsonAsync("/wiki/"+locale+"/"+path);
+    }
 }

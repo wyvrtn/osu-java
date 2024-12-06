@@ -15,9 +15,9 @@ public class Events {
 
     private final OsuApiClient client;
 
-	protected Events(OsuApiClient client) {
-		this.client = client;
-	}
+    protected Events(OsuApiClient client) {
+        this.client = client;
+    }
 
     public AsyncLazyEnumerable<String, Event[]> getEvents() {
         return getEvents(PostSort.IDDESCENDING);
@@ -25,15 +25,15 @@ public class Events {
 
     public AsyncLazyEnumerable<String, Event[]> getEvents(PostSort sort) {
         ExitToken<String> token = new ExitToken<>("");
-    	Function<ExitToken<String>, CompletableFuture<Event[]>> func = t ->
-			CompletableFuture.supplyAsync(() -> {
-				CursorResponse<Event> events = client.getJson(BASE, map -> {
-					map.put("sort", sort);
-					map.put("cursor_string", token.getToken());
-				});
-				token.setNext(events.getCursorString());
-				return events.getData();
-			});
-		return new AsyncLazyEnumerable<>(func, token);
+        Function<ExitToken<String>, CompletableFuture<Event[]>> func = t ->
+            CompletableFuture.supplyAsync(() -> {
+                CursorResponse<Event> events = client.getJson(BASE, map -> {
+                    map.put("sort", sort);
+                    map.put("cursor_string", token.getToken());
+                });
+                token.setNext(events.getCursorString());
+                return events.getData();
+            });
+        return new AsyncLazyEnumerable<>(func, token);
     }
 }

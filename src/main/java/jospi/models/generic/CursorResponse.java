@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CursorResponse<T> {
-	private T[] data;
-	private String cursorString;
+    private T[] data;
+    private String cursorString;
 }

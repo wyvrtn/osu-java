@@ -16,70 +16,70 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Discussion {
 
-	@JsonProperty("beatmap_id")
-	private int beatmapId;
+    @JsonProperty("beatmap_id")
+    private int beatmapId;
 
-	@JsonProperty("beatmapset_id")
-	private int BeatmapSetId;
+    @JsonProperty("beatmapset_id")
+    private int BeatmapSetId;
 
-	@JsonProperty("can_be_resolved")
-	private boolean canBeResolved;
+    @JsonProperty("can_be_resolved")
+    private boolean canBeResolved;
 
-	@JsonProperty("can_grant_kudosu")
-	private boolean canGrantKudosu;
+    @JsonProperty("can_grant_kudosu")
+    private boolean canGrantKudosu;
 
-	@JsonProperty("created_at")
-	private OffsetDateTime createdAt;
+    @JsonProperty("created_at")
+    private OffsetDateTime createdAt;
 
-	@JsonProperty("deleted_at")
-	private OffsetDateTime deletedAt;
+    @JsonProperty("deleted_at")
+    private OffsetDateTime deletedAt;
 
-	@JsonProperty("deleted_by_id")
-	private int deletedById;
+    @JsonProperty("deleted_by_id")
+    private int deletedById;
 
-	@JsonProperty("id")
-	private int id;
+    @JsonProperty("id")
+    private int id;
 
-	@JsonProperty("kudosu_denied")
-	private boolean isKudosuDenied;
+    @JsonProperty("kudosu_denied")
+    private boolean isKudosuDenied;
 
-	@JsonProperty("last_post_at")
-	private OffsetDateTime lastPostAt;
+    @JsonProperty("last_post_at")
+    private OffsetDateTime lastPostAt;
 
-	@JsonProperty("message_type")
-	private DiscussionType type;
+    @JsonProperty("message_type")
+    private DiscussionType type;
 
-	@JsonProperty("parent_id")
-	private int parentId;
+    @JsonProperty("parent_id")
+    private int parentId;
 
-	@JsonProperty("resolved")
-	private boolean isResolved;
+    @JsonProperty("resolved")
+    private boolean isResolved;
 
-	@JsonProperty("timestamp")
-	private OffsetDateTime timestamp;
+    @JsonProperty("timestamp")
+    private OffsetDateTime timestamp;
 
-	@JsonProperty("updated_at")
-	private OffsetDateTime updatedAt;
+    @JsonProperty("updated_at")
+    private OffsetDateTime updatedAt;
 
-	@JsonProperty("user_id")
-	private int userId;
+    @JsonProperty("user_id")
+    private int userId;
 
-	/**
-	 * Optional
-	 */
+    /**
+    * Optional
+    */
 
-	@JsonProperty("beatmap")
-	private Beatmap beatmap;
+    @JsonProperty("beatmap")
+    private Beatmap beatmap;
 
-	@JsonProperty("beatmapset")
-	private BeatmapSet beatmapSet;
+    @JsonProperty("beatmapset")
+    private BeatmapSet beatmapSet;
 
-	@JsonProperty("posts")
-	private DiscussionPost[] posts;
+    @JsonProperty("posts")
+    private DiscussionPost[] posts;
 
-	@JsonProperty("starting_post")
-	private DiscussionPost startingPost;
+    @JsonProperty("starting_post")
+    private DiscussionPost startingPost;
 
-	@JsonProperty("votes")
-	private DiscussionVotes votes;
+    @JsonProperty("votes")
+    private DiscussionVotes votes;
 }

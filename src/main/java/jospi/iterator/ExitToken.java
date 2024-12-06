@@ -37,4 +37,3 @@ public class ExitToken<T> {
         return evaluate.apply(token);
     }
 }
-

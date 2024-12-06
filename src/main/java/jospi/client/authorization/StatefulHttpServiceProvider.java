@@ -12,20 +12,20 @@ import jospi.models.authorization.ApiAuthorizationResponse;
 import jospi.models.authorization.AuthorizationCodeResponse;
 
 public abstract class StatefulHttpServiceProvider implements NetIOUtilities {
-	protected static final String GATEWAY = "https://osu.ppy.sh";
-	protected static final String ROOT = "/api/v2";
-	protected static final String REQTOKEN = "/oauth/token";
-	protected static final String AUTH = "/oauth/authorize";
+    protected static final String GATEWAY = "https://osu.ppy.sh";
+    protected static final String ROOT = "/api/v2";
+    protected static final String REQTOKEN = "/oauth/token";
+    protected static final String AUTH = "/oauth/authorize";
 
-	public static void requestAuthorization(String authBody) {
-		HttpRequest request = new HttpRequest(HttpMethod.GET, AUTH + authBody);
-		CloseableHttpClient httpClient = RequestBundle.getDefaultClient();
-		try {
-			httpClient.execute(request, response -> null);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+    public static void requestAuthorization(String authBody) {
+        HttpRequest request = new HttpRequest(HttpMethod.GET, AUTH + authBody);
+        CloseableHttpClient httpClient = RequestBundle.getDefaultClient();
+        try {
+            httpClient.execute(request, response -> null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     protected abstract AuthorizationCodeResponse exchangeCode(String authBody);
 

@@ -13,50 +13,50 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CommentBundle {
-	@JsonProperty("cursor")
-	Cursor cursor;
+    @JsonProperty("cursor")
+    Cursor cursor;
 
-	@JsonProperty("commentable_meta")
-	private CommentableMeta[] commentableMeta;
+    @JsonProperty("commentable_meta")
+    private CommentableMeta[] commentableMeta;
 
-	@JsonProperty("comments")
-	private Comment[] comments;
+    @JsonProperty("comments")
+    private Comment[] comments;
 
-	@JsonProperty("has_more")
-	private boolean hasMore;
+    @JsonProperty("has_more")
+    private boolean hasMore;
 
-	@JsonProperty("has_more_id")
-	private int hasMoreId;
+    @JsonProperty("has_more_id")
+    private int hasMoreId;
 
-	@JsonProperty("included_comments")
-	private Comment[] includedComments;
+    @JsonProperty("included_comments")
+    private Comment[] includedComments;
 
-	@JsonProperty("pinned_comments")
-	private Comment[] pinnedComments;
+    @JsonProperty("pinned_comments")
+    private Comment[] pinnedComments;
 
-	@JsonProperty("sort")
-	private String sort;
+    @JsonProperty("sort")
+    private String sort;
 
-	@JsonProperty("top_level_count")
-	private int topLevelCount;
+    @JsonProperty("top_level_count")
+    private int topLevelCount;
 
-	@JsonProperty("total")
-	private int totalCount;
+    @JsonProperty("total")
+    private int totalCount;
 
-	@JsonProperty("user_follow")
-	private boolean userFollow;
+    @JsonProperty("user_follow")
+    private boolean userFollow;
 
-	@JsonProperty("user_votes")
-	private int[] userVotes;
+    @JsonProperty("user_votes")
+    private int[] userVotes;
 
-	@JsonProperty("users")
-	private User[] users;
+    @JsonProperty("users")
+    private User[] users;
 
-	public class Cursor {
-		@JsonProperty("id")
-		public int id;
+    public class Cursor {
+        @JsonProperty("id")
+        public int id;
 
-		@JsonProperty("created_at")
-		public OffsetDateTime createdAt;
-	}
+        @JsonProperty("created_at")
+        public OffsetDateTime createdAt;
+    }
 }

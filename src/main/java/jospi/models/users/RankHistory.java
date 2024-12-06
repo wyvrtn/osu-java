@@ -12,9 +12,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class RankHistory {
 
-	@JsonProperty("data")
-	private int[] data;
+    @JsonProperty("data")
+    private int[] data;
 
-	@JsonProperty("mode")
-	private Ruleset ruleset;
+    @JsonProperty("mode")
+    private Ruleset ruleset;
 }

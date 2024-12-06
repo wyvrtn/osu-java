@@ -11,31 +11,31 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Group {
 
-	@JsonProperty("colour")
-	private String colour;
+    @JsonProperty("colour")
+    private String colour;
 
-	@JsonProperty("has_listing")
-	private boolean hasListing;
+    @JsonProperty("has_listing")
+    private boolean hasListing;
 
-	@JsonProperty("has_playmodes")
-	private boolean hasPlaymodes;
+    @JsonProperty("has_playmodes")
+    private boolean hasPlaymodes;
 
-	@JsonProperty("id")
-	private int id;
+    @JsonProperty("id")
+    private int id;
 
-	@JsonProperty("identifier")
-	private String identifier;
+    @JsonProperty("identifier")
+    private String identifier;
 
-	@JsonProperty("is_probationary")
-	private boolean isProbationary;
+    @JsonProperty("is_probationary")
+    private boolean isProbationary;
 
-	@JsonProperty("name")
-	private String name;
+    @JsonProperty("name")
+    private String name;
 
-	@JsonProperty("short_name")
-	private String shortName;
+    @JsonProperty("short_name")
+    private String shortName;
 
-	//Optional
-	@JsonProperty("description")
-	private GroupDescription description;
+    //Optional
+    @JsonProperty("description")
+    private GroupDescription description;
 }

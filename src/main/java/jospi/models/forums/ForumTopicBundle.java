@@ -11,9 +11,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ForumTopicBundle {
 
-	@JsonProperty("topic")
-	private ForumTopic topic;
+    @JsonProperty("topic")
+    private ForumTopic topic;
 
-	@JsonProperty("posts")
-	private ForumPost[] posts;
+    @JsonProperty("posts")
+    private ForumPost[] posts;
 }

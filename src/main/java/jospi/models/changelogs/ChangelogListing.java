@@ -11,9 +11,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ChangelogListing {
 
-	@JsonProperty("builds")
-	private Build[] builds;
+    @JsonProperty("builds")
+    private Build[] builds;
 
-	@JsonProperty("streams")
-	private UpdateStream[] streams;
+    @JsonProperty("streams")
+    private UpdateStream[] streams;
 }

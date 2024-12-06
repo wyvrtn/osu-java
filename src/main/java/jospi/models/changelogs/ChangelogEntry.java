@@ -16,42 +16,42 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ChangelogEntry {
 
-	@JsonProperty("category")
-	private ChangelogEntryCategory category;
+    @JsonProperty("category")
+    private ChangelogEntryCategory category;
 
-	@JsonProperty("created_at")
-	private OffsetDateTime createdAt;
+    @JsonProperty("created_at")
+    private OffsetDateTime createdAt;
 
-	@JsonProperty("github_pull_request_id")
-	private int pullRequestId;
+    @JsonProperty("github_pull_request_id")
+    private int pullRequestId;
 
-	@JsonProperty("github_url")
-	private String pullRequestUrl;
+    @JsonProperty("github_url")
+    private String pullRequestUrl;
 
-	@JsonProperty("id")
-	private int id;
+    @JsonProperty("id")
+    private int id;
 
-	@JsonProperty("major")
-	private boolean isMajor;
+    @JsonProperty("major")
+    private boolean isMajor;
 
-	@JsonProperty("repository")
-	private String repository;
+    @JsonProperty("repository")
+    private String repository;
 
-	@JsonProperty("title")
-	private String title;
+    @JsonProperty("title")
+    private String title;
 
-	@JsonProperty("type")
-	private ChangelogEntryType type;
+    @JsonProperty("type")
+    private ChangelogEntryType type;
 
-	@JsonProperty("url")
-	private String url;
+    @JsonProperty("url")
+    private String url;
 
-	@JsonProperty("github_user")
-	private GitHubUser gitHubUser;
+    @JsonProperty("github_user")
+    private GitHubUser gitHubUser;
 
-	@JsonProperty("message")
-	private String message;
+    @JsonProperty("message")
+    private String message;
 
-	@JsonProperty("message_html")
-	private String messageHtml;
+    @JsonProperty("message_html")
+    private String messageHtml;
 }

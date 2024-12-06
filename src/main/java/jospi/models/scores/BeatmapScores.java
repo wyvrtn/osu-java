@@ -11,9 +11,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class BeatmapScores {
 
-	@JsonProperty("scores")
-	private Score[] scores;
+    @JsonProperty("scores")
+    private Score[] scores;
 
-	@JsonProperty("userScore")
-	private UserBeatmapScore userScore;
+    @JsonProperty("userScore")
+    private UserBeatmapScore userScore;
 }

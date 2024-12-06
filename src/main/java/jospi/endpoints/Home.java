@@ -11,11 +11,11 @@ import jospi.models.wikis.WikiPage;
 public class Home {
     private static final String BASE = "/search/";
 
-	private final OsuApiClient client;
+    private final OsuApiClient client;
 
-	protected Home(OsuApiClient client) {
-		this.client = client;
-	}
+    protected Home(OsuApiClient client) {
+        this.client = client;
+    }
 
     public CompletableFuture<SearchResult<User>> searchUser(String query) {
         return searchInternal(HomeSearchQueryMode.USER, query);

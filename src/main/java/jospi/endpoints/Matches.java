@@ -16,29 +16,29 @@ public class Matches {
 
     private final OsuApiClient client;
 
-	protected Matches(OsuApiClient client) {
-		this.client = client;
-	}
+    protected Matches(OsuApiClient client) {
+        this.client = client;
+    }
 
-	public AsyncLazyEnumerable<String, Match[]> getMatches(int limit, MatchBundleSort sort) {
-		ExitToken<String> token = new ExitToken<>("");
-		Function<ExitToken<String>, CompletableFuture<Match[]>> func = t ->
-			CompletableFuture.supplyAsync(() -> {
-				MatchesBundle packs = client.getJson(BASE, map -> {
-					map.put("limit", limit);
-					map.put("sort", sort);
-				});
-				token.setNext(packs.getCursorString());
-				return packs.getMatches();
-			});
-		return new AsyncLazyEnumerable<>(func, token);
-	}
+    public AsyncLazyEnumerable<String, Match[]> getMatches(int limit, MatchBundleSort sort) {
+        ExitToken<String> token = new ExitToken<>("");
+        Function<ExitToken<String>, CompletableFuture<Match[]>> func = t ->
+            CompletableFuture.supplyAsync(() -> {
+                MatchesBundle packs = client.getJson(BASE, map -> {
+                    map.put("limit", limit);
+                    map.put("sort", sort);
+                });
+                token.setNext(packs.getCursorString());
+                return packs.getMatches();
+            });
+        return new AsyncLazyEnumerable<>(func, token);
+    }
 
-	public CompletableFuture<MatchBundle> getMatch(int matchId, int before, int after, int limit) {
-		return client.getJsonAsync(BASE+matchId, map -> {
-				map.put("before", before);
-				map.put("after", after);
-				map.put("limit", limit);
-			});
-	}
+    public CompletableFuture<MatchBundle> getMatch(int matchId, int before, int after, int limit) {
+        return client.getJsonAsync(BASE+matchId, map -> {
+                map.put("before", before);
+                map.put("after", after);
+                map.put("limit", limit);
+            });
+    }
 }

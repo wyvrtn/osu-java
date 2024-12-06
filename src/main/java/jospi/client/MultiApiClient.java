@@ -21,7 +21,7 @@ public final class MultiApiClient<K> {
     private final ConcurrentMap<K, AbstractApiAuthorization> authorizationInstances;
 
     public MultiApiClient(int clientId, String clientSecret) {
-    	this(new ClientCredentialsGrant(clientId, clientSecret));
+        this(new ClientCredentialsGrant(clientId, clientSecret));
     }
 
     public MultiApiClient(AbstractApiAuthorization auth) {

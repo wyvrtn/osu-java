@@ -11,12 +11,12 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Match {
 
-	@JsonProperty("pass")
-	private boolean pass;
+    @JsonProperty("pass")
+    private boolean pass;
 
-	@JsonProperty("slot")
-	private int slot;
+    @JsonProperty("slot")
+    private int slot;
 
-	@JsonProperty("team")
-	private int team;
+    @JsonProperty("team")
+    private int team;
 }

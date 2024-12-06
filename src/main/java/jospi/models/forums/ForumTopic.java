@@ -14,41 +14,41 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ForumTopic {
 
-	@JsonProperty("created_at")
-	private OffsetDateTime createdAt;
+    @JsonProperty("created_at")
+    private OffsetDateTime createdAt;
 
-	@JsonProperty("deleted_at")
-	private OffsetDateTime deletedAt;
+    @JsonProperty("deleted_at")
+    private OffsetDateTime deletedAt;
 
-	@JsonProperty("first_post_id")
-	private int firstPostId;
+    @JsonProperty("first_post_id")
+    private int firstPostId;
 
-	@JsonProperty("forum_id")
-	private int forumId;
+    @JsonProperty("forum_id")
+    private int forumId;
 
-	@JsonProperty("id")
-	private int id;
+    @JsonProperty("id")
+    private int id;
 
-	@JsonProperty("is_locked")
-	private boolean isLocked;
+    @JsonProperty("is_locked")
+    private boolean isLocked;
 
-	@JsonProperty("poll")
-	private Poll poll;
+    @JsonProperty("poll")
+    private Poll poll;
 
-	@JsonProperty("post_count")
-	private int postCount;
+    @JsonProperty("post_count")
+    private int postCount;
 
-	private ForumPost[] posts;
+    private ForumPost[] posts;
 
-	@JsonProperty("title")
-	private String title;
+    @JsonProperty("title")
+    private String title;
 
-	@JsonProperty("type")
-	private ForumTopicType type;
+    @JsonProperty("type")
+    private ForumTopicType type;
 
-	@JsonProperty("updated_at")
-	private OffsetDateTime updatedAt;
+    @JsonProperty("updated_at")
+    private OffsetDateTime updatedAt;
 
-	@JsonProperty("user_id")
-	private int userId;
+    @JsonProperty("user_id")
+    private int userId;
 }

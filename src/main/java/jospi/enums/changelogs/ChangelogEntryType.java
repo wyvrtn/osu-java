@@ -5,18 +5,18 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import jospi.enums.DescriptionEnum;
 
 public enum ChangelogEntryType implements DescriptionEnum {
-	ADD("add"),
-	FIX("fix"),
-	MISCELLANEOUS("misc");
+    ADD("add"),
+    FIX("fix"),
+    MISCELLANEOUS("misc");
 
-	private String description;
+    private String description;
 
-	private ChangelogEntryType(String description) {
-		this.description = description;
-	}
+    private ChangelogEntryType(String description) {
+        this.description = description;
+    }
 
-	@JsonValue
-	public String getDescription() {
-		return this.description;
-	}
+    @JsonValue
+    public String getDescription() {
+        return this.description;
+    }
 }

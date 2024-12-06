@@ -13,21 +13,21 @@ import lombok.Setter;
 public class AuthorizationCodeResponse implements ApiAuthorizationResponse {
 
     @JsonProperty("access_token")
-	private String accessToken;
+    private String accessToken;
 
-	@JsonProperty("expires_in")
-	private Integer expiresIn;
+    @JsonProperty("expires_in")
+    private Integer expiresIn;
 
-	@JsonProperty("refresh_token")
-	private String refreshToken;
+    @JsonProperty("refresh_token")
+    private String refreshToken;
 
-	@JsonProperty("token_type")
-	private String tokenType;
+    @JsonProperty("token_type")
+    private String tokenType;
 
-	@Override
-	public void validation() {
-		if (anyNull(accessToken, expiresIn, refreshToken)) {
-			throw new OsuApiException("Response Contains Null Values");
-		}
-	}
+    @Override
+    public void validation() {
+        if (anyNull(accessToken, expiresIn, refreshToken)) {
+            throw new OsuApiException("Response Contains Null Values");
+        }
+    }
 }

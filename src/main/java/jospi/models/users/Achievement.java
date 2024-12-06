@@ -13,9 +13,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Achievement {
 
-	@JsonProperty("achieved_at")
-	private OffsetDateTime achievedAt;
+    @JsonProperty("achieved_at")
+    private OffsetDateTime achievedAt;
 
-	@JsonProperty("achievement_id")
-	private int achievementId;
+    @JsonProperty("achievement_id")
+    private int achievementId;
 }

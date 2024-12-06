@@ -8,6 +8,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Language {
-	private int id;
-	private String name;
+    private int id;
+    private String name;
 }

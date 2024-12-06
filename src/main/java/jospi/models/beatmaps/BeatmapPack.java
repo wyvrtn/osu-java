@@ -13,42 +13,42 @@ import lombok.Setter;
 @NoArgsConstructor
 public class BeatmapPack {
 
-	@JsonProperty("author")
-	private String author;
+    @JsonProperty("author")
+    private String author;
 
-	@JsonProperty("date")
-	private OffsetDateTime createdAt;
+    @JsonProperty("date")
+    private OffsetDateTime createdAt;
 
-	@JsonProperty("name")
-	private String name;
+    @JsonProperty("name")
+    private String name;
 
-	@JsonProperty("no_diff_reduction")
-	private boolean noDifficultyReduction;
+    @JsonProperty("no_diff_reduction")
+    private boolean noDifficultyReduction;
 
-	@JsonProperty("ruleset_id")
-	private int rulesetId;
+    @JsonProperty("ruleset_id")
+    private int rulesetId;
 
-	@JsonProperty("tag")
-	private String tag;
+    @JsonProperty("tag")
+    private String tag;
 
-	@JsonProperty("url")
-	private String url;
+    @JsonProperty("url")
+    private String url;
 
-	@JsonProperty("beatmapsets")
-	private BeatmapSetExtended[] beatmapSets;
+    @JsonProperty("beatmapsets")
+    private BeatmapSetExtended[] beatmapSets;
 
-	@JsonProperty("user_completion_data")
-	private UserCompletionData data;
+    @JsonProperty("user_completion_data")
+    private UserCompletionData data;
 
-	@Getter
-	@Setter
-	@NoArgsConstructor
-	public static class UserCompletionData {
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class UserCompletionData {
 
-		@JsonProperty("user_completion_data.beatmapset_ids")
-		private int[] beatmapSetIds;
+        @JsonProperty("user_completion_data.beatmapset_ids")
+        private int[] beatmapSetIds;
 
-		@JsonProperty("user_completion_data.completed")
-		private boolean completeted;
-	}
+        @JsonProperty("user_completion_data.completed")
+        private boolean completeted;
+    }
 }

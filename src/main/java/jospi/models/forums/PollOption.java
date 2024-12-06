@@ -12,12 +12,12 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PollOption {
 
-	@JsonProperty("id")
-	private int id;
+    @JsonProperty("id")
+    private int id;
 
-	@JsonProperty("text")
-	private Text text;
+    @JsonProperty("text")
+    private Text text;
 
-	@JsonProperty("vote_count")
-	private int voteCount;
+    @JsonProperty("vote_count")
+    private int voteCount;
 }

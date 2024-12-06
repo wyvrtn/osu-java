@@ -11,9 +11,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Failtimes {
 
-	@JsonProperty("exit")
-	private int[] exits;
+    @JsonProperty("exit")
+    private int[] exits;
 
-	@JsonProperty("fail")
-	private int[] fails;
+    @JsonProperty("fail")
+    private int[] fails;
 }

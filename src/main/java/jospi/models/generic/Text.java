@@ -11,14 +11,14 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Text {
 
-	@JsonProperty("html")
-	private String html;
+    @JsonProperty("html")
+    private String html;
 
-	@JsonProperty("bbcode")
-	private String bbcode;
+    @JsonProperty("bbcode")
+    private String bbcode;
 
-	@JsonProperty("raw")
-	private String raw;
+    @JsonProperty("raw")
+    private String raw;
 
-	private String markup = bbcode!=null? bbcode : raw;
+    private String markup = bbcode!=null? bbcode : raw;
 }

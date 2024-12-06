@@ -13,5 +13,5 @@ import lombok.Setter;
 public class UserGroup extends Group {
 
     @JsonProperty("playmodes")
-	private Ruleset[] playModes;
+    private Ruleset[] playModes;
 }

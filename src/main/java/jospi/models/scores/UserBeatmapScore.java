@@ -11,9 +11,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UserBeatmapScore {
 
-	@JsonProperty("position")
-	private int position;
+    @JsonProperty("position")
+    private int position;
 
-	@JsonProperty("score")
-	private Score score;
+    @JsonProperty("score")
+    private Score score;
 }

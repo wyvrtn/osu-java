@@ -14,30 +14,30 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ForumPost {
 
-	@JsonProperty("created_at")
-	private OffsetDateTime createdAt;
+    @JsonProperty("created_at")
+    private OffsetDateTime createdAt;
 
-	@JsonProperty("deleted_at")
-	private OffsetDateTime deletedAt;
+    @JsonProperty("deleted_at")
+    private OffsetDateTime deletedAt;
 
-	@JsonProperty("edited_at")
-	private OffsetDateTime editedAt;
+    @JsonProperty("edited_at")
+    private OffsetDateTime editedAt;
 
-	@JsonProperty("edited_by_id")
-	private int editedById;
+    @JsonProperty("edited_by_id")
+    private int editedById;
 
-	@JsonProperty("forum_id")
-	private int forumId;
+    @JsonProperty("forum_id")
+    private int forumId;
 
-	@JsonProperty("id")
-	private int id;
+    @JsonProperty("id")
+    private int id;
 
-	@JsonProperty("topic_id")
-	private int topicId;
+    @JsonProperty("topic_id")
+    private int topicId;
 
-	@JsonProperty("user_id")
-	private int userId;
+    @JsonProperty("user_id")
+    private int userId;
 
-	@JsonProperty("body")
-	private Text body;
+    @JsonProperty("body")
+    private Text body;
 }

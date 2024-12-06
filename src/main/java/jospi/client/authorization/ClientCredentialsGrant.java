@@ -10,28 +10,28 @@ import lombok.ToString;
 @ToString(callSuper=true, includeFieldNames=true)
 public final class ClientCredentialsGrant extends AbstractApiAuthorization {
 
-	public ClientCredentialsGrant(int clientId, String clientSecret) {
-		this(Integer.toString(clientId), clientSecret);
-	}
+    public ClientCredentialsGrant(int clientId, String clientSecret) {
+        this(Integer.toString(clientId), clientSecret);
+    }
 
-	public ClientCredentialsGrant(String clientId, String clientSecret) {
-		getAuthorizationBody().put("client_id", clientId);
-		getAuthorizationBody().put("client_secret", clientSecret);
-		getAuthorizationBody().put("grant_type", "client_credentials");
-		getAuthorizationBody().put("scope", "public");
-		setStatus(true);
-	}
+    public ClientCredentialsGrant(String clientId, String clientSecret) {
+        getAuthorizationBody().put("client_id", clientId);
+        getAuthorizationBody().put("client_secret", clientSecret);
+        getAuthorizationBody().put("grant_type", "client_credentials");
+        getAuthorizationBody().put("scope", "public");
+        setStatus(true);
+    }
 
-	protected void authorizationFlow(StatefulHttpServiceProvider svc) {
-		String authBody = toFormUrl(getAuthorizationBody());
-		ClientCredentialsResponse apResponse = (ClientCredentialsResponse) svc.requestNewToken(authBody);
-		apResponse.validation();
-		setAccessToken(apResponse.getAccessToken());
-		setExpirationDate(OffsetDateTime.now(ZoneId.systemDefault())
-			.plusSeconds(apResponse.getExpiresIn() - 30L /** Leniency */));
-	}
+    protected void authorizationFlow(StatefulHttpServiceProvider svc) {
+        String authBody = toFormUrl(getAuthorizationBody());
+        ClientCredentialsResponse apResponse = (ClientCredentialsResponse) svc.requestNewToken(authBody);
+        apResponse.validation();
+        setAccessToken(apResponse.getAccessToken());
+        setExpirationDate(OffsetDateTime.now(ZoneId.systemDefault())
+            .plusSeconds(apResponse.getExpiresIn() - 30L /** Leniency */));
+    }
 
-	protected void refreshAccessToken(StatefulHttpServiceProvider svc) {
-		authorizationFlow(svc);
-	}
+    protected void refreshAccessToken(StatefulHttpServiceProvider svc) {
+        authorizationFlow(svc);
+    }
 }

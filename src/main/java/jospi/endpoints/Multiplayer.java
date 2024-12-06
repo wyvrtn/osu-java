@@ -13,37 +13,37 @@ import jospi.iterator.ExitToken;
 import jospi.models.multiplayer.MultiplayerScores;
 
 public class Multiplayer {
-	private static final String BASE = "/rooms/";
+    private static final String BASE = "/rooms/";
 
-	private final OsuApiClient client;
+    private final OsuApiClient client;
 
-	protected Multiplayer(OsuApiClient client) {
-		this.client = client;
-	}
+    protected Multiplayer(OsuApiClient client) {
+        this.client = client;
+    }
 
-	public AsyncLazyEnumerable<String, MultiplayerScores> getMultiplayerScores(int roomId, int playlistId, int limit, MultiplayerScoresSort sort) {
-		ExitToken<String> token = new ExitToken<>("");
-		Function<ExitToken<String>, CompletableFuture<MultiplayerScores>> func = tkn ->
-			CompletableFuture.supplyAsync(() -> {
-				MultiplayerScores multiplayerScores = client.getJson(BASE+roomId+"/playlist/"+playlistId+"/scores", map -> {
-					map.put("limit", limit);
-					map.put("sort", sort);
-					map.put("cursor_string", tkn.getToken());
-				});
-				tkn.setNext(multiplayerScores.getCursorString());
-				return multiplayerScores;
-			});
-		return new AsyncLazyEnumerable<>(func, token);
-	}
+    public AsyncLazyEnumerable<String, MultiplayerScores> getMultiplayerScores(int roomId, int playlistId, int limit, MultiplayerScoresSort sort) {
+        ExitToken<String> token = new ExitToken<>("");
+        Function<ExitToken<String>, CompletableFuture<MultiplayerScores>> func = tkn ->
+            CompletableFuture.supplyAsync(() -> {
+                MultiplayerScores multiplayerScores = client.getJson(BASE+roomId+"/playlist/"+playlistId+"/scores", map -> {
+                    map.put("limit", limit);
+                    map.put("sort", sort);
+                    map.put("cursor_string", tkn.getToken());
+                });
+                tkn.setNext(multiplayerScores.getCursorString());
+                return multiplayerScores;
+            });
+        return new AsyncLazyEnumerable<>(func, token);
+    }
 
     public <T> CompletableFuture<T> getRooms(int limit, MultiplayerRoomMode mode, String seasonId, MultiplayerRoomSort sort, MultiplayerRoomTypeGroup typeGroup) {
-		client.requiresUser();
+        client.requiresUser();
         return client.getJsonAsync(BASE, map -> {
-				map.put("limit", limit);
-				map.put("mode", mode);
-				map.put("season_id", seasonId);
-				map.put("sort", sort);
-				map.put("type_group", typeGroup);
-			});
+                map.put("limit", limit);
+                map.put("mode", mode);
+                map.put("season_id", seasonId);
+                map.put("sort", sort);
+                map.put("type_group", typeGroup);
+            });
     }
 }

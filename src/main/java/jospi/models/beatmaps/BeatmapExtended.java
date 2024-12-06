@@ -13,55 +13,55 @@ import lombok.Setter;
 @NoArgsConstructor
 public class BeatmapExtended extends Beatmap {
 
-	@JsonProperty("accuracy")
-	private float overallDifficulty;
+    @JsonProperty("accuracy")
+    private float overallDifficulty;
 
-	@JsonProperty("ar")
-	private float approachRate;
+    @JsonProperty("ar")
+    private float approachRate;
 
-	@JsonProperty("drain")
-	private float healthDrain;
+    @JsonProperty("drain")
+    private float healthDrain;
 
-	@JsonProperty("cs")
-	private float circleSize;
+    @JsonProperty("cs")
+    private float circleSize;
 
-	@JsonProperty("bpm")
-	private float BPM;
+    @JsonProperty("bpm")
+    private float BPM;
 
-	@JsonProperty("convert")
-	private boolean convert;
+    @JsonProperty("convert")
+    private boolean convert;
 
-	@JsonProperty("count_circles")
-	private int circleCount;
+    @JsonProperty("count_circles")
+    private int circleCount;
 
-	@JsonProperty("count_sliders")
-	private int sliderCount;
+    @JsonProperty("count_sliders")
+    private int sliderCount;
 
-	@JsonProperty("count_spinners")
-	private int spinnerCount;
+    @JsonProperty("count_spinners")
+    private int spinnerCount;
 
-	private OffsetDateTime deletedAt;
+    private OffsetDateTime deletedAt;
 
-	@JsonProperty("hit_length")
-	private int hitLength;
+    @JsonProperty("hit_length")
+    private int hitLength;
 
-	@JsonProperty("is_scoreable")
-	private boolean isScoreable;
+    @JsonProperty("is_scoreable")
+    private boolean isScoreable;
 
-	@JsonProperty("last_updated")
-	private OffsetDateTime lastUpdated;
+    @JsonProperty("last_updated")
+    private OffsetDateTime lastUpdated;
 
-	@JsonProperty("passcount")
-	private int passCount;
+    @JsonProperty("passcount")
+    private int passCount;
 
-	@JsonProperty("playcount")
-	private int playCount;
+    @JsonProperty("playcount")
+    private int playCount;
 
-	@JsonProperty("url")
-	private String url;
+    @JsonProperty("url")
+    private String url;
 
-	/**
-	 * Optional
-	 */
-	private BeatmapSetExtended setExtended;
+    /**
+    * Optional
+    */
+    private BeatmapSetExtended setExtended;
 }

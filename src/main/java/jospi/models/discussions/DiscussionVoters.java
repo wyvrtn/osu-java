@@ -11,9 +11,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class DiscussionVoters {
 
-	@JsonProperty("down")
-	private int[] down;
+    @JsonProperty("down")
+    private int[] down;
 
-	@JsonProperty("up")
-	private int[] up;
+    @JsonProperty("up")
+    private int[] up;
 }

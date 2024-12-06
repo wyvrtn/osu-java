@@ -12,17 +12,17 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CommentableMeta {
 
-	private int id;
+    private int id;
 
-	@JsonProperty("owner_id")
-	private int ownerId;
+    @JsonProperty("owner_id")
+    private int ownerId;
 
-	@JsonProperty("owner_title")
-	private CommentableOwnerTitle ownerTitle;
+    @JsonProperty("owner_title")
+    private CommentableOwnerTitle ownerTitle;
 
-	@JsonProperty("title")
-	private String title;
+    @JsonProperty("title")
+    private String title;
 
-	@JsonProperty("url")
-	private String url;
+    @JsonProperty("url")
+    private String url;
 }

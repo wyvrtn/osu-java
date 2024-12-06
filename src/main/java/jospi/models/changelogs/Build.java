@@ -13,30 +13,30 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Build {
 
-	@JsonProperty("created_at")
-	private OffsetDateTime createdAt;
+    @JsonProperty("created_at")
+    private OffsetDateTime createdAt;
 
-	@JsonProperty("display_version")
-	private String displayVersion;
+    @JsonProperty("display_version")
+    private String displayVersion;
 
-	@JsonProperty("id")
-	private int id;
+    @JsonProperty("id")
+    private int id;
 
-	@JsonProperty("users")
-	private int users;
+    @JsonProperty("users")
+    private int users;
 
-	@JsonProperty("version")
-	private String version;
+    @JsonProperty("version")
+    private String version;
 
-	@JsonProperty("youtube_id")
-	private String youtubeId;
+    @JsonProperty("youtube_id")
+    private String youtubeId;
 
-	@JsonProperty("changelog_entries")
-	private ChangelogEntry[] changelog;
+    @JsonProperty("changelog_entries")
+    private ChangelogEntry[] changelog;
 
-	@JsonProperty("update_stream")
-	private UpdateStream updateStream;
+    @JsonProperty("update_stream")
+    private UpdateStream updateStream;
 
-	@JsonProperty("versions")
-	private Versions versions;
+    @JsonProperty("versions")
+    private Versions versions;
 }

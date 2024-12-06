@@ -18,4 +18,3 @@ public enum ExitType {
         this.state = val;
     }
 }
-

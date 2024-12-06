@@ -5,19 +5,19 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import jospi.enums.DescriptionEnum;
 
 public enum UserRankingType implements DescriptionEnum {
-	SPOTLIGHT("charts"),
-	COUNTRY("country"),
-	PERFORMANCE("performance"),
-	SCORE("score");
+    SPOTLIGHT("charts"),
+    COUNTRY("country"),
+    PERFORMANCE("performance"),
+    SCORE("score");
 
-	private String description;
+    private String description;
 
-	private UserRankingType(String description) {
-		this.description = description;
-	}
+    private UserRankingType(String description) {
+        this.description = description;
+    }
 
-	@JsonValue
-	public String getDescription() {
-		return this.description;
-	}
+    @JsonValue
+    public String getDescription() {
+        return this.description;
+    }
 }

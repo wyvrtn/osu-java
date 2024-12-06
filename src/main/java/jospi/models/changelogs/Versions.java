@@ -11,9 +11,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Versions {
 
-	@JsonProperty("next")
-	private Build next;
+    @JsonProperty("next")
+    private Build next;
 
-	@JsonProperty("previous")
-	private Build previous;
+    @JsonProperty("previous")
+    private Build previous;
 }

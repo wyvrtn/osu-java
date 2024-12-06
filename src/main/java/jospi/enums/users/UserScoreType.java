@@ -3,18 +3,18 @@ package jospi.enums.users;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum UserScoreType {
-	RECENT("recent"),
+    RECENT("recent"),
     BEST("best"),
-	FIRST("firsts");
+    FIRST("firsts");
 
-	private String description;
+    private String description;
 
-	private UserScoreType(String description) {
-		this.description = description;
-	}
+    private UserScoreType(String description) {
+        this.description = description;
+    }
 
-	@JsonValue
-	public String getDescription() {
-		return this.description;
-	}
+    @JsonValue
+    public String getDescription() {
+        return this.description;
+    }
 }

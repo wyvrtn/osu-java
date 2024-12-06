@@ -14,30 +14,30 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Poll {
 
-	@JsonProperty("allow_vote_change")
-	private boolean isVoteChangeAllowed;
+    @JsonProperty("allow_vote_change")
+    private boolean isVoteChangeAllowed;
 
-	@JsonProperty("ended_at")
-	private OffsetDateTime endedAt;
+    @JsonProperty("ended_at")
+    private OffsetDateTime endedAt;
 
-	@JsonProperty("hide_incomplete_results")
-	private boolean hideIncompleteResults;
+    @JsonProperty("hide_incomplete_results")
+    private boolean hideIncompleteResults;
 
-	@JsonProperty("last_vote_at")
-	private OffsetDateTime lastVoteAt;
+    @JsonProperty("last_vote_at")
+    private OffsetDateTime lastVoteAt;
 
-	@JsonProperty("max_votes")
-	private int maxVotes;
+    @JsonProperty("max_votes")
+    private int maxVotes;
 
-	@JsonProperty("options")
-	private PollOption[] options;
+    @JsonProperty("options")
+    private PollOption[] options;
 
-	@JsonProperty("started_at")
-	private OffsetDateTime startedAt;
+    @JsonProperty("started_at")
+    private OffsetDateTime startedAt;
 
-	@JsonProperty("title")
-	private Text title;
+    @JsonProperty("title")
+    private Text title;
 
-	@JsonProperty("total_vote_count")
-	private int totalVoteCount;
+    @JsonProperty("total_vote_count")
+    private int totalVoteCount;
 }

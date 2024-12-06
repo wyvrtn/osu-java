@@ -17,38 +17,38 @@ import lombok.ToString;
 public abstract class AbstractApiAuthorization implements NetIOUtilities {
 
     /**
-	 * Holds the authorization payload of an instance of an inheriting class.
-	 */
+    * Holds the authorization payload of an instance of an inheriting class.
+    */
     private final Map<String, String> authorizationBody = new ConcurrentHashMap<>();
 
     /**
-     * The access token held by an instance of an inheriting class.
-     */
-	private String accessToken = "";
+    * The access token held by an instance of an inheriting class.
+    */
+    private String accessToken = "";
 
     /**
-     * The expiration date of the access token.
-     */
-	private OffsetDateTime expirationDate = OffsetDateTime.MIN;
+    * The expiration date of the access token.
+    */
+    private OffsetDateTime expirationDate = OffsetDateTime.MIN;
 
     /**
-     * Boolean that determines whether an instance of a subclass is
-     * performing an authorization request the first time, or is only
-     * refreshing its access token.
-     */
-	private boolean status;
+    * Boolean that determines whether an instance of a subclass is
+    * performing an authorization request the first time, or is only
+    * refreshing its access token.
+    */
+    private boolean status;
 
     /**
-     * Requests an access token for an instance of a subclass, for the first time.
-     *
-     * @param svc Instance of an inheriting subclass of {@link StatefulHttpServiceProvider StatefulHttpServiceProvider}
-     */
-	protected abstract void authorizationFlow(StatefulHttpServiceProvider svc);
+    * Requests an access token for an instance of a subclass, for the first time.
+    *
+    * @param svc Instance of an inheriting subclass of {@link StatefulHttpServiceProvider StatefulHttpServiceProvider}
+    */
+    protected abstract void authorizationFlow(StatefulHttpServiceProvider svc);
 
     /**
-     * Refreshes the access token of an instance of a subclass.
-     *
-     * @param svc Instance of an inheriting subclass of {@link StatefulHttpServiceProvider StatefulHttpServiceProvider}
-     */
-	protected abstract void refreshAccessToken(StatefulHttpServiceProvider svc);
+    * Refreshes the access token of an instance of a subclass.
+    *
+    * @param svc Instance of an inheriting subclass of {@link StatefulHttpServiceProvider StatefulHttpServiceProvider}
+    */
+    protected abstract void refreshAccessToken(StatefulHttpServiceProvider svc);
 }

@@ -13,46 +13,46 @@ import lombok.Setter;
 @NoArgsConstructor
 public class BeatmapSetExtended extends BeatmapSet {
 
-	@JsonProperty("bpm")
-	private float bpm;
+    @JsonProperty("bpm")
+    private float bpm;
 
-	@JsonProperty("can_be_hyped")
-	private boolean canBeHyped;
+    @JsonProperty("can_be_hyped")
+    private boolean canBeHyped;
 
-	@JsonProperty("deleted_at")
-	private OffsetDateTime deletedAt;
+    @JsonProperty("deleted_at")
+    private OffsetDateTime deletedAt;
 
-	@JsonProperty("discussion_locked")
-	private boolean isDiscussLocked;
+    @JsonProperty("discussion_locked")
+    private boolean isDiscussLocked;
 
-	@JsonProperty("is_scoreable")
-	private boolean isScoreable;
+    @JsonProperty("is_scoreable")
+    private boolean isScoreable;
 
-	@JsonProperty("last_updated")
-	private OffsetDateTime lastUpdated;
+    @JsonProperty("last_updated")
+    private OffsetDateTime lastUpdated;
 
-	@JsonProperty("legacy_thread_url")
-	private String legacyThreadUrl;
+    @JsonProperty("legacy_thread_url")
+    private String legacyThreadUrl;
 
-	@JsonProperty("nominations_summary")
-	private NominationSummary nominationSummary;
+    @JsonProperty("nominations_summary")
+    private NominationSummary nominationSummary;
 
-	@JsonProperty("ranked_date")
-	private OffsetDateTime rankedDate;
+    @JsonProperty("ranked_date")
+    private OffsetDateTime rankedDate;
 
-	@JsonProperty("storyboard")
-	private boolean hasStoryboard;
+    @JsonProperty("storyboard")
+    private boolean hasStoryboard;
 
-	@JsonProperty("submitted_date")
-	private OffsetDateTime submittedDate;
+    @JsonProperty("submitted_date")
+    private OffsetDateTime submittedDate;
 
-	@JsonProperty("tags")
-	private String[] tags;
+    @JsonProperty("tags")
+    private String[] tags;
 
-	/**
-	 * Optional
-	 */
+    /**
+    * Optional
+    */
 
-	@JsonProperty("beatmaps")
-	private BeatmapExtended[] beatmaps;
+    @JsonProperty("beatmaps")
+    private BeatmapExtended[] beatmaps;
 }

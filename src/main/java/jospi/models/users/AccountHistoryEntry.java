@@ -15,25 +15,25 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AccountHistoryEntry {
 
-	// Not shown in documentation
-	@JsonProperty("actor")
-	private User user;
+    // Not shown in documentation
+    @JsonProperty("actor")
+    private User user;
 
-	@JsonProperty("description")
-	private String description;
+    @JsonProperty("description")
+    private String description;
 
-	@JsonProperty("id")
-	private int id;
+    @JsonProperty("id")
+    private int id;
 
-	@JsonProperty("length")
-	private int length;
+    @JsonProperty("length")
+    private int length;
 
-	@JsonProperty("permanent")
-	private boolean isPermanent;
+    @JsonProperty("permanent")
+    private boolean isPermanent;
 
-	@JsonProperty("timestamp")
-	private OffsetDateTime timestamp;
+    @JsonProperty("timestamp")
+    private OffsetDateTime timestamp;
 
-	@JsonProperty("type")
-	private UserAccountHistoryEntryType type;
+    @JsonProperty("type")
+    private UserAccountHistoryEntryType type;
 }

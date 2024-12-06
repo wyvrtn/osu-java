@@ -11,9 +11,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class BeatmapPackExtended extends BeatmapPack {
 
-	@JsonProperty("beatmap_packs")
-	private BeatmapPack[] beatmapPacks;
+    @JsonProperty("beatmap_packs")
+    private BeatmapPack[] beatmapPacks;
 
-	@JsonProperty("cursor_string")
-	private String cursorString;
+    @JsonProperty("cursor_string")
+    private String cursorString;
 }

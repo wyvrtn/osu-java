@@ -13,9 +13,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class MonthlyPlaycountEntry {
 
-	@JsonProperty("start_date")
-	private LocalDate startDate;
+    @JsonProperty("start_date")
+    private LocalDate startDate;
 
-	@JsonProperty("count")
-	private int count;
+    @JsonProperty("count")
+    private int count;
 }
