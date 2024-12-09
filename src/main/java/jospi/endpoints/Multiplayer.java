@@ -3,6 +3,8 @@ package jospi.endpoints;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+
 import jospi.client.core.OsuApiClient;
 import jospi.enums.multiplayer.MultiplayerRoomMode;
 import jospi.enums.multiplayer.MultiplayerRoomSort;
@@ -29,7 +31,7 @@ public class Multiplayer {
                     map.put("limit", limit);
                     map.put("sort", sort);
                     map.put("cursor_string", tkn.getToken());
-                });
+                }, MultiplayerScores.class);
                 tkn.setNext(multiplayerScores.getCursorString());
                 return multiplayerScores;
             });
@@ -44,6 +46,6 @@ public class Multiplayer {
                 map.put("season_id", seasonId);
                 map.put("sort", sort);
                 map.put("type_group", typeGroup);
-            });
+            }, new TypeReference<T>() {});
     }
 }

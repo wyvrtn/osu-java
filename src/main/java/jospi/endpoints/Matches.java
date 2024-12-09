@@ -27,7 +27,7 @@ public class Matches {
                 MatchesBundle packs = client.getJson(BASE, map -> {
                     map.put("limit", limit);
                     map.put("sort", sort);
-                });
+                }, MatchesBundle.class);
                 token.setNext(packs.getCursorString());
                 return packs.getMatches();
             });
@@ -39,6 +39,6 @@ public class Matches {
                 map.put("before", before);
                 map.put("after", after);
                 map.put("limit", limit);
-            });
+            }, MatchBundle.class);
     }
 }

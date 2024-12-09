@@ -9,7 +9,6 @@ import java.util.Objects;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.HttpHeaders;
-import org.apache.hc.core5.http.io.HttpClientResponseHandler;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -25,46 +24,65 @@ import jospi.models.authorization.AuthorizationCodeResponse;
 public final class OsuApiClientInternalBlockingStatefulHttpServiceProvider extends StatefulHttpServiceProvider {
     private final CloseableHttpClient httpClient;
     private final AbstractApiAuthorizationContainer authorization;
+    private ObjectMapper converter;
 
     protected OsuApiClientInternalBlockingStatefulHttpServiceProvider(RequestBundle bundle, AbstractApiAuthorizationContainer auth) {
         this.httpClient = bundle.getHttpClient();
         this.authorization = auth;
+        this.converter = new ObjectMapper();
     }
 
     protected AuthorizationCodeResponse exchangeCode(String authBody) {
-        return Objects.requireNonNull(requestNewToken(authBody), "An error occured while exchanging code for an access token. (response is null)");
+            return Objects.requireNonNull(requestNewToken(authBody, AuthorizationCodeResponse.class), "An error occured while exchanging code for an access token. (response is null)");
     }
 
-    protected <T extends ApiAuthorizationResponse> T requestNewToken(String authBody) {
+    protected <T extends ApiAuthorizationResponse> T requestNewToken(String authBody, Class<T> clazz) {
         HttpRequest request = new HttpRequest(HttpMethod.POST, buildUri(REQTOKEN));
         request.setEntity(new StringEntity(authBody, ContentType.APPLICATION_FORM_URLENCODED));
         request.setHeader(HttpHeaders.ACCEPT, "application/json");
         request.setHeader(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded");
-        T response = simpleJsonRequest(request);
+        T response = simpleJsonRequest(request, clazz);
         return Objects.requireNonNull(response, "An error occured while requesting a new access token. (response is null)");
     }
 
-    protected <T> T genericGetJson(String url, HttpMethod method) {
+    public <T> T genericGetJson(String url, HttpMethod method, Class<T> clazz) {
         HttpRequest request = new HttpRequest(method, buildUri(ROOT, url));
         request.setHeader(HttpHeaders.ACCEPT, "application/json");
         request.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
         request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + authorization.getInstance().getAccessToken());
-        T response = simpleJsonRequest(request);
+        T response = simpleJsonRequest(request, clazz);
         return Objects.requireNonNull(response, "null object response");
     }
 
-    private <T> T simpleJsonRequest(HttpRequest request) {
-        return simpleJsonRequest(request, httpResponse -> {
-            String content = readInputStream(httpResponse.getEntity().getContent());
-            ObjectMapper mapper = new ObjectMapper();
-            return mapper.readValue(content, new TypeReference<T>(){});
-        });
+    public <T> T genericGetJson(String url, HttpMethod method, TypeReference<T> typeReference) {
+        HttpRequest request = new HttpRequest(method, buildUri(ROOT, url));
+        request.setHeader(HttpHeaders.ACCEPT, "application/json");
+        request.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+        request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + authorization.getInstance().getAccessToken());
+        T response = simpleJsonRequest(request, typeReference);
+        return Objects.requireNonNull(response, "null object response");
     }
 
-    private <T> T simpleJsonRequest(HttpRequest request, HttpClientResponseHandler<? extends T> responseHandler) {
+    private <T> T simpleJsonRequest(HttpRequest request, Class<T> clazz) {
         T response = null;
         try {
-            response = httpClient.execute(request, responseHandler);
+            response = httpClient.execute(request, httpResponse -> {
+                String content = readInputStream(httpResponse.getEntity().getContent());
+                return converter.readValue(content, clazz);
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+    private <T> T simpleJsonRequest(HttpRequest request, TypeReference<T> typeReference) {
+        T response = null;
+        try {
+            response = httpClient.execute(request, httpResponse -> {
+                String content = readInputStream(httpResponse.getEntity().getContent());
+                return converter.readValue(content, typeReference);
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }

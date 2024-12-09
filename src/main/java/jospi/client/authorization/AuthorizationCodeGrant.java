@@ -38,7 +38,7 @@ public class AuthorizationCodeGrant extends AbstractApiAuthorization {
         getAuthorizationBody().put("grant_type", "refresh_token");
         getAuthorizationBody().put("refresh_token", refreshToken);
         String authBody = toFormUrl(getAuthorizationBody());
-        processResponse((AuthorizationCodeResponse) svc.requestNewToken(authBody));
+        processResponse((AuthorizationCodeResponse) svc.requestNewToken(authBody, AuthorizationCodeResponse.class));
     }
 
     private void processResponse(AuthorizationCodeResponse response) {

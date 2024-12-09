@@ -24,7 +24,7 @@ public final class News {
             CompletableFuture.supplyAsync(() -> {
                 NewsBundle bundle = client.getJson(BASE, map -> {
                     map.put("cursor_string", token.getToken());
-                });
+                }, NewsBundle.class);
                 token.setNext(bundle.getCursorString());
                 return bundle.getNewsPosts();
             });
@@ -32,7 +32,7 @@ public final class News {
     }
 
     public CompletableFuture<NewsPost> getNewsPost(String slug) {
-        return client.getJsonAsync(BASE+slug);
+        return client.getJsonAsync(BASE+slug, NewsPost.class);
     }
 
     public CompletableFuture<NewsPost> getNewsPost(int id) {

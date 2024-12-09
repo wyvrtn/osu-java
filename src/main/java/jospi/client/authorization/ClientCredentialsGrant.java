@@ -24,7 +24,7 @@ public final class ClientCredentialsGrant extends AbstractApiAuthorization {
 
     protected void authorizationFlow(StatefulHttpServiceProvider svc) {
         String authBody = toFormUrl(getAuthorizationBody());
-        ClientCredentialsResponse apResponse = (ClientCredentialsResponse) svc.requestNewToken(authBody);
+        ClientCredentialsResponse apResponse = (ClientCredentialsResponse) svc.requestNewToken(authBody, ClientCredentialsResponse.class);
         apResponse.validation();
         setAccessToken(apResponse.getAccessToken());
         setExpirationDate(OffsetDateTime.now(ZoneId.systemDefault())

@@ -26,11 +26,11 @@ public final class Rankings {
     }
 
     public CompletableFuture<User[]> getKudosuRanking(int page) {
-        return client.getJsonAsync("/rankings/kudosu?page"+page);
+        return client.getJsonAsync("/rankings/kudosu?page"+page, User[].class);
     }
 
     public CompletableFuture<Spotlight[]> getSpotlights() {
-        return client.getJsonAsync("/spotlights");
+        return client.getJsonAsync("/spotlights", Spotlight[].class);
     }
 
     public AsyncLazyEnumerable<String, UserStatistics[]> getPerformanceRanking(Ruleset ruleset, String countryCode, String variant) {
@@ -83,7 +83,7 @@ public final class Rankings {
                     map.put("filter", filter);
                     map.put("spotlight", spotlightId);
                     map.put("variant", variant);
-                });
+                }, RankingsBundle.class);
                 token.setNext(bundle.getCursorString());
                 return bundle;
             });

@@ -29,7 +29,7 @@ public abstract class StatefulHttpServiceProvider implements NetIOUtilities {
 
     protected abstract AuthorizationCodeResponse exchangeCode(String authBody);
 
-    protected abstract <T extends ApiAuthorizationResponse> T requestNewToken(String authBody);
+    protected abstract <T extends ApiAuthorizationResponse> T requestNewToken(String authBody, Class<T> clazz);
 
-    protected abstract <T> T genericGetJson(String url, HttpMethod method);
+    public abstract <T> T genericGetJson(String url, HttpMethod method, Class<T> clazz);
 }

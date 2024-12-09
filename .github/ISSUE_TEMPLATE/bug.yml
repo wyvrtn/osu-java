@@ -19,7 +19,7 @@ body:
     attributes:
       label: Project Version
       description: Which project versions are affected?
-      placeholder: "1.0, 2.2, 3.5.1"
+      placeholder: "1.0.0, 1.0.1"
     validations:
       required: true
   - type: input
@@ -27,7 +27,7 @@ body:
     attributes:
       label: Platform and OS Version
       description: Which platforms or operating systems are affected?
-      placeholder: "iOS 12.1, tvOS 13.0, macOS 10.15.1, Safari 12"
+      placeholder: "iOS 18.3, Windows 11, macOS 10.15.1"
     validations:
       required: true
   - type: input
