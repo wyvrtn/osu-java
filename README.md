@@ -6,18 +6,18 @@
 
 ---
 
-[![][license img]][license]
-[![](https://img.shields.io/badge/java-1.8-blue)](https://www.oracle.com/java/technologies/downloads/#java8)
-[![][mavenbadge img]][mavenbadge]
-[![][release img]][release]
-[![][codacy img]][codacy]
-[![][sonar img]][sonar]
+[![license][license img]][license]
+[![java version](https://img.shields.io/badge/java-1.8-blue)](https://www.oracle.com/java/technologies/downloads/#java8)
+[![maven version][mavenbadge img]][mavenbadge]
+[![release][release img]][release]
+[![codacy][codacy img]][codacy]
+[![sonar][sonar img]][sonar]
 
 A simple, in-development async wrapper for the osu! API v2
 
 The latest release version can be found at
 [GitHub releases](https://github.com/wyvrtn/jospi/releases/)
-or at [Maven repo](https://central.sonatype.com/artifact/io.github.wyvrtn/jospi/versions).
+or at [Maven repository](https://central.sonatype.com/artifact/io.github.wyvrtn/jospi/versions).
 
 _Note: As of current, only Java version 1.8 is supported_
 
@@ -66,6 +66,13 @@ Future<BeatmapSetExtended> futureSet = client.endpoints.getBeatmapSet(842412);
 BeatmapSetExtended set = client.endpoints.getBeatmapSet(842412).get();
 
 ```
+
+## Contributing
+
+Thanks for your interest in contributing to CheckStyle! Please see the
+[Contribution Guidelines](https://github.com/wyvrtn/jospi/blob/master/CONTRIBUTING.md)
+for information on how to contribute to the project. This includes creating issues, submitting pull
+requests, and setting up your development environment.
 
 ## Features
 

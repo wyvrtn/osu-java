@@ -13,12 +13,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up JDK 8
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v4.5.0
         with:
           java-version: 8
+          distribution: "temurin"
 
       - name: Install dependencies
-        run: mvn install -DskipTests=true -Dgpg.skip -D -B -V
+        run: mvn install -DskipTests=true -Dgpg.skip -B -V
 
       - name: Run tests and collect coverage
         run: mvn -B test
