@@ -3,6 +3,7 @@ package jospi.models.wikis;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jospi.enums.wikis.WikiPageLayout;
+import jospi.models.home.HomeSearchable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class WikiPage {
+public class WikiPage implements HomeSearchable {
 
     @JsonProperty("available_locales")
     private String[] availableLocales;

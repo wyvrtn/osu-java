@@ -39,16 +39,16 @@ public final class OsuApiClientInternalBlockingStatefulHttpServiceProvider exten
     protected <T extends ApiAuthorizationResponse> T requestNewToken(String authBody, Class<T> clazz) {
         HttpRequest request = new HttpRequest(HttpMethod.POST, buildUri(REQTOKEN));
         request.setEntity(new StringEntity(authBody, ContentType.APPLICATION_FORM_URLENCODED));
-        request.setHeader(HttpHeaders.ACCEPT, "application/json");
-        request.setHeader(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded");
+        request.setHeader(HttpHeaders.ACCEPT, ContentType.APPLICATION_JSON.getMimeType());
+        request.setHeader(HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_FORM_URLENCODED.getMimeType());
         T response = simpleJsonRequest(request, clazz);
         return Objects.requireNonNull(response, "An error occured while requesting a new access token. (response is null)");
     }
 
     public <T> T genericGetJson(String url, HttpMethod method, Class<T> clazz) {
         HttpRequest request = new HttpRequest(method, buildUri(ROOT, url));
-        request.setHeader(HttpHeaders.ACCEPT, "application/json");
-        request.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+        request.setHeader(HttpHeaders.ACCEPT, ContentType.APPLICATION_JSON.getMimeType());
+        request.setHeader(HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType());
         request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + authorization.getInstance().getAccessToken());
         T response = simpleJsonRequest(request, clazz);
         return Objects.requireNonNull(response, "null object response");
@@ -56,8 +56,8 @@ public final class OsuApiClientInternalBlockingStatefulHttpServiceProvider exten
 
     public <T> T genericGetJson(String url, HttpMethod method, TypeReference<T> typeReference) {
         HttpRequest request = new HttpRequest(method, buildUri(ROOT, url));
-        request.setHeader(HttpHeaders.ACCEPT, "application/json");
-        request.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+        request.setHeader(HttpHeaders.ACCEPT, ContentType.APPLICATION_JSON.getMimeType());
+        request.setHeader(HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType());
         request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + authorization.getInstance().getAccessToken());
         T response = simpleJsonRequest(request, typeReference);
         return Objects.requireNonNull(response, "null object response");

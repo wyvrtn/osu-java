@@ -13,8 +13,9 @@ import lombok.ToString;
 
 @Getter
 @Setter(AccessLevel.PROTECTED)
-@ToString(includeFieldNames=true)
+@ToString(includeFieldNames = true)
 public abstract class AbstractApiAuthorization implements NetIOUtilities {
+    protected static final long LENIENCY = 30L;
 
     /**
     * Holds the authorization payload of an instance of an inheriting class.

@@ -8,11 +8,11 @@ public final class ClientUtil {
         throw new InstantiationError("Class " + ClientUtil.class.getName() + " cannot be instantiated");
     }
 
-    public static <L, R> Object nullishCoalesce(L leftArg, R rightArg) {
-        return leftArg==null? rightArg : leftArg;
+    public static <L, R> Object nullishCoalesce(final L leftArg, final R rightArg) {
+        return leftArg == null ? rightArg : leftArg;
     }
 
-    public static void awaitRunnable(CompletableFuture<Void> runnable) {
+    public static void awaitRunnable(final CompletableFuture<Void> runnable) {
         try {
             runnable.get();
         } catch (InterruptedException e) {
@@ -23,7 +23,7 @@ public final class ClientUtil {
         }
     }
 
-    public static <T> T awaitTask(CompletableFuture<T> task) {
+    public static <T> T awaitTask(final CompletableFuture<T> task) {
         try {
             return task.get();
         } catch (InterruptedException e) {

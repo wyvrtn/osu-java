@@ -10,6 +10,9 @@ import lombok.Getter;
 
 @Getter
 public final class RequestBundle {
+    private static final int DEFAULT_READ_TIMEOUT = 1000;
+    private static final int DEFAULT_CONNECT_TIMEOUT = 1000;
+
     private static CloseableHttpClient defaultClient;
     private static final Object LOCK = new Object();
 
@@ -17,10 +20,10 @@ public final class RequestBundle {
     private CloseableHttpClient httpClient;
 
     public RequestBundle() {
-        this(1000, 1000);
+        this(DEFAULT_READ_TIMEOUT, DEFAULT_CONNECT_TIMEOUT);
     }
 
-    public RequestBundle(int readTimeout, int connectTimeout) {
+    public RequestBundle(final int readTimeout, final int connectTimeout) {
         properties = RequestProperties.createInstance(readTimeout, connectTimeout);
         RequestConfig config = RequestConfig.custom()
                 .setResponseTimeout(readTimeout, TimeUnit.MILLISECONDS)
@@ -32,17 +35,19 @@ public final class RequestBundle {
     }
 
     public static CloseableHttpClient getDefaultClient() {
-        synchronized(LOCK) {
-            if (defaultClient==null) {
+        synchronized (LOCK) {
+            if (defaultClient == null) {
                 RequestConfig config = RequestConfig.custom()
-                        .setResponseTimeout(1000, TimeUnit.MILLISECONDS)
-                        .setConnectionRequestTimeout(1000, TimeUnit.MILLISECONDS)
+                        .setResponseTimeout(DEFAULT_READ_TIMEOUT, TimeUnit.MILLISECONDS)
+                        .setConnectionRequestTimeout(DEFAULT_CONNECT_TIMEOUT, TimeUnit.MILLISECONDS)
                         .build();
                 defaultClient = HttpClients.custom()
                         .setDefaultRequestConfig(config)
                         .build();
                 return defaultClient;
-            } else return defaultClient;
+            } else {
+                return defaultClient;
+            }
         }
     }
 }

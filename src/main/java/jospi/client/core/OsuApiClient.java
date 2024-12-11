@@ -1,5 +1,6 @@
 package jospi.client.core;
 
+import java.io.Serializable;
 import java.time.OffsetDateTime;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -12,11 +13,18 @@ import jospi.client.request.NetIOUtilities;
 import jospi.client.request.RequestBundle;
 import jospi.client.resources.Dictionary;
 import jospi.endpoints.ApiEndpoints;
+/**
+* The core class of this library.
+* <p>
+* Contains wrapper methods for accessing endpoints asynchronously
+* </p>
+*/
+public final class OsuApiClient implements NetIOUtilities, Serializable {
+    private static final long serialVersionUID = 727L;
 
-public final class OsuApiClient implements NetIOUtilities {
-    public final ApiEndpoints endpoints;
+    private final transient ApiEndpoints apiEndpoints;
     private AbstractApiAuthorizationContainer authorization;
-    private final OsuApiClientInternalBlockingStatefulHttpServiceProvider svc;
+    private final transient OsuApiClientInternalBlockingStatefulHttpServiceProvider svc;
 
     public OsuApiClient(final int clientId, final String clientSecret) {
         this(new ClientCredentialsGrant(clientId, clientSecret));
@@ -28,9 +36,13 @@ public final class OsuApiClient implements NetIOUtilities {
     }
 
     public OsuApiClient(final AbstractApiAuthorization auth, final RequestBundle bundle) {
-        endpoints = ApiEndpoints.createInstance(this);
+        apiEndpoints = ApiEndpoints.createInstance(this);
         authorization = AbstractApiAuthorizationContainer.newInstance(auth);
         svc = new OsuApiClientInternalBlockingStatefulHttpServiceProvider(bundle, authorization);
+    }
+
+    public ApiEndpoints endpoints() {
+        return apiEndpoints;
     }
 
     public void updateAuthorization(final AbstractApiAuthorization newAuth) {

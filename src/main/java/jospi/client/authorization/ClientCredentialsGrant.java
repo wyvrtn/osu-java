@@ -7,14 +7,14 @@ import jospi.client.core.AbstractApiAuthorization;
 import jospi.models.authorization.ClientCredentialsResponse;
 import lombok.ToString;
 
-@ToString(callSuper=true, includeFieldNames=true)
+@ToString(callSuper = true, includeFieldNames = true)
 public final class ClientCredentialsGrant extends AbstractApiAuthorization {
 
-    public ClientCredentialsGrant(int clientId, String clientSecret) {
+    public ClientCredentialsGrant(final int clientId, final String clientSecret) {
         this(Integer.toString(clientId), clientSecret);
     }
 
-    public ClientCredentialsGrant(String clientId, String clientSecret) {
+    public ClientCredentialsGrant(final String clientId, final String clientSecret) {
         getAuthorizationBody().put("client_id", clientId);
         getAuthorizationBody().put("client_secret", clientSecret);
         getAuthorizationBody().put("grant_type", "client_credentials");
@@ -22,16 +22,16 @@ public final class ClientCredentialsGrant extends AbstractApiAuthorization {
         setStatus(true);
     }
 
-    protected void authorizationFlow(StatefulHttpServiceProvider svc) {
+    protected void authorizationFlow(final StatefulHttpServiceProvider svc) {
         String authBody = toFormUrl(getAuthorizationBody());
-        ClientCredentialsResponse apResponse = (ClientCredentialsResponse) svc.requestNewToken(authBody, ClientCredentialsResponse.class);
+        ClientCredentialsResponse apResponse = svc.requestNewToken(authBody, ClientCredentialsResponse.class);
         apResponse.validation();
         setAccessToken(apResponse.getAccessToken());
         setExpirationDate(OffsetDateTime.now(ZoneId.systemDefault())
-            .plusSeconds(apResponse.getExpiresIn() - 30L /** Leniency */));
+            .plusSeconds(apResponse.getExpiresIn() - LENIENCY));
     }
 
-    protected void refreshAccessToken(StatefulHttpServiceProvider svc) {
+    protected void refreshAccessToken(final StatefulHttpServiceProvider svc) {
         authorizationFlow(svc);
     }
 }

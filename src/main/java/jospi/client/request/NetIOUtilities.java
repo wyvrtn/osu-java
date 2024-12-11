@@ -12,12 +12,23 @@ import jospi.enums.DescriptionEnum;
 import jospi.models.records.HttpRecord;
 
 public interface NetIOUtilities {
-    public default String toFormUrl(Map<String, String> params) {
+    /**
+    * Utility method for easy conversion from a {@code Map} of Key-Value pairs
+    * to a {@code String} in application/x-www-form-urlencoded encoding.
+    *
+    * @param params {@code Map<String, String>} of parameters that will be encoded
+    * @return String containing coverted fields in application/x-www-form-urlencoded encoding
+    */
+    default String toFormUrl(Map<String, String> params) {
         StringBuilder result = new StringBuilder();
         boolean first = true;
-        for(Entry<String, String> entry : params.entrySet()){
-            if (first) first = false;
-            else result.append('&');
+        for (Entry<String, String> entry : params.entrySet()) {
+            if (first) {
+                first = false;
+            }
+            else {
+                result.append('&');
+            }
 
             result.append(encode(entry.getKey()));
             result.append('=');
@@ -26,15 +37,29 @@ public interface NetIOUtilities {
         return result.toString();
     }
 
-    public default String toQueryString(Dictionary<String, Object> paramFunc) {
+    /**
+    * Utility method for easy conversion from a {@code Dictionary} of Key-Value pairs
+    * to a Query String
+    *
+    * @param paramFunc {@code Dictionary<String, Object>} of parameters that will be encoded
+    * @return Query String of the fields in parameter {@code paramFunc}
+    */
+    default String toQueryString(Dictionary<String, Object> paramFunc) {
         HashMap<String, Object> map = new HashMap<>();
         paramFunc.apply(map);
         return toQueryString(map);
     }
 
-    public default String toQueryString(Map<String, Object> params) {
+    /**
+    * Utility method for easy conversion from a {@code Map} of Key-Value pairs
+    * to a Query String
+    *
+    * @param params {@code Map<String, Object>} of parameters that will be encoded
+    * @return Query String of the fields in parameter {@code params}
+    */
+    default String toQueryString(Map<String, Object> params) {
         StringBuilder out = new StringBuilder("");
-        params.entrySet().stream().filter(entry -> entry.getValue()!=null).forEach(entry -> {
+        params.entrySet().stream().filter(entry -> entry.getValue() != null).forEach(entry -> {
             final Object value = entry.getValue();
             if (value instanceof HttpRecord) {
                 out.append(toQueryString(((HttpRecord) value).convert()));
@@ -58,6 +83,12 @@ public interface NetIOUtilities {
         return new String(out);
     }
 
+    /**
+    * Utility method for encoding a String into UTF-8 Format
+    *
+    * @param str String to be encoded
+    * @return String that is encoded in UTF-8 Format
+    */
     public static String encode(String str) {
         try {
             return URLEncoder.encode(str, "UTF-8");

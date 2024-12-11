@@ -4,6 +4,7 @@ import java.time.OffsetDateTime;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jospi.models.home.HomeSearchable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class User {
+public class User implements HomeSearchable {
 
     @JsonProperty("avatar_url")
     private String avatarUrl;

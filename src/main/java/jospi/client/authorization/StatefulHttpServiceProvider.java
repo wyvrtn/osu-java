@@ -17,7 +17,7 @@ public abstract class StatefulHttpServiceProvider implements NetIOUtilities {
     protected static final String REQTOKEN = "/oauth/token";
     protected static final String AUTH = "/oauth/authorize";
 
-    public static void requestAuthorization(String authBody) {
+    public static void requestAuthorization(final String authBody) {
         HttpRequest request = new HttpRequest(HttpMethod.GET, AUTH + authBody);
         CloseableHttpClient httpClient = RequestBundle.getDefaultClient();
         try {

@@ -7,13 +7,10 @@ import jospi.client.authorization.ClientCredentialsGrant;
 import jospi.client.core.AbstractApiAuthorization;
 import jospi.client.core.OsuApiClient;
 import jospi.client.request.RequestBundle;
-import jospi.endpoints.ApiEndpoints;
 import lombok.Getter;
 import lombok.experimental.Delegate;
 
 public final class MultiApiClient<K> {
-    public final ApiEndpoints endpoints;
-
     @Delegate(excludes=OsuApiClientDelgationExclusions.class)
     private final OsuApiClient client;
 
@@ -30,7 +27,6 @@ public final class MultiApiClient<K> {
 
     public MultiApiClient(AbstractApiAuthorization auth, RequestBundle bundle) {
         client = new OsuApiClient(auth, bundle);
-        endpoints = client.endpoints;
         authorizationInstances = new ConcurrentHashMap<>();
     }
 
