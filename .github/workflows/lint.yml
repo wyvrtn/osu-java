@@ -26,12 +26,17 @@ jobs:
           # list of files that changed across commits
           fetch-depth: 0
 
+      - name: Setup Checkstyle
+        # super linter directory: /var/lib/docker/overlay2/{sha}/diff/action/lib/.automation
+        run: bash .github/scripts/checkstyle-prepare.sh
+
       - name: Super-linter
         uses: super-linter/super-linter@e1cb86b6e8d119f789513668b4b30bf17fe1efe4
         env:
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           JAVA_FILE_NAME: checkstyle_config.xml
+          VALIDATE_BASH_EXEC: false
           VALIDATE_CHECKOV: false
           # Disable google-java-format linter as it produces no useful error messages
           VALIDATE_GOOGLE_JAVA_FORMAT: false
