@@ -21,5 +21,5 @@ public class Nomination {
     private boolean reset;
 
     @JsonProperty("user_id")
-    private int UserId;
+    private int userId;
 }

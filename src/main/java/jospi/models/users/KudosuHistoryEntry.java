@@ -28,7 +28,7 @@ public class KudosuHistoryEntry {
     private KudosuModel model;
 
     @JsonProperty("created_at")
-    private OffsetDateTime created_at;
+    private OffsetDateTime createdAt;
 
     @JsonProperty("giver")
     private KudosuGiver giver;

@@ -1,5 +1,6 @@
 package jospi.client.core;
 
+import java.io.Serializable;
 import java.time.OffsetDateTime;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -14,7 +15,9 @@ import lombok.ToString;
 @Getter
 @Setter(AccessLevel.PROTECTED)
 @ToString(includeFieldNames = true)
-public abstract class AbstractApiAuthorization implements NetIOUtilities {
+public abstract class AbstractApiAuthorization implements NetIOUtilities, Serializable {
+    private static final long serialVersionUID = 1111L;
+
     protected static final long LENIENCY = 30L;
 
     /**

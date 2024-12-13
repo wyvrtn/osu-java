@@ -21,13 +21,13 @@ public class DifficultyAttributes {
     private float aimDifficulty;
 
     @JsonProperty("approach_rate")
-    private float AR;
+    private float ar;
 
     @JsonProperty("flashlight_difficulty")
     private float flashlightDifficulty;
 
     @JsonProperty("overall_difficulty")
-    private float OD;
+    private float od;
 
     @JsonProperty("slider_factor")
     private float sliderFactor;

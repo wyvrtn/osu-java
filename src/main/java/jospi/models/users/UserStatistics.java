@@ -36,7 +36,7 @@ public class UserStatistics {
     private float accuracy;
 
     @JsonProperty("is_ranked")
-    private boolean IsRanked;
+    private boolean ranked;
 
     @JsonProperty("level")
     private Level level;

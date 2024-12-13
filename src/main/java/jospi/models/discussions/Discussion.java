@@ -20,7 +20,7 @@ public class Discussion {
     private int beatmapId;
 
     @JsonProperty("beatmapset_id")
-    private int BeatmapSetId;
+    private int beatmapSetId;
 
     @JsonProperty("can_be_resolved")
     private boolean canBeResolved;

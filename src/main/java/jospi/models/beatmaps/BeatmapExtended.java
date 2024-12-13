@@ -26,7 +26,7 @@ public class BeatmapExtended extends Beatmap {
     private float circleSize;
 
     @JsonProperty("bpm")
-    private float BPM;
+    private float bpm;
 
     @JsonProperty("convert")
     private boolean convert;

@@ -8,7 +8,6 @@
 [![release][release img]][release]
 [![codacy][codacy img]][codacy]
 [![sonar][sonar img]][sonar]
-[![codacy][codacy img]][codacy]
 [![codecov][codecov img]][codecov]
 
 A simple, in-development async wrapper for the osu! API v2
