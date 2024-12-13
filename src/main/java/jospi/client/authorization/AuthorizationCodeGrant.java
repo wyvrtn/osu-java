@@ -57,7 +57,7 @@ public final class AuthorizationCodeGrant extends AbstractApiAuthorization {
     }
 
     /**
-    * Refreshes the access token using the {@link jospi.client.authorization.AuthorizationCodeGrant#getRefreshToken() refresh token}.
+    * Refreshes the access token using the refresh token.
     *
     * @param svc A {@code HttpServiceProvider} that will fulfill the HTTP request
     */
