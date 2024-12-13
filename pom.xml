@@ -3,13 +3,13 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<developers>
-        <developer>
-            <name>Wyvrtn</name>
-            <email>wyvrtn@gmail.com</email>
-            <organization>Wyvrtn</organization>
-            <organizationUrl>https://github.com/wyvrtn</organizationUrl>
-        </developer>
-    </developers>
+		<developer>
+			<name>Wyvrtn</name>
+			<email>wyvrtn@gmail.com</email>
+			<organization>Wyvrtn</organization>
+			<organizationUrl>https://github.com/wyvrtn</organizationUrl>
+		</developer>
+	</developers>
 
 	<name>${project.groupId}:${project.artifactId}</name>
 	<description>A simple, in development async wrapper for the osu! API v2</description>
@@ -21,34 +21,34 @@
 	<packaging>jar</packaging>
 
 	<licenses>
-  		<license>
-    		<name>GNU General Public License</name>
-    		<url>https://www.gnu.org/licenses/gpl-3.0.txt</url>
-  		</license>
+		<license>
+			<name>GNU General Public License</name>
+			<url>https://www.gnu.org/licenses/gpl-3.0.txt</url>
+		</license>
 	</licenses>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <!-- Java Version -->
-    	<java.version>1.8</java.version>
-        <!-- Maven Plugin -->
-        <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<!-- Java Version -->
+		<java.version>1.8</java.version>
+		<!-- Maven Plugin -->
+		<maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-        <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
-        <maven-license-plugin.version>4.6</maven-license-plugin.version>
-        <maven-javadoc-plugin.version>3.11.1</maven-javadoc-plugin.version>
-        <maven-gpg-plugin.version>3.2.7</maven-gpg-plugin.version>
-        <!-- Lombok Version -->
-        <lombok.version>1.18.36</lombok.version>
+		<maven-source-plugin.version>3.3.1</maven-source-plugin.version>
+		<maven-license-plugin.version>4.6</maven-license-plugin.version>
+		<maven-javadoc-plugin.version>3.11.1</maven-javadoc-plugin.version>
+		<maven-gpg-plugin.version>3.2.7</maven-gpg-plugin.version>
+		<!-- Lombok Version -->
+		<lombok.version>1.18.36</lombok.version>
 	</properties>
 
 	<scm>
-        <connection>scm:git:git://github.com/wyvrtn/jospi.git</connection>
-        <developerConnection>scm:git:ssh://github.com/wyvrtn/jospi.git</developerConnection>
-        <url>https://github.com/wyvrtn/jospi</url>
-    </scm>
+		<connection>scm:git:git://github.com/wyvrtn/jospi.git</connection>
+		<developerConnection>scm:git:ssh://github.com/wyvrtn/jospi.git</developerConnection>
+		<url>https://github.com/wyvrtn/jospi</url>
+	</scm>
 
 	<dependencies>
 		<!-- Apache HTTP client -->
@@ -87,8 +87,8 @@
 	</dependencies>
 
 	<build>
-        <plugins>
-            <plugin>
+		<plugins>
+			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.12</version>
@@ -108,97 +108,97 @@
 					</execution>
 				</executions>
 			</plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                            <version>${lombok.version}</version>
-                        </path>
-                    </annotationProcessorPaths>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>${maven-source-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
+				<configuration>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>${lombok.version}</version>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>${maven-source-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>com.mycila</groupId>
 				<artifactId>license-maven-plugin</artifactId>
 				<version>${maven-license-plugin.version}</version>
 				<configuration>
-			    	<properties>
-			    	<year>2024</year>
-			      	<owner>Wyvrtn</owner>
-			      	<email>wyvrtn@gmail.com</email>
-			    	</properties>
-			    	<licenseSets>
-			      		<licenseSet>
-			        		<header>com/mycila/maven/plugin/license/templates/GPL-3-ONLY.txt</header>
-			        		<excludes>
-			          			<exclude>**/README</exclude>
-			          			<exclude>src/test/resources/**</exclude>
-			          			<exclude>src/main/resources/**</exclude>
-			        		</excludes>
-			      		</licenseSet>
-			    	</licenseSets>
-			  	</configuration>
-			</plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${maven-javadoc-plugin.version}</version>
-				<configuration>
-  					<source>8</source>
+					<properties>
+					<year>2024</year>
+					<owner>Wyvrtn</owner>
+					<email>wyvrtn@gmail.com</email>
+					</properties>
+					<licenseSets>
+						<licenseSet>
+							<header>com/mycila/maven/plugin/license/templates/GPL-3-ONLY.txt</header>
+							<excludes>
+								<exclude>**/README</exclude>
+								<exclude>src/test/resources/**</exclude>
+								<exclude>src/main/resources/**</exclude>
+							</excludes>
+						</licenseSet>
+					</licenseSets>
 				</configuration>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>${maven-gpg-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.sonatype.central</groupId>
-                <artifactId>central-publishing-maven-plugin</artifactId>
-                <version>0.6.0</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <publishingServerId>central</publishingServerId>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>${maven-javadoc-plugin.version}</version>
+				<configuration>
+					<source>8</source>
+				</configuration>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>${maven-gpg-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.central</groupId>
+				<artifactId>central-publishing-maven-plugin</artifactId>
+				<version>0.6.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<publishingServerId>central</publishingServerId>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
