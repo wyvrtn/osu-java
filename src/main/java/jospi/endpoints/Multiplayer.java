@@ -14,7 +14,7 @@ import jospi.iterator.AsyncLazyEnumerable;
 import jospi.iterator.ExitToken;
 import jospi.models.multiplayer.MultiplayerScores;
 
-public class Multiplayer {
+public final class Multiplayer {
     private static final String BASE = "/rooms/";
 
     private final OsuApiClient client;
@@ -27,7 +27,7 @@ public class Multiplayer {
         ExitToken<String> token = new ExitToken<>("");
         Function<ExitToken<String>, CompletableFuture<MultiplayerScores>> func = tkn ->
             CompletableFuture.supplyAsync(() -> {
-                MultiplayerScores multiplayerScores = client.getJson(BASE+roomId+"/playlist/"+playlistId+"/scores", map -> {
+                MultiplayerScores multiplayerScores = client.getJson(BASE + roomId + "/playlist/" + playlistId + "/scores", map -> {
                     map.put("limit", limit);
                     map.put("sort", sort);
                     map.put("cursor_string", tkn.getToken());
@@ -46,6 +46,6 @@ public class Multiplayer {
                 map.put("season_id", seasonId);
                 map.put("sort", sort);
                 map.put("type_group", typeGroup);
-            }, new TypeReference<T>() {});
+            }, new TypeReference<T>() { });
     }
 }

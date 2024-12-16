@@ -42,7 +42,7 @@ public enum ChangelogEntryCategory implements DescriptionEnum {
 
     private String description;
 
-    private ChangelogEntryCategory(String description) {
+    ChangelogEntryCategory(String description) {
         this.description = description;
     }
 

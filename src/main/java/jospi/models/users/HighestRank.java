@@ -17,5 +17,5 @@ public class HighestRank {
     private int rank;
 
     @JsonProperty("updated_at")
-    public OffsetDateTime updatedAt;
+    private OffsetDateTime updatedAt;
 }

@@ -32,7 +32,7 @@ public final class News {
     }
 
     public CompletableFuture<NewsPost> getNewsPost(String slug) {
-        return client.getJsonAsync(BASE+slug, NewsPost.class);
+        return client.getJsonAsync(BASE + slug, NewsPost.class);
     }
 
     public CompletableFuture<NewsPost> getNewsPost(int id) {

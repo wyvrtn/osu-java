@@ -14,6 +14,6 @@ public final class Wikis {
     }
 
     public CompletableFuture<WikiPage> getWikiPage(String locale, String path) {
-        return client.getJsonAsync("/wiki/"+locale+"/"+path, WikiPage.class);
+        return client.getJsonAsync("/wiki/" + locale + "/" + path, WikiPage.class);
     }
 }

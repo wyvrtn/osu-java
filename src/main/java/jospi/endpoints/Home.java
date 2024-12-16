@@ -10,7 +10,7 @@ import jospi.models.home.SearchResult;
 import jospi.models.users.User;
 import jospi.models.wikis.WikiPage;
 
-public class Home {
+public final class Home {
     private static final String BASE = "/search/";
 
     private final OsuApiClient client;

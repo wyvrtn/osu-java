@@ -15,10 +15,10 @@ public final class BeatmapSets {
     }
 
     public CompletableFuture<BeatmapSetExtended> lookupBeatmapSet(int beatmapId) {
-        return client.getJsonAsync(BASE+"lookup?beatmap_id="+beatmapId, BeatmapSetExtended.class);
+        return client.getJsonAsync(BASE + "lookup?beatmap_id=" + beatmapId, BeatmapSetExtended.class);
     }
 
     public CompletableFuture<BeatmapSetExtended> getBeatmapSet(int beatmapSetId) {
-        return client.getJsonAsync(BASE+beatmapSetId, BeatmapSetExtended.class);
+        return client.getJsonAsync(BASE + beatmapSetId, BeatmapSetExtended.class);
     }
 }

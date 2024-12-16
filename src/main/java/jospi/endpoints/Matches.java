@@ -11,7 +11,7 @@ import jospi.models.matches.Match;
 import jospi.models.matches.MatchBundle;
 import jospi.models.matches.MatchesBundle;
 
-public class Matches {
+public final class Matches {
     private static final String BASE = "/matches/";
 
     private final OsuApiClient client;
@@ -35,7 +35,7 @@ public class Matches {
     }
 
     public CompletableFuture<MatchBundle> getMatch(int matchId, int before, int after, int limit) {
-        return client.getJsonAsync(BASE+matchId, map -> {
+        return client.getJsonAsync(BASE + matchId, map -> {
                 map.put("before", before);
                 map.put("after", after);
                 map.put("limit", limit);

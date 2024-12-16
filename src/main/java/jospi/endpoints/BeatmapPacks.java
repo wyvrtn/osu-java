@@ -42,6 +42,6 @@ public final class BeatmapPacks {
     }
 
     public CompletableFuture<BeatmapPack> getBeatmapPack(String tag, boolean legacyOnly) {
-        return client.getJsonAsync(BASE + "packs/"+ tag + "?" + (legacyOnly? 1:0), BeatmapPack.class);
+        return client.getJsonAsync(BASE + "packs/" + tag + "?" + (legacyOnly ? 1 : 0), BeatmapPack.class);
     }
 }

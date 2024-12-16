@@ -11,8 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Kudosu {
     @JsonProperty("available")
-    public int available;
+    private int available;
 
     @JsonProperty("total")
-    public int total;
+    private int total;
 }

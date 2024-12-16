@@ -91,7 +91,9 @@ public final class OsuApiClientInternalBlockingStatefulHttpServiceProvider exten
 
     private String buildUri(String... pathArgs) {
         StringBuilder sb = new StringBuilder(GATEWAY);
-        for (String arg : pathArgs) sb.append(arg);
+        for (String arg : pathArgs) {
+            sb.append(arg);
+        }
         return new String(sb);
     }
 

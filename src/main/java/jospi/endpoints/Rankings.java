@@ -26,7 +26,7 @@ public final class Rankings {
     }
 
     public CompletableFuture<User[]> getKudosuRanking(int page) {
-        return client.getJsonAsync("/rankings/kudosu?page"+page, User[].class);
+        return client.getJsonAsync("/rankings/kudosu?page" + page, User[].class);
     }
 
     public CompletableFuture<Spotlight[]> getSpotlights() {
@@ -48,7 +48,9 @@ public final class Rankings {
     // REQUIRES USER
 
     public AsyncLazyEnumerable<String, UserStatistics[]> getPerformanceRanking(Ruleset ruleset, String countryCode, RankingFilter filter, String variant) {
-        if (filter.equals(RankingFilter.FRIENDS)) client.requiresUser();
+        if (filter.equals(RankingFilter.FRIENDS)) {
+            client.requiresUser();
+        }
         AsyncLazyEnumerable<String, RankingsBundle> enumerableBundle = getRankingInternal(ruleset, UserRankingType.PERFORMANCE, countryCode, filter, null, variant);
         Function<CompletableFuture<RankingsBundle>, CompletableFuture<UserStatistics[]>> func = (CompletableFuture<RankingsBundle> bundle) -> {
             return CompletableFuture.supplyAsync(() -> ClientUtil.awaitTask(bundle).getRankings());
@@ -57,7 +59,9 @@ public final class Rankings {
     }
 
     public AsyncLazyEnumerable<String, SpotlightRankings> getSpotlightRanking(Ruleset ruleset, RankingFilter filter, String spotlightId) {
-        if (filter.equals(RankingFilter.FRIENDS)) client.requiresUser();
+        if (filter.equals(RankingFilter.FRIENDS)) {
+            client.requiresUser();
+        }
         AsyncLazyEnumerable<String, RankingsBundle> enumerableBundle = getRankingInternal(ruleset, UserRankingType.PERFORMANCE, null, filter, spotlightId, null);
         Function<CompletableFuture<RankingsBundle>, CompletableFuture<SpotlightRankings>> func = (CompletableFuture<RankingsBundle> bundle) -> {
             return CompletableFuture.supplyAsync(() -> (new SpotlightRankings(ClientUtil.awaitTask(bundle))));
@@ -66,7 +70,9 @@ public final class Rankings {
     }
 
     public AsyncLazyEnumerable<String, RankingsBundle> getRanking(Ruleset ruleset, UserRankingType type, RankingFilter filter) {
-        if (filter.equals(RankingFilter.FRIENDS)) client.requiresUser();
+        if (filter.equals(RankingFilter.FRIENDS)) {
+            client.requiresUser();
+        }
         return getRankingInternal(ruleset, type, null, filter, null, null);
     }
 

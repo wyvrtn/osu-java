@@ -41,11 +41,11 @@ public final class Beatmaps {
     }
 
     private CompletableFuture<Beatmap> lookupBeatmapInternal(String query) {
-        return client.getJsonAsync(BASE+"lookup?" + query, Beatmap.class);
+        return client.getJsonAsync(BASE + "lookup?" + query, Beatmap.class);
     }
 
     public CompletableFuture<UserBeatmapScore> getUserBeatmapScore(int beatmapId, int userId, Ruleset ruleset, String mods) {
-        return client.getJsonAsync(BASE+beatmapId+"/scores/users/"
+        return client.getJsonAsync(BASE + beatmapId + "/scores/users/"
                 +userId, map -> {
                     map.put("mode", ruleset);
                     map.put("mods", mods);
@@ -53,14 +53,14 @@ public final class Beatmaps {
     }
 
     public CompletableFuture<Score[]> getUserBeatmapScores(int beatmapId, int userId, Ruleset ruleset) {
-        return client.getJsonAsync(BASE+beatmapId+"/scores/users/"
+        return client.getJsonAsync(BASE + beatmapId + "/scores/users/"
                 +userId+"/all", map -> {
                     map.put("map", ruleset);
                 }, Score[].class);
     }
 
     public CompletableFuture<BeatmapScores> getBeatmapScores(int beatmapId, Ruleset ruleset, String mods) {
-        return client.getJsonAsync(BASE+beatmapId+"/scores", map -> {
+        return client.getJsonAsync(BASE + beatmapId + "/scores", map -> {
                     map.put("mode", ruleset);
                     map.put("mods", mods);
                 }, BeatmapScores.class);
@@ -74,10 +74,10 @@ public final class Beatmaps {
     }
 
     public CompletableFuture<BeatmapExtended> getBeatmap(int id) {
-        return client.getJsonAsync(BASE+id, BeatmapExtended.class);
+        return client.getJsonAsync(BASE + id, BeatmapExtended.class);
     }
 
     public CompletableFuture<DifficultyAttributes> getDifficultyAttributes(int id) {
-        return client.getJsonAsync(BASE+id+"/attributes", HttpMethod.POST, DifficultyAttributes.class);
+        return client.getJsonAsync(BASE + id + "/attributes", HttpMethod.POST, DifficultyAttributes.class);
     }
 }

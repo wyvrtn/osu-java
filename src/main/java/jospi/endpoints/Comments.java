@@ -23,7 +23,7 @@ public final class Comments {
     }
 
     public CompletableFuture<CommentBundle> getComment(int commentId) {
-        return client.getJsonAsync(BASE+commentId, CommentBundle.class);
+        return client.getJsonAsync(BASE + commentId, CommentBundle.class);
     }
 
     public AsyncLazyEnumerable<Cursor, CommentBundle> getComments(int after, CommentableType type,
@@ -32,18 +32,18 @@ public final class Comments {
         Function<ExitToken<Cursor>, CompletableFuture<CommentBundle>> func = t ->
             CompletableFuture.supplyAsync(() -> {
                 CommentBundle bundle = client.getJson(BASE, map -> {
-                        map.put("cursor[id]", t.getToken().id==0? null : t.getToken().id);
-                        map.put("cursor[created_at]", t.getToken().createdAt==null? null : t.getToken().createdAt);
+                        map.put("cursor[id]", t.getToken().id == 0 ? null : t.getToken().id);
+                        map.put("cursor[created_at]", t.getToken().createdAt == null ? null : t.getToken().createdAt);
                         map.put("after", after);
                         map.put("commentable_type", type);
                         map.put("commentable_id", commentableId);
                         map.put("parent_id", parentId);
                         map.put("sort", sort);
                     }, CommentBundle.class);
-                if (bundle==null) {
+                if (bundle == null) {
                     throw new OsuApiException("An error occured while requesting the comment bundle. (bundle is null)");
                 }
-                token.setNext(bundle==null? null : bundle.getCursor());
+                token.setNext(bundle == null ? null : bundle.getCursor());
                 return bundle;
             });
             return new AsyncLazyEnumerable<>(func, token);

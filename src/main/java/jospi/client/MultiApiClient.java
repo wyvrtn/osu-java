@@ -11,7 +11,7 @@ import lombok.Getter;
 import lombok.experimental.Delegate;
 
 public final class MultiApiClient<K> {
-    @Delegate(excludes=OsuApiClientDelgationExclusions.class)
+    @Delegate(excludes = OsuApiClientDelgationExclusions.class)
     private final OsuApiClient client;
 
     @Getter
@@ -35,6 +35,6 @@ public final class MultiApiClient<K> {
     }
 
     private interface OsuApiClientDelgationExclusions {
-        public void updateAuthorization(AbstractApiAuthorization newAuth);
+        void updateAuthorization(AbstractApiAuthorization newAuth);
     }
 }

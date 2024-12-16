@@ -14,11 +14,11 @@ public class GroupDescription {
     /// The description of this group, as a pre-rendered HTML string.
     /// </summary>
     @JsonProperty("html")
-    public String html;
+    private String html;
 
     /// <summary>
     /// The description of this group, as a markdown string.
     /// </summary>
     @JsonProperty("markdown")
-    public String markdown;
+    private String markdown;
 }

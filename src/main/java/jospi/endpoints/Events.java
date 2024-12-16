@@ -12,7 +12,7 @@ import jospi.iterator.ExitToken;
 import jospi.models.events.Event;
 import jospi.models.generic.CursorResponse;
 
-public class Events {
+public final class Events {
     private static final String BASE = "/events/";
 
     private final OsuApiClient client;
@@ -32,7 +32,7 @@ public class Events {
                 CursorResponse<Event> events = client.getJson(BASE, map -> {
                     map.put("sort", sort);
                     map.put("cursor_string", token.getToken());
-                }, new TypeReference<CursorResponse<Event>>() {});
+                }, new TypeReference<CursorResponse<Event>>() { });
                 token.setNext(events.getCursorString());
                 return events.getData();
             });

@@ -28,8 +28,12 @@ public class SearchResult<T> {
         List<User> userEntries = new ArrayList<>();
         List<WikiPage> wikiPageEntries = new ArrayList<>();
         for (T element : instance.getData()) {
-            if (element instanceof User) userEntries.add((User) element);
-            if (element instanceof WikiPage) wikiPageEntries.add((WikiPage) element);
+            if (element instanceof User) {
+                userEntries.add((User) element);
+            }
+            if (element instanceof WikiPage) {
+                wikiPageEntries.add((WikiPage) element);
+            }
         }
         Map<String, Object> result = new ConcurrentHashMap<>();
         result.put("user_entries", userEntries);
