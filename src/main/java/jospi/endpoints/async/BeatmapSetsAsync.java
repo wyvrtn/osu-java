@@ -1,16 +1,16 @@
-package jospi.endpoints;
+package jospi.endpoints.async;
 
 import java.util.concurrent.CompletableFuture;
 
-import jospi.client.core.OsuApiClient;
+import jospi.client.core.InternalOsuApiClient;
 import jospi.models.beatmaps.BeatmapSetExtended;
 
-public final class BeatmapSets {
+public final class BeatmapSetsAsync {
     private static final String BASE = "/beatmapsets/";
 
-    private final OsuApiClient client;
+    private final InternalOsuApiClient client;
 
-    protected BeatmapSets(OsuApiClient client) {
+    protected BeatmapSetsAsync(InternalOsuApiClient client) {
         this.client = client;
     }
 

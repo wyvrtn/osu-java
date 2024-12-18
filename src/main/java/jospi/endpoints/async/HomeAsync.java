@@ -1,21 +1,21 @@
-package jospi.endpoints;
+package jospi.endpoints.async;
 
 import java.util.concurrent.CompletableFuture;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
-import jospi.client.core.OsuApiClient;
+import jospi.client.core.InternalOsuApiClient;
 import jospi.enums.home.HomeSearchQueryMode;
 import jospi.models.home.SearchResult;
 import jospi.models.users.User;
 import jospi.models.wikis.WikiPage;
 
-public final class Home {
+public final class HomeAsync {
     private static final String BASE = "/search/";
 
-    private final OsuApiClient client;
+    private final InternalOsuApiClient client;
 
-    protected Home(OsuApiClient client) {
+    protected HomeAsync(InternalOsuApiClient client) {
         this.client = client;
     }
 

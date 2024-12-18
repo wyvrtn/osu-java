@@ -1,8 +1,8 @@
-package jospi.endpoints;
+package jospi.endpoints.async;
 
 import java.util.concurrent.CompletableFuture;
 
-import jospi.client.core.OsuApiClient;
+import jospi.client.core.InternalOsuApiClient;
 import jospi.client.resources.ClientUtil;
 import jospi.enums.beatmaps.BeatmapType;
 import jospi.enums.misc.Ruleset;
@@ -15,12 +15,12 @@ import jospi.models.users.KudosuHistoryEntry;
 import jospi.models.users.User;
 import jospi.models.users.UserExtended;
 
-public final class Users {
+public final class UsersAsync {
     private static final String BASE = "/users/";
 
-    private final OsuApiClient client;
+    private final InternalOsuApiClient client;
 
-    protected Users(OsuApiClient client) {
+    protected UsersAsync(InternalOsuApiClient client) {
         this.client = client;
     }
 

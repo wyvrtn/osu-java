@@ -1,11 +1,11 @@
-package jospi.endpoints;
+package jospi.endpoints.async;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
-import jospi.client.core.OsuApiClient;
+import jospi.client.core.InternalOsuApiClient;
 import jospi.enums.multiplayer.MultiplayerRoomMode;
 import jospi.enums.multiplayer.MultiplayerRoomSort;
 import jospi.enums.multiplayer.MultiplayerRoomTypeGroup;
@@ -14,12 +14,12 @@ import jospi.iterator.AsyncLazyEnumerable;
 import jospi.iterator.ExitToken;
 import jospi.models.multiplayer.MultiplayerScores;
 
-public final class Multiplayer {
+public final class MultiplayerAsync {
     private static final String BASE = "/rooms/";
 
-    private final OsuApiClient client;
+    private final InternalOsuApiClient client;
 
-    protected Multiplayer(OsuApiClient client) {
+    protected MultiplayerAsync(InternalOsuApiClient client) {
         this.client = client;
     }
 

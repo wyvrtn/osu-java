@@ -1,9 +1,9 @@
-package jospi.endpoints;
+package jospi.endpoints.async;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
-import jospi.client.core.OsuApiClient;
+import jospi.client.core.InternalOsuApiClient;
 import jospi.client.request.HttpMethod;
 import jospi.client.resources.OsuApiException;
 import jospi.enums.comments.CommentSortType;
@@ -13,12 +13,12 @@ import jospi.iterator.ExitToken;
 import jospi.models.comments.CommentBundle;
 import jospi.models.comments.CommentBundle.Cursor;
 
-public final class Comments {
+public final class CommentsAsync {
     private static final String BASE = "/comments/";
 
-    private final OsuApiClient client;
+    private final InternalOsuApiClient client;
 
-    protected Comments(OsuApiClient client) {
+    protected CommentsAsync(InternalOsuApiClient client) {
         this.client = client;
     }
 

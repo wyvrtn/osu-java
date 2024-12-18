@@ -1,9 +1,9 @@
-package jospi.endpoints;
+package jospi.endpoints.async;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
-import jospi.client.core.OsuApiClient;
+import jospi.client.core.InternalOsuApiClient;
 import jospi.enums.matches.MatchBundleSort;
 import jospi.iterator.AsyncLazyEnumerable;
 import jospi.iterator.ExitToken;
@@ -11,12 +11,12 @@ import jospi.models.matches.Match;
 import jospi.models.matches.MatchBundle;
 import jospi.models.matches.MatchesBundle;
 
-public final class Matches {
+public final class MatchesAsync {
     private static final String BASE = "/matches/";
 
-    private final OsuApiClient client;
+    private final InternalOsuApiClient client;
 
-    protected Matches(OsuApiClient client) {
+    protected MatchesAsync(InternalOsuApiClient client) {
         this.client = client;
     }
 

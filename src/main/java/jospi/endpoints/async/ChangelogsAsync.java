@@ -1,17 +1,17 @@
-package jospi.endpoints;
+package jospi.endpoints.async;
 
 import java.util.concurrent.CompletableFuture;
 
-import jospi.client.core.OsuApiClient;
+import jospi.client.core.InternalOsuApiClient;
 import jospi.models.changelogs.Build;
 import jospi.models.changelogs.ChangelogListing;
 
-public final class Changelogs {
+public final class ChangelogsAsync {
     private static final String BASE = "/changelog/";
 
-    private final OsuApiClient client;
+    private final InternalOsuApiClient client;
 
-    protected Changelogs(OsuApiClient client) {
+    protected ChangelogsAsync(InternalOsuApiClient client) {
         this.client = client;
     }
 

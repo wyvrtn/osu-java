@@ -1,10 +1,10 @@
-package jospi.endpoints;
+package jospi.endpoints.async;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.concurrent.CompletableFuture;
 
-import jospi.client.core.OsuApiClient;
+import jospi.client.core.InternalOsuApiClient;
 import jospi.client.request.HttpMethod;
 import jospi.enums.misc.Ruleset;
 import jospi.models.beatmaps.Beatmap;
@@ -14,12 +14,12 @@ import jospi.models.scores.BeatmapScores;
 import jospi.models.scores.Score;
 import jospi.models.scores.UserBeatmapScore;
 
-public final class Beatmaps {
+public final class BeatmapsAsync {
     private static final String BASE = "/beatmaps/";
 
-    private final OsuApiClient client;
+    private final InternalOsuApiClient client;
 
-    public Beatmaps(OsuApiClient client) {
+    public BeatmapsAsync(InternalOsuApiClient client) {
         this.client = client;
     }
 

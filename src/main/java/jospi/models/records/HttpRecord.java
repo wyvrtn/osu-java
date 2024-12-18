@@ -1,11 +1,7 @@
 package jospi.models.records;
 
-import java.util.HashMap;
-import java.util.Map;
+import jospi.client.resources.Dictionary;
 
 public interface HttpRecord {
-    default Map<String, Object> convert() {
-        return convert(new HashMap<>());
-    }
-    Map<String, Object> convert(Map<String, Object> map);
+    Dictionary<String, Object> convert();
 }

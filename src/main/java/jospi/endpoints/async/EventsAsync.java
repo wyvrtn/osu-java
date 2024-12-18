@@ -1,23 +1,23 @@
-package jospi.endpoints;
+package jospi.endpoints.async;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
-import jospi.client.core.OsuApiClient;
+import jospi.client.core.InternalOsuApiClient;
 import jospi.enums.events.PostSort;
 import jospi.iterator.AsyncLazyEnumerable;
 import jospi.iterator.ExitToken;
 import jospi.models.events.Event;
 import jospi.models.generic.CursorResponse;
 
-public final class Events {
+public final class EventsAsync {
     private static final String BASE = "/events/";
 
-    private final OsuApiClient client;
+    private final InternalOsuApiClient client;
 
-    protected Events(OsuApiClient client) {
+    protected EventsAsync(InternalOsuApiClient client) {
         this.client = client;
     }
 

@@ -1,9 +1,9 @@
-package jospi.endpoints;
+package jospi.endpoints.async;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
-import jospi.client.core.OsuApiClient;
+import jospi.client.core.InternalOsuApiClient;
 import jospi.client.resources.ClientUtil;
 import jospi.enums.misc.Ruleset;
 import jospi.enums.rankings.RankingFilter;
@@ -16,12 +16,12 @@ import jospi.models.rankings.SpotlightRankings;
 import jospi.models.users.User;
 import jospi.models.users.UserStatistics;
 
-public final class Rankings {
+public final class RankingsAsync {
     private static final String BASE = "/rankings/";
 
-    private final OsuApiClient client;
+    private final InternalOsuApiClient client;
 
-    protected Rankings(OsuApiClient client) {
+    protected RankingsAsync(InternalOsuApiClient client) {
         this.client = client;
     }
 

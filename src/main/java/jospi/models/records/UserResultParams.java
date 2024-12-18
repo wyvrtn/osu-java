@@ -1,7 +1,6 @@
 package jospi.models.records;
 
-import java.util.Map;
-
+import jospi.client.resources.Dictionary;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -11,9 +10,10 @@ public final class UserResultParams implements HttpRecord {
     private final int limit;
     private final int offset;
 
-    public Map<String, Object> convert(Map<String, Object> map) {
-        map.put("limit", limit);
-        map.put("offset", offset);
-        return map;
+    public Dictionary<String, Object> convert() {
+        return map -> {
+            map.put("limit", limit);
+            map.put("offset", offset);
+        };
     }
 }

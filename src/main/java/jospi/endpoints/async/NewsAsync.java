@@ -1,20 +1,20 @@
-package jospi.endpoints;
+package jospi.endpoints.async;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
-import jospi.client.core.OsuApiClient;
+import jospi.client.core.InternalOsuApiClient;
 import jospi.iterator.AsyncLazyEnumerable;
 import jospi.iterator.ExitToken;
 import jospi.models.news.NewsBundle;
 import jospi.models.news.NewsPost;
 
-public final class News {
+public final class NewsAsync {
     private static final String BASE = "/news/";
 
-    private final OsuApiClient client;
+    private final InternalOsuApiClient client;
 
-    protected News(OsuApiClient client) {
+    protected NewsAsync(InternalOsuApiClient client) {
         this.client = client;
     }
 

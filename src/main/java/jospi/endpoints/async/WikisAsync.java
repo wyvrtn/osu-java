@@ -1,15 +1,15 @@
-package jospi.endpoints;
+package jospi.endpoints.async;
 
 import java.util.concurrent.CompletableFuture;
 
-import jospi.client.core.OsuApiClient;
+import jospi.client.core.InternalOsuApiClient;
 import jospi.models.wikis.WikiPage;
 
-public final class Wikis {
+public final class WikisAsync {
 
-    private final OsuApiClient client;
+    private final InternalOsuApiClient client;
 
-    protected Wikis(OsuApiClient client) {
+    protected WikisAsync(InternalOsuApiClient client) {
         this.client = client;
     }
 

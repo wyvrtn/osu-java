@@ -1,5 +1,5 @@
 /**
- * This package holds the authorization classes for {@link jospi.client.core.OsuApiClient OsuApiClient}
+ * This package holds the authorization classes for {@link jospi.client.core.InternalOsuApiClient OsuApiClient}
  * <p>
  * Both {@link AuthorizationCodeGrant AuthorizationCodeGrant} and {@link ClientCredentialsGrant ClientCredentialsGrant} are
  * used to authorize the client through their respective methods.

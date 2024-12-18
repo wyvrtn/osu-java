@@ -1,47 +1,39 @@
 package jospi.client.core;
 
-import java.io.Serializable;
 import java.time.OffsetDateTime;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import jospi.client.authorization.ClientCredentialsGrant;
+import jospi.client.authorization.HttpServiceProviderType;
 import jospi.client.request.HttpMethod;
 import jospi.client.request.NetIOUtilities;
 import jospi.client.request.RequestBundle;
 import jospi.client.resources.Dictionary;
-import jospi.endpoints.ApiEndpoints;
+import jospi.endpoints.async.ApiEndpointsAsync;
 /**
 * The core class of this library.
 * <p>
 * Contains wrapper methods for accessing endpoints asynchronously
 * </p>
 */
-public final class OsuApiClient implements NetIOUtilities, Serializable {
-    private static final long serialVersionUID = 727L;
+public final class InternalOsuApiClient extends AbstractOsuApiClient implements NetIOUtilities {
 
-    private final transient ApiEndpoints apiEndpoints;
-    private AbstractApiAuthorizationContainer authorization;
-    private final transient OsuApiClientInternalBlockingStatefulHttpServiceProvider svc;
-
-    public OsuApiClient(final int clientId, final String clientSecret) {
+    public InternalOsuApiClient(final int clientId, final String clientSecret) {
         this(new ClientCredentialsGrant(clientId, clientSecret));
     }
 
-    public OsuApiClient(final AbstractApiAuthorization auth) {
+    public InternalOsuApiClient(final AbstractApiAuthorization auth) {
         this(auth, new RequestBundle());
 
     }
 
-    public OsuApiClient(final AbstractApiAuthorization auth, final RequestBundle bundle) {
-        apiEndpoints = ApiEndpoints.createInstance(this);
-        authorization = AbstractApiAuthorizationContainer.newInstance(auth);
-        svc = new OsuApiClientInternalBlockingStatefulHttpServiceProvider(bundle, authorization);
+    public InternalOsuApiClient(final AbstractApiAuthorization auth, final RequestBundle bundle) {
+        super(AbstractApiAuthorizationContainer.newInstance(auth, bundle), HttpServiceProviderType.DEFAULT);
     }
 
-    public ApiEndpoints endpoints() {
+    public ApiEndpointsAsync endpoints() {
         return apiEndpoints;
     }
 
@@ -83,15 +75,7 @@ public final class OsuApiClient implements NetIOUtilities, Serializable {
         return getJsonAsync(url, queryParams, HttpMethod.GET, clazz);
     }
 
-    public <T> CompletableFuture<T> getJsonAsync(final String url, final Map<String, Object> queryParams, final Class<T> clazz) {
-        return getJsonAsync(url, queryParams, HttpMethod.GET, clazz);
-    }
-
     public <T> CompletableFuture<T> getJsonAsync(final String url, final Dictionary<String, Object> queryParams, final HttpMethod method, final Class<T> clazz) {
-        return CompletableFuture.supplyAsync(() -> getJson(url, queryParams, method, clazz));
-    }
-
-    public <T> CompletableFuture<T> getJsonAsync(final String url, final Map<String, Object> queryParams, final HttpMethod method, final Class<T> clazz) {
         return CompletableFuture.supplyAsync(() -> getJson(url, queryParams, method, clazz));
     }
 
@@ -99,15 +83,7 @@ public final class OsuApiClient implements NetIOUtilities, Serializable {
         return getJson(url + toQueryString(queryParams), HttpMethod.GET, clazz);
     }
 
-    public <T> T getJson(final String url, final Map<String, Object> queryParams, final Class<T> clazz) {
-        return getJson(url + toQueryString(queryParams), HttpMethod.GET, clazz);
-    }
-
     public <T> T getJson(final String url, final Dictionary<String, Object> queryParams, final HttpMethod method, final Class<T> clazz) {
-        return getJson(url + toQueryString(queryParams), method, clazz);
-    }
-
-    public <T> T getJson(final String url, final Map<String, Object> queryParams, final HttpMethod method, final Class<T> clazz) {
         return getJson(url + toQueryString(queryParams), method, clazz);
     }
 
@@ -132,15 +108,7 @@ public final class OsuApiClient implements NetIOUtilities, Serializable {
         return getJsonAsync(url, queryParams, HttpMethod.GET, tf);
     }
 
-    public <T> CompletableFuture<T> getJsonAsync(final String url, final Map<String, Object> queryParams, final TypeReference<T> tf) {
-        return getJsonAsync(url, queryParams, HttpMethod.GET, tf);
-    }
-
     public <T> CompletableFuture<T> getJsonAsync(final String url, final Dictionary<String, Object> queryParams, final HttpMethod method, final TypeReference<T> tf) {
-        return CompletableFuture.supplyAsync(() -> getJson(url, queryParams, method, tf));
-    }
-
-    public <T> CompletableFuture<T> getJsonAsync(final String url, final Map<String, Object> queryParams, final HttpMethod method, final TypeReference<T> tf) {
         return CompletableFuture.supplyAsync(() -> getJson(url, queryParams, method, tf));
     }
 
@@ -148,17 +116,10 @@ public final class OsuApiClient implements NetIOUtilities, Serializable {
         return getJson(url + toQueryString(queryParams), HttpMethod.GET, tf);
     }
 
-    public <T> T getJson(final String url, final Map<String, Object> queryParams, final TypeReference<T> tf) {
-        return getJson(url + toQueryString(queryParams), HttpMethod.GET, tf);
-    }
-
     public <T> T getJson(final String url, final Dictionary<String, Object> queryParams, final HttpMethod method, final TypeReference<T> tf) {
         return getJson(url + toQueryString(queryParams), method, tf);
     }
 
-    public <T> T getJson(final String url, final Map<String, Object> queryParams, final HttpMethod method, final TypeReference<T> tf) {
-        return getJson(url + toQueryString(queryParams), method, tf);
-    }
 
     public <T> T getJson(final String url, final TypeReference<T> tf) {
         return getJson(url, HttpMethod.GET, tf);
