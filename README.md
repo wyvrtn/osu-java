@@ -8,6 +8,7 @@
 [![release][release img]][release]
 [![codacy][codacy img]][codacy]
 [![sonar][sonar img]][sonar]
+[![codefactor][codefactor img]][codefactor]
 [![codecov][codecov img]][codecov]
 
 A simple, in-development async wrapper for the osu! API v2
@@ -161,3 +162,5 @@ Jospi uses libraries:
 [sonar img]: https://sonarcloud.io/api/project_badges/measure?project=wyvrtn_jospi&metric=sqale_index
 [codecov]: https://codecov.io/gh/wyvrtn/wyvrtn
 [codecov img]: https://codecov.io/gh/wyvrtn/wyvrtn/graph/badge.svg?token=ZSZO6U8PWB
+[codefactor]: https://www.codefactor.io/repository/github/wyvrtn/jospi
+[codefactor img]: https://www.codefactor.io/repository/github/wyvrtn/jospi/badge
