@@ -10,9 +10,9 @@ import jospi.enums.multiplayer.MultiplayerRoomMode;
 import jospi.enums.multiplayer.MultiplayerRoomSort;
 import jospi.enums.multiplayer.MultiplayerRoomTypeGroup;
 import jospi.enums.multiplayer.MultiplayerScoresSort;
-import jospi.iterator.AsyncLazyEnumerable;
-import jospi.iterator.ExitToken;
 import jospi.models.multiplayer.MultiplayerScores;
+import jospi.util.iterator.AsyncLazyEnumerable;
+import jospi.util.iterator.ExitToken;
 
 public final class Multiplayer {
     private static final String BASE = "/rooms/";

@@ -3,15 +3,15 @@ package jospi.endpoints;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
+import jospi.client.components.OsuApiException;
 import jospi.client.core.OsuApiClient;
 import jospi.client.request.HttpMethod;
-import jospi.client.resources.OsuApiException;
 import jospi.enums.comments.CommentSortType;
 import jospi.enums.comments.CommentableType;
-import jospi.iterator.AsyncLazyEnumerable;
-import jospi.iterator.ExitToken;
 import jospi.models.comments.CommentBundle;
 import jospi.models.comments.CommentBundle.Cursor;
+import jospi.util.iterator.AsyncLazyEnumerable;
+import jospi.util.iterator.ExitToken;
 
 public final class Comments {
     private static final String BASE = "/comments/";

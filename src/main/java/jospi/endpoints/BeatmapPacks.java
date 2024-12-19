@@ -5,10 +5,10 @@ import java.util.function.Function;
 
 import jospi.client.core.OsuApiClient;
 import jospi.enums.beatmaps.BeatmapPackType;
-import jospi.iterator.AsyncLazyEnumerable;
-import jospi.iterator.ExitToken;
 import jospi.models.beatmaps.BeatmapPack;
 import jospi.models.beatmaps.BeatmapPackExtended;
+import jospi.util.iterator.AsyncLazyEnumerable;
+import jospi.util.iterator.ExitToken;
 
 public final class BeatmapPacks {
     private static final String BASE = "/beatmaps/";

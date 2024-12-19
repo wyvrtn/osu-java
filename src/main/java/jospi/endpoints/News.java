@@ -4,10 +4,10 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
 import jospi.client.core.OsuApiClient;
-import jospi.iterator.AsyncLazyEnumerable;
-import jospi.iterator.ExitToken;
 import jospi.models.news.NewsBundle;
 import jospi.models.news.NewsPost;
+import jospi.util.iterator.AsyncLazyEnumerable;
+import jospi.util.iterator.ExitToken;
 
 public final class News {
     private static final String BASE = "/news/";

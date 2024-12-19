@@ -9,22 +9,22 @@ import org.apache.hc.client5.http.impl.classic.HttpClients;
 import lombok.Getter;
 
 @Getter
-public final class RequestBundle {
+public final class HttpClientCreator {
     private static final int DEFAULT_READ_TIMEOUT = 1000;
     private static final int DEFAULT_CONNECT_TIMEOUT = 1000;
 
     private static CloseableHttpClient defaultClient;
     private static final Object LOCK = new Object();
 
-    private RequestProperties properties;
+    private HttpRequestProperties properties;
     private CloseableHttpClient httpClient;
 
-    public RequestBundle() {
+    public HttpClientCreator() {
         this(DEFAULT_READ_TIMEOUT, DEFAULT_CONNECT_TIMEOUT);
     }
 
-    public RequestBundle(final int readTimeout, final int connectTimeout) {
-        properties = RequestProperties.createInstance(readTimeout, connectTimeout);
+    public HttpClientCreator(final int readTimeout, final int connectTimeout) {
+        properties = HttpRequestProperties.createInstance(readTimeout, connectTimeout);
         RequestConfig config = RequestConfig.custom()
                 .setResponseTimeout(readTimeout, TimeUnit.MILLISECONDS)
                 .setConnectionRequestTimeout(connectTimeout, TimeUnit.MILLISECONDS)

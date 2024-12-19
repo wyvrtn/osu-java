@@ -1,4 +1,4 @@
-package jospi.client.resources;
+package jospi.client.components;
 
 public class OsuApiException extends RuntimeException {
     private static final long serialVersionUID = 8596965465781109261L;

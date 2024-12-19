@@ -5,11 +5,11 @@ import java.util.function.Function;
 
 import jospi.client.core.OsuApiClient;
 import jospi.enums.matches.MatchBundleSort;
-import jospi.iterator.AsyncLazyEnumerable;
-import jospi.iterator.ExitToken;
 import jospi.models.matches.Match;
 import jospi.models.matches.MatchBundle;
 import jospi.models.matches.MatchesBundle;
+import jospi.util.iterator.AsyncLazyEnumerable;
+import jospi.util.iterator.ExitToken;
 
 public final class Matches {
     private static final String BASE = "/matches/";

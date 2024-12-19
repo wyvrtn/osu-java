@@ -1,4 +1,4 @@
-package jospi.client.resources;
+package jospi.client.components;
 
 import java.util.Map;
 

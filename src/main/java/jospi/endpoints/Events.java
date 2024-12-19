@@ -7,10 +7,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 import jospi.client.core.OsuApiClient;
 import jospi.enums.events.PostSort;
-import jospi.iterator.AsyncLazyEnumerable;
-import jospi.iterator.ExitToken;
 import jospi.models.events.Event;
 import jospi.models.generic.CursorResponse;
+import jospi.util.iterator.AsyncLazyEnumerable;
+import jospi.util.iterator.ExitToken;
 
 public final class Events {
     private static final String BASE = "/events/";

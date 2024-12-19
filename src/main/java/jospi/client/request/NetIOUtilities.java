@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import jospi.client.resources.Dictionary;
+import jospi.client.components.Dictionary;
 import jospi.enums.DescriptionEnum;
 import jospi.models.records.HttpRecord;
 

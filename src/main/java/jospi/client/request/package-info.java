@@ -2,7 +2,7 @@
  * This package holds the utility components of this API wrapper.
  * <p>
  * This package contains two <i>Data Transfer Objects</i>(DTOs),
- * {@link RequestBundle RequestBundle} and {@link RequestProperties RequestProperties}.
+ * {@link HttpClientCreator RequestBundle} and {@link HttpRequestProperties RequestProperties}.
  * The former contains a {@link org.apache.hc.client5.http.impl.classic.CloseableHttpClient CloseableHttpClient} and
  * an instance of RequestProperties, while the latter is just a simple DTO
  * containing some configuration information used for the CloseableHttpClient

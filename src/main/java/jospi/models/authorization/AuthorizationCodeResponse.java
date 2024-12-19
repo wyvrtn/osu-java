@@ -2,7 +2,7 @@ package jospi.models.authorization;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import jospi.client.resources.OsuApiException;
+import jospi.client.components.OsuApiException;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

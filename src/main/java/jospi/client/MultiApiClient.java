@@ -6,7 +6,7 @@ import java.util.concurrent.ConcurrentMap;
 import jospi.client.authorization.ClientCredentialsGrant;
 import jospi.client.core.AbstractApiAuthorization;
 import jospi.client.core.OsuApiClient;
-import jospi.client.request.RequestBundle;
+import jospi.client.request.HttpClientCreator;
 import lombok.Getter;
 import lombok.experimental.Delegate;
 
@@ -22,10 +22,10 @@ public final class MultiApiClient<K> {
     }
 
     public MultiApiClient(AbstractApiAuthorization auth) {
-        this(auth, new RequestBundle());
+        this(auth, new HttpClientCreator());
     }
 
-    public MultiApiClient(AbstractApiAuthorization auth, RequestBundle bundle) {
+    public MultiApiClient(AbstractApiAuthorization auth, HttpClientCreator bundle) {
         client = new OsuApiClient(auth, bundle);
         authorizationInstances = new ConcurrentHashMap<>();
     }

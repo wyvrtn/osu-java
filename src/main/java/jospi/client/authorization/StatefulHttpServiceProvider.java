@@ -7,7 +7,7 @@ import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import jospi.client.request.HttpMethod;
 import jospi.client.request.HttpRequest;
 import jospi.client.request.NetIOUtilities;
-import jospi.client.request.RequestBundle;
+import jospi.client.request.HttpClientCreator;
 import jospi.models.authorization.ApiAuthorizationResponse;
 import jospi.models.authorization.AuthorizationCodeResponse;
 
@@ -19,7 +19,7 @@ public abstract class StatefulHttpServiceProvider implements NetIOUtilities {
 
     public static void requestAuthorization(final String authBody) {
         HttpRequest request = new HttpRequest(HttpMethod.GET, AUTH + authBody);
-        CloseableHttpClient httpClient = RequestBundle.getDefaultClient();
+        CloseableHttpClient httpClient = HttpClientCreator.getDefaultClient();
         try {
             httpClient.execute(request, response -> null);
         } catch (IOException e) {

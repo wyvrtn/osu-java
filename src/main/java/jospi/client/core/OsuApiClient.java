@@ -8,10 +8,10 @@ import java.util.concurrent.CompletableFuture;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import jospi.client.authorization.ClientCredentialsGrant;
+import jospi.client.components.Dictionary;
 import jospi.client.request.HttpMethod;
 import jospi.client.request.NetIOUtilities;
-import jospi.client.request.RequestBundle;
-import jospi.client.resources.Dictionary;
+import jospi.client.request.HttpClientCreator;
 import jospi.endpoints.ApiEndpoints;
 /**
 * The core class of this library.
@@ -31,11 +31,11 @@ public final class OsuApiClient implements NetIOUtilities, Serializable {
     }
 
     public OsuApiClient(final AbstractApiAuthorization auth) {
-        this(auth, new RequestBundle());
+        this(auth, new HttpClientCreator());
 
     }
 
-    public OsuApiClient(final AbstractApiAuthorization auth, final RequestBundle bundle) {
+    public OsuApiClient(final AbstractApiAuthorization auth, final HttpClientCreator bundle) {
         apiEndpoints = ApiEndpoints.createInstance(this);
         authorization = AbstractApiAuthorizationContainer.newInstance(auth);
         svc = new OsuApiClientInternalBlockingStatefulHttpServiceProvider(bundle, authorization);

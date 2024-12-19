@@ -17,26 +17,33 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jospi.client.authorization.StatefulHttpServiceProvider;
 import jospi.client.request.HttpMethod;
 import jospi.client.request.HttpRequest;
-import jospi.client.request.RequestBundle;
+import jospi.client.request.HttpClientCreator;
 import jospi.models.authorization.ApiAuthorizationResponse;
 import jospi.models.authorization.AuthorizationCodeResponse;
 
 public final class OsuApiClientInternalBlockingStatefulHttpServiceProvider extends StatefulHttpServiceProvider {
+    private static final RateLimiter rateLimiter = OsuApiRateLimiter.getInstance();
+
     private final CloseableHttpClient httpClient;
     private final AbstractApiAuthorizationContainer authorization;
     private ObjectMapper converter;
 
-    protected OsuApiClientInternalBlockingStatefulHttpServiceProvider(RequestBundle bundle, AbstractApiAuthorizationContainer auth) {
+    static {
+        rateLimiter.initiate();
+    }
+
+    protected OsuApiClientInternalBlockingStatefulHttpServiceProvider(HttpClientCreator bundle, AbstractApiAuthorizationContainer auth) {
         this.httpClient = bundle.getHttpClient();
         this.authorization = auth;
         this.converter = new ObjectMapper();
     }
 
     protected AuthorizationCodeResponse exchangeCode(String authBody) {
-            return Objects.requireNonNull(requestNewToken(authBody, AuthorizationCodeResponse.class), "An error occured while exchanging code for an access token. (response is null)");
+        return Objects.requireNonNull(requestNewToken(authBody, AuthorizationCodeResponse.class), "An error occured while exchanging code for an access token. (response is null)");
     }
 
     protected <T extends ApiAuthorizationResponse> T requestNewToken(String authBody, Class<T> clazz) {
+        rateLimiter.request();
         HttpRequest request = new HttpRequest(HttpMethod.POST, buildUri(REQTOKEN));
         request.setEntity(new StringEntity(authBody, ContentType.APPLICATION_FORM_URLENCODED));
         request.setHeader(HttpHeaders.ACCEPT, ContentType.APPLICATION_JSON.getMimeType());
@@ -46,6 +53,7 @@ public final class OsuApiClientInternalBlockingStatefulHttpServiceProvider exten
     }
 
     public <T> T genericGetJson(String url, HttpMethod method, Class<T> clazz) {
+        rateLimiter.request();
         HttpRequest request = new HttpRequest(method, buildUri(ROOT, url));
         request.setHeader(HttpHeaders.ACCEPT, ContentType.APPLICATION_JSON.getMimeType());
         request.setHeader(HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType());
@@ -55,6 +63,7 @@ public final class OsuApiClientInternalBlockingStatefulHttpServiceProvider exten
     }
 
     public <T> T genericGetJson(String url, HttpMethod method, TypeReference<T> typeReference) {
+        rateLimiter.request();
         HttpRequest request = new HttpRequest(method, buildUri(ROOT, url));
         request.setHeader(HttpHeaders.ACCEPT, ContentType.APPLICATION_JSON.getMimeType());
         request.setHeader(HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType());

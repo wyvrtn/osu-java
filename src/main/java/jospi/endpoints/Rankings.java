@@ -4,17 +4,17 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
 import jospi.client.core.OsuApiClient;
-import jospi.client.resources.ClientUtil;
 import jospi.enums.misc.Ruleset;
 import jospi.enums.rankings.RankingFilter;
 import jospi.enums.rankings.UserRankingType;
-import jospi.iterator.AsyncLazyEnumerable;
-import jospi.iterator.ExitToken;
 import jospi.models.rankings.RankingsBundle;
 import jospi.models.rankings.Spotlight;
 import jospi.models.rankings.SpotlightRankings;
 import jospi.models.users.User;
 import jospi.models.users.UserStatistics;
+import jospi.util.OperationUtils;
+import jospi.util.iterator.AsyncLazyEnumerable;
+import jospi.util.iterator.ExitToken;
 
 public final class Rankings {
     private static final String BASE = "/rankings/";
@@ -53,7 +53,7 @@ public final class Rankings {
         }
         AsyncLazyEnumerable<String, RankingsBundle> enumerableBundle = getRankingInternal(ruleset, UserRankingType.PERFORMANCE, countryCode, filter, null, variant);
         Function<CompletableFuture<RankingsBundle>, CompletableFuture<UserStatistics[]>> func = (CompletableFuture<RankingsBundle> bundle) -> {
-            return CompletableFuture.supplyAsync(() -> ClientUtil.awaitTask(bundle).getRankings());
+            return CompletableFuture.supplyAsync(() -> OperationUtils.awaitTask(bundle).getRankings());
         };
         return enumerableBundle.append(func);
     }
@@ -64,7 +64,7 @@ public final class Rankings {
         }
         AsyncLazyEnumerable<String, RankingsBundle> enumerableBundle = getRankingInternal(ruleset, UserRankingType.PERFORMANCE, null, filter, spotlightId, null);
         Function<CompletableFuture<RankingsBundle>, CompletableFuture<SpotlightRankings>> func = (CompletableFuture<RankingsBundle> bundle) -> {
-            return CompletableFuture.supplyAsync(() -> (new SpotlightRankings(ClientUtil.awaitTask(bundle))));
+            return CompletableFuture.supplyAsync(() -> (new SpotlightRankings(OperationUtils.awaitTask(bundle))));
         };
         return enumerableBundle.append(func);
     }

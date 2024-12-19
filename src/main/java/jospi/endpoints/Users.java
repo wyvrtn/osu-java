@@ -3,7 +3,6 @@ package jospi.endpoints;
 import java.util.concurrent.CompletableFuture;
 
 import jospi.client.core.OsuApiClient;
-import jospi.client.resources.ClientUtil;
 import jospi.enums.beatmaps.BeatmapType;
 import jospi.enums.misc.Ruleset;
 import jospi.enums.users.UserScoreType;
@@ -14,6 +13,7 @@ import jospi.models.users.BeatmapPlaycount;
 import jospi.models.users.KudosuHistoryEntry;
 import jospi.models.users.User;
 import jospi.models.users.UserExtended;
+import jospi.util.OperationUtils;
 
 public final class Users {
     private static final String BASE = "/users/";
@@ -30,7 +30,7 @@ public final class Users {
 
     public CompletableFuture<UserExtended> getOwnData(Ruleset ruleset) {
         client.requiresUser();
-        return client.getJsonAsync("/me/" + ClientUtil.nullishCoalesce(ruleset, ""), UserExtended.class);
+        return client.getJsonAsync("/me/" + OperationUtils.nullishCoalesce(ruleset, ""), UserExtended.class);
     }
 
     public CompletableFuture<KudosuHistoryEntry[]> getKudosuHistory(int userId, UserResultParams params) {
@@ -67,7 +67,7 @@ public final class Users {
     }
 
     private CompletableFuture<User> getUserInternal(String userIdentifier, Ruleset ruleset) {
-        return client.getJsonAsync(BASE + userIdentifier + "/" + ClientUtil.nullishCoalesce(ruleset, ""), User.class);
+        return client.getJsonAsync(BASE + userIdentifier + "/" + OperationUtils.nullishCoalesce(ruleset, ""), User.class);
     }
 
     public CompletableFuture<User[]> getUsers(int[] ids, boolean includeVariantStatistics) {

@@ -1,4 +1,4 @@
-package jospi.iterator;
+package jospi.util.iterator;
 
 import java.util.ArrayList;
 import java.util.Iterator;

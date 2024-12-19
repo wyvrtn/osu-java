@@ -1,4 +1,4 @@
-package jospi.iterator;
+package jospi.util.iterator;
 
 public enum ExitType {
     WHILE(0),
